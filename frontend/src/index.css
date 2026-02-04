@@ -15,3 +15,11 @@ code {
 .nav-link{
   margin-left: 30px;
 }
+
+.error-back-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.error-back-btn:hover {
+  color: #fff;
+}
