@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg border-bottom" style={{ backgroundColor: "#fff" }}>
       <div className="container p-2">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           <img src="media/images/logo.svg" style={{ width: "30%" }} />
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -23,19 +24,22 @@ function Navbar() {
           <form className="d-flex" role="search">
             <ul className="navbar-nav mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active fs-5" aria-current="page" href="#">SignUp</a>
+                <Link className="nav-link active fs-5" aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active fs-5" href="#">About</a>
+                <Link className="nav-link active fs-5" aria-current="page" to="/signup">SignUp</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active fs-5" href="#">Product</a>
+                <Link className="nav-link active fs-5" aria-current="page" to="/about">About</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active fs-5" href="#">Pricing</a>
+                <Link className="nav-link active fs-5" aria-current="page" to="/products">Products</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active fs-5" href="#">Support</a>
+                <Link className="nav-link active fs-5" aria-current="page" to="/pricing">Pricing</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active fs-5" aria-current="page" to="/support">Support</Link>
               </li>
             </ul>
           </form>
