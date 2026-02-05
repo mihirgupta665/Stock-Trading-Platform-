@@ -11,8 +11,8 @@ function LeftSection({ imageURL, productName, productDescription, tryDemo, learn
                     <h1 className="fs-2 mb-4">{productName}</h1>
                     <p style={{ fontSize: "19px" }}  >{productDescription}</p>
                     <div className="mt-4 mb-4 pb-1">
-                        <a href={tryDemo} style={{ textDecoration: "None" }}>Try Demo <i class="fa-solid fa-arrow-right-long"></i> </a>
-                        <a href={learnMore} style={{ marginLeft: "50px", textDecoration:"None"}}>Learn More <i class="fa-solid fa-arrow-right-long"></i> </a>
+                        <a href={tryDemo} style={{ textDecoration: "None" }}>Try Demo <i className="fa-solid fa-arrow-right-long"></i> </a>
+                        <a href={learnMore} style={{ marginLeft: "50px", textDecoration:"None"}}>Learn More <i className="fa-solid fa-arrow-right-long"></i> </a>
                     </div>
                     <div>
                         <a href={googlePlay}><img src="media/images/googlePlayBadge.svg" /> </a>
