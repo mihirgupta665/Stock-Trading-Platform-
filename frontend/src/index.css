@@ -23,3 +23,18 @@ code {
 .error-back-btn:hover {
   color: #fff;
 }
+
+#supportHero{
+  background-color: rgb(56, 126, 209);
+  color:whitesmoke;
+}
+
+#supportHero a{
+  color:whitesmoke;
+}
+
+#supportWrapper{
+  display:flex;
+  justify-content:space-between;
+  margin: 0px 250px;
+}
