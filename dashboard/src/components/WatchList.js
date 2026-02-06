@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Tooltip, Grow } from "@mui/material";
-
 import { watchlist } from "../data/data.js";
+
+import { Tooltip, Grow } from "@mui/material";
+import { KeyboardArrowUp, KeyboardArrowDown} from "@mui/icons-material";
+
 
 const WatchList = () => {
     return (
@@ -19,7 +21,7 @@ const WatchList = () => {
 
             <ul className="list">
                 {watchlist.map((stock, index) => {
-                    <WatchListItem stock={stock} key={index} />
+                    return <WatchListItem stock={stock} key={index} />
                 })}
             </ul>
         </div>
@@ -44,8 +46,12 @@ const WatchListItem = ({ stock }) => {
                 <p className={stock.isDown?"down":"up"}>{stock.name}</p>
                 <div className="itemInfo">
                     <span className="percent">{stock.percent}</span>
+                    {stock.isDown ? (<KeyboardArrowDown className="down" />) : (<KeyboardArrowUp className="up" />)}
+                    <span className="price">{stock.price}</span>
                 </div>
             </div>
         </li>
     );
 }
+
+
