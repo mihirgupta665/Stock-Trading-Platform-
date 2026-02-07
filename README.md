@@ -17,6 +17,6 @@ x> dotenv: use to create a file .env which hides the credentials
 xi> moongose : used to connect to the database of mongodb
 xii> passport and passport-local and passport-local-mongoose
 
-xiv> make the url with pasword and dabase name and then connect the mongodb
-xv> created futher models(collection) and schema
+xiv> make the url with password and dabase name and then connect the mongodb
+xv> created further models(collection) and schema
 
