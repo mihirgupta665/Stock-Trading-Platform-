@@ -3,6 +3,8 @@ require("dotenv").config();   // adds the env file to the process of the operati
 // A JavaScript object provided by Node.js that contains environment variables of the OS process.
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const HoldingsModel = require("./model/HoldingsModel");
 const PositionsModel = require("./model/PositionsModel");
 
@@ -10,6 +12,9 @@ const PORT = process.env.PORT || 3002;       // port could change at the time od
 const uri = process.env.MONGO_URL;          // after ? name of teh database msut be written and password english word must be replaced by real password
 
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
 
 async function startServer() {
     try {
