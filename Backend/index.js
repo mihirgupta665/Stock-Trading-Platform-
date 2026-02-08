@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const HoldingsModel = require("./model/HoldingsModel");
 const PositionsModel = require("./model/PositionsModel");
+const OrdersModel = require("./model/OrdersModel");
 
 const PORT = process.env.PORT || 3002;       // port could change at the time od deployment so we need to specify the same
 const uri = process.env.MONGO_URL;          // after ? name of teh database msut be written and password english word must be replaced by real password
@@ -48,4 +49,11 @@ app.get("/allHoldings", async (req, res) => {
 app.get("/allPositions",async (req, res)=> {
     let allPositions = await PositionsModel.find({});
     res.json(allPositions);
+});
+
+app.post("/newOrder", async (req, res)=>{
+    let newOrder = new OrdersModel({
+        
+    });
+
 });
