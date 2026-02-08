@@ -1,7 +1,14 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { holdings } from "../data/data";  
 
 const Holdings = () => {
+
+  const [allHoldings, setAllHoldings] = useState([]);
+
+  useEffect(()=>{
+    
+  },[]);
+
   return (
     <>
       <h3 className="title">Holdings ({holdings.length})</h3>
