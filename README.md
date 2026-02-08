@@ -19,4 +19,6 @@ xii> passport and passport-local and passport-local-mongoose
 
 xiv> make the url with password and dabase name and then connect the mongodb
 xv> created further models(collection) and schema
+xvi> Common JS have "require" and module.exports
+    but ES Modules have "import" and "export" and json file should have "type" : "module"
 

@@ -1,6 +1,6 @@
 const { Schema } = require("mongoose");
 
-let holdingsSchema = new Schema({
+let HoldingsSchema = new Schema({
     name: String,
     qty: Number,
     avg: Number,
@@ -9,4 +9,4 @@ let holdingsSchema = new Schema({
     day: String,
 });
 
-module.exports = { holdingsSchema };
+module.exports = { HoldingsSchema };
