@@ -22,3 +22,5 @@ xv> created further models(collection) and schema
 xvi> Common JS have "require" and module.exports
     but ES Modules have "import" and "export" and json file should have "type" : "module"
 
+xvii> React chart js2 : is used to create a analytical visual chart in react application.
+
