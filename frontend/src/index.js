@@ -15,6 +15,16 @@ import SupportPage from './landing_page/support/SupportPage';
 import Navbar from './landing_page/Navbar';
 import Footer from './landing_page/Footer';
 import NotFound from './landing_page/NotFound';
+import axios from "axios";
+
+// Dynamically rewrite localhost API endpoints to environment values on deployment
+axios.interceptors.request.use((config) => {
+  const apiBase = process.env.REACT_APP_API_URL;
+  if (apiBase && config.url && config.url.startsWith("http://localhost:3002")) {
+    config.url = config.url.replace("http://localhost:3002", apiBase);
+  }
+  return config;
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

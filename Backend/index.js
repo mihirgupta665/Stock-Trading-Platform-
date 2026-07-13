@@ -57,6 +57,38 @@ app.use(authRoutes);
 app.use(stockRoutes);
 app.use(portfolioRoutes);
 
+// Expose Serverless HTTP endpoints to run scheduled tasks via external cron triggers (like Vercel Crons)
+app.get("/api/cron/sync", async (req, res, next) => {
+    try {
+        await syncMarketPrices();
+        res.json({ success: true, message: "Market prices synced successfully." });
+    } catch (err) {
+        next(err);
+    }
+});
+
+app.get("/api/cron/settle", async (req, res, next) => {
+    try {
+        const { settlePositions } = require("./services/settlement.service");
+        await settlePositions();
+        res.json({ success: true, message: "Daily positions-to-holdings settlement completed successfully." });
+    } catch (err) {
+        next(err);
+    }
+});
+
+app.get("/api/cron/cleanup", async (req, res, next) => {
+    try {
+        const SettlementLogModel = require("./model/SettlementLogModel");
+        const cutoffDate = new Date();
+        cutoffDate.setDate(cutoffDate.getDate() - 8);
+        const result = await SettlementLogModel.deleteMany({ createdAt: { $lt: cutoffDate } });
+        res.json({ success: true, message: `Database cleanup complete. Deleted ${result.deletedCount} old settlement logs.` });
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Centralized Error Middleware (must be registered last)
 app.use(errorHandler);
 
@@ -91,4 +123,5 @@ async function startServer() {
 }
 
 startServer();
-// Trigger nodemon reload for routing changes, model hotfixes, limit orders, funds, and Razorpay endpoints
+
+module.exports = app;

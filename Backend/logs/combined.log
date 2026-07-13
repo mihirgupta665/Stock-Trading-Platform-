@@ -4070,3 +4070,181 @@
 {"level":"info","message":"Fetching quote for CRM from Finnhub","timestamp":"2026-07-13 15:20:11"}
 {"level":"info","message":"Submitting bulkWrite update for 30 stock prices...","timestamp":"2026-07-13 15:20:11"}
 {"level":"info","message":"StockPrice collection bulkWrite update completed successfully.","timestamp":"2026-07-13 15:20:11"}
+{"level":"info","message":"Performing initial market price synchronization...","timestamp":"2026-07-13 15:20:56"}
+{"level":"info","message":"Initializing market price synchronization...","timestamp":"2026-07-13 15:20:56"}
+{"level":"info","message":"Found 30 dynamic stocks to update. Starting quotes fetch...","timestamp":"2026-07-13 15:20:56"}
+{"level":"info","message":"Fetching quote for AAPL from Finnhub","timestamp":"2026-07-13 15:20:56"}
+{"level":"info","message":"Fetching quote for MSFT from Finnhub","timestamp":"2026-07-13 15:20:56"}
+{"level":"info","message":"Fetching quote for AMZN from Finnhub","timestamp":"2026-07-13 15:20:57"}
+{"level":"info","message":"Fetching quote for NVDA from Finnhub","timestamp":"2026-07-13 15:20:57"}
+{"level":"info","message":"Fetching quote for GOOGL from Finnhub","timestamp":"2026-07-13 15:20:57"}
+{"level":"info","message":"Fetching quote for META from Finnhub","timestamp":"2026-07-13 15:20:58"}
+{"level":"info","message":"Fetching quote for TSLA from Finnhub","timestamp":"2026-07-13 15:20:58"}
+{"level":"info","message":"Fetching quote for AVGO from Finnhub","timestamp":"2026-07-13 15:20:58"}
+{"level":"info","message":"Fetching quote for JPM from Finnhub","timestamp":"2026-07-13 15:20:59"}
+{"level":"info","message":"Fetching quote for V from Finnhub","timestamp":"2026-07-13 15:20:59"}
+{"level":"info","message":"Fetching quote for UNH from Finnhub","timestamp":"2026-07-13 15:21:00"}
+{"level":"info","message":"Fetching quote for WMT from Finnhub","timestamp":"2026-07-13 15:21:00"}
+{"level":"info","message":"Fetching quote for XOM from Finnhub","timestamp":"2026-07-13 15:21:00"}
+{"level":"info","message":"Fetching quote for MA from Finnhub","timestamp":"2026-07-13 15:21:01"}
+{"level":"info","message":"Fetching quote for ORCL from Finnhub","timestamp":"2026-07-13 15:21:01"}
+{"level":"info","message":"Fetching quote for PG from Finnhub","timestamp":"2026-07-13 15:21:01"}
+{"level":"info","message":"Fetching quote for HD from Finnhub","timestamp":"2026-07-13 15:21:02"}
+{"level":"info","message":"Fetching quote for NFLX from Finnhub","timestamp":"2026-07-13 15:21:02"}
+{"level":"info","message":"Fetching quote for ADBE from Finnhub","timestamp":"2026-07-13 15:21:03"}
+{"level":"info","message":"Fetching quote for COST from Finnhub","timestamp":"2026-07-13 15:21:03"}
+{"level":"info","message":"Fetching quote for AMD from Finnhub","timestamp":"2026-07-13 15:21:04"}
+{"level":"info","message":"Fetching quote for CVX from Finnhub","timestamp":"2026-07-13 15:21:04"}
+{"level":"info","message":"Fetching quote for MRK from Finnhub","timestamp":"2026-07-13 15:21:04"}
+{"level":"info","message":"Fetching quote for KO from Finnhub","timestamp":"2026-07-13 15:21:05"}
+{"level":"info","message":"Fetching quote for PEP from Finnhub","timestamp":"2026-07-13 15:21:05"}
+{"level":"info","message":"Fetching quote for DIS from Finnhub","timestamp":"2026-07-13 15:21:05"}
+{"level":"info","message":"Fetching quote for CSCO from Finnhub","timestamp":"2026-07-13 15:21:06"}
+{"level":"info","message":"Fetching quote for INTC from Finnhub","timestamp":"2026-07-13 15:21:06"}
+{"level":"info","message":"Fetching quote for NKE from Finnhub","timestamp":"2026-07-13 15:21:06"}
+{"level":"info","message":"Fetching quote for CRM from Finnhub","timestamp":"2026-07-13 15:21:07"}
+{"level":"info","message":"Submitting bulkWrite update for 30 stock prices...","timestamp":"2026-07-13 15:21:07"}
+{"level":"info","message":"StockPrice collection bulkWrite update completed successfully.","timestamp":"2026-07-13 15:21:07"}
+{"level":"info","message":"Initial market price synchronization completed successfully.","timestamp":"2026-07-13 15:21:09"}
+{"level":"info","message":"Scheduling stock price update cron with interval: */2 * * * *","timestamp":"2026-07-13 15:21:09"}
+{"level":"info","message":"Scheduling daily position settlement cron for 15:31 (Asia/Kolkata) with pattern: 31 15 * * *","timestamp":"2026-07-13 15:21:09"}
+{"level":"info","message":"Scheduling daily database logs cleanup cron for 12:00 AM midnight (Asia/Kolkata)","timestamp":"2026-07-13 15:21:09"}
+{"level":"info","message":"Trading Simulator Server started on port 3002","timestamp":"2026-07-13 15:21:09"}
+{"level":"info","message":"User logged in successfully: demouser","timestamp":"2026-07-13 15:21:24"}
+{"level":"info","message":"Initializing market price synchronization...","timestamp":"2026-07-13 15:22:00"}
+{"level":"info","message":"Found 30 dynamic stocks to update. Starting quotes fetch...","timestamp":"2026-07-13 15:22:00"}
+{"level":"info","message":"Fetching quote for AAPL from Finnhub","timestamp":"2026-07-13 15:22:00"}
+{"level":"info","message":"Fetching quote for MSFT from Finnhub","timestamp":"2026-07-13 15:22:01"}
+{"level":"info","message":"Fetching quote for AMZN from Finnhub","timestamp":"2026-07-13 15:22:01"}
+{"level":"info","message":"Fetching quote for NVDA from Finnhub","timestamp":"2026-07-13 15:22:01"}
+{"level":"info","message":"Fetching quote for GOOGL from Finnhub","timestamp":"2026-07-13 15:22:02"}
+{"level":"info","message":"Fetching quote for META from Finnhub","timestamp":"2026-07-13 15:22:03"}
+{"level":"info","message":"Fetching quote for TSLA from Finnhub","timestamp":"2026-07-13 15:22:03"}
+{"level":"info","message":"Fetching quote for AVGO from Finnhub","timestamp":"2026-07-13 15:22:03"}
+{"level":"info","message":"Fetching quote for JPM from Finnhub","timestamp":"2026-07-13 15:22:04"}
+{"level":"info","message":"Fetching quote for V from Finnhub","timestamp":"2026-07-13 15:22:04"}
+{"level":"info","message":"Fetching quote for UNH from Finnhub","timestamp":"2026-07-13 15:22:04"}
+{"level":"info","message":"Fetching quote for WMT from Finnhub","timestamp":"2026-07-13 15:22:05"}
+{"level":"info","message":"Fetching quote for XOM from Finnhub","timestamp":"2026-07-13 15:22:05"}
+{"level":"info","message":"Fetching quote for MA from Finnhub","timestamp":"2026-07-13 15:22:06"}
+{"level":"info","message":"Fetching quote for ORCL from Finnhub","timestamp":"2026-07-13 15:22:06"}
+{"level":"info","message":"Fetching quote for PG from Finnhub","timestamp":"2026-07-13 15:22:07"}
+{"level":"info","message":"Fetching quote for HD from Finnhub","timestamp":"2026-07-13 15:22:07"}
+{"level":"info","message":"Fetching quote for NFLX from Finnhub","timestamp":"2026-07-13 15:22:07"}
+{"level":"info","message":"Fetching quote for ADBE from Finnhub","timestamp":"2026-07-13 15:22:08"}
+{"level":"info","message":"Fetching quote for COST from Finnhub","timestamp":"2026-07-13 15:22:08"}
+{"level":"info","message":"Fetching quote for AMD from Finnhub","timestamp":"2026-07-13 15:22:08"}
+{"level":"info","message":"Fetching quote for CVX from Finnhub","timestamp":"2026-07-13 15:22:09"}
+{"level":"info","message":"Fetching quote for MRK from Finnhub","timestamp":"2026-07-13 15:22:09"}
+{"level":"info","message":"Fetching quote for KO from Finnhub","timestamp":"2026-07-13 15:22:09"}
+{"level":"info","message":"Fetching quote for PEP from Finnhub","timestamp":"2026-07-13 15:22:10"}
+{"level":"info","message":"Fetching quote for DIS from Finnhub","timestamp":"2026-07-13 15:22:10"}
+{"level":"info","message":"Fetching quote for CSCO from Finnhub","timestamp":"2026-07-13 15:22:11"}
+{"level":"info","message":"Fetching quote for INTC from Finnhub","timestamp":"2026-07-13 15:22:11"}
+{"level":"info","message":"Fetching quote for NKE from Finnhub","timestamp":"2026-07-13 15:22:11"}
+{"level":"info","message":"Fetching quote for CRM from Finnhub","timestamp":"2026-07-13 15:22:12"}
+{"level":"info","message":"Submitting bulkWrite update for 30 stock prices...","timestamp":"2026-07-13 15:22:12"}
+{"level":"info","message":"StockPrice collection bulkWrite update completed successfully.","timestamp":"2026-07-13 15:22:12"}
+{"level":"info","message":"Initializing market price synchronization...","timestamp":"2026-07-13 15:24:00"}
+{"level":"info","message":"Found 30 dynamic stocks to update. Starting quotes fetch...","timestamp":"2026-07-13 15:24:00"}
+{"level":"info","message":"Fetching quote for AAPL from Finnhub","timestamp":"2026-07-13 15:24:00"}
+{"level":"info","message":"Fetching quote for MSFT from Finnhub","timestamp":"2026-07-13 15:24:01"}
+{"level":"info","message":"Fetching quote for AMZN from Finnhub","timestamp":"2026-07-13 15:24:02"}
+{"level":"info","message":"Fetching quote for NVDA from Finnhub","timestamp":"2026-07-13 15:24:02"}
+{"level":"info","message":"Fetching quote for GOOGL from Finnhub","timestamp":"2026-07-13 15:24:02"}
+{"level":"info","message":"Fetching quote for META from Finnhub","timestamp":"2026-07-13 15:24:03"}
+{"level":"info","message":"Fetching quote for TSLA from Finnhub","timestamp":"2026-07-13 15:24:04"}
+{"level":"info","message":"Fetching quote for AVGO from Finnhub","timestamp":"2026-07-13 15:24:04"}
+{"level":"info","message":"Fetching quote for JPM from Finnhub","timestamp":"2026-07-13 15:24:04"}
+{"level":"info","message":"Fetching quote for V from Finnhub","timestamp":"2026-07-13 15:24:05"}
+{"level":"info","message":"Fetching quote for UNH from Finnhub","timestamp":"2026-07-13 15:24:05"}
+{"level":"info","message":"Fetching quote for WMT from Finnhub","timestamp":"2026-07-13 15:24:06"}
+{"level":"info","message":"Fetching quote for XOM from Finnhub","timestamp":"2026-07-13 15:24:06"}
+{"level":"info","message":"Fetching quote for MA from Finnhub","timestamp":"2026-07-13 15:24:06"}
+{"level":"info","message":"Fetching quote for ORCL from Finnhub","timestamp":"2026-07-13 15:24:07"}
+{"level":"info","message":"Fetching quote for PG from Finnhub","timestamp":"2026-07-13 15:24:07"}
+{"level":"info","message":"Fetching quote for HD from Finnhub","timestamp":"2026-07-13 15:24:08"}
+{"level":"info","message":"Fetching quote for NFLX from Finnhub","timestamp":"2026-07-13 15:24:08"}
+{"level":"info","message":"Fetching quote for ADBE from Finnhub","timestamp":"2026-07-13 15:24:08"}
+{"level":"info","message":"Fetching quote for COST from Finnhub","timestamp":"2026-07-13 15:24:09"}
+{"level":"info","message":"Fetching quote for AMD from Finnhub","timestamp":"2026-07-13 15:24:09"}
+{"level":"info","message":"Fetching quote for CVX from Finnhub","timestamp":"2026-07-13 15:24:10"}
+{"level":"info","message":"Fetching quote for MRK from Finnhub","timestamp":"2026-07-13 15:24:10"}
+{"level":"info","message":"Fetching quote for KO from Finnhub","timestamp":"2026-07-13 15:24:11"}
+{"level":"info","message":"Fetching quote for PEP from Finnhub","timestamp":"2026-07-13 15:24:11"}
+{"level":"info","message":"Fetching quote for DIS from Finnhub","timestamp":"2026-07-13 15:24:11"}
+{"level":"info","message":"Fetching quote for CSCO from Finnhub","timestamp":"2026-07-13 15:24:12"}
+{"level":"info","message":"Fetching quote for INTC from Finnhub","timestamp":"2026-07-13 15:24:12"}
+{"level":"info","message":"Fetching quote for NKE from Finnhub","timestamp":"2026-07-13 15:24:13"}
+{"level":"info","message":"Fetching quote for CRM from Finnhub","timestamp":"2026-07-13 15:24:13"}
+{"level":"info","message":"Submitting bulkWrite update for 30 stock prices...","timestamp":"2026-07-13 15:24:13"}
+{"level":"info","message":"StockPrice collection bulkWrite update completed successfully.","timestamp":"2026-07-13 15:24:13"}
+{"level":"info","message":"Initializing market price synchronization...","timestamp":"2026-07-13 15:26:00"}
+{"level":"info","message":"Found 30 dynamic stocks to update. Starting quotes fetch...","timestamp":"2026-07-13 15:26:00"}
+{"level":"info","message":"Fetching quote for AAPL from Finnhub","timestamp":"2026-07-13 15:26:00"}
+{"level":"info","message":"Fetching quote for MSFT from Finnhub","timestamp":"2026-07-13 15:26:01"}
+{"level":"info","message":"Fetching quote for AMZN from Finnhub","timestamp":"2026-07-13 15:26:01"}
+{"level":"info","message":"Fetching quote for NVDA from Finnhub","timestamp":"2026-07-13 15:26:02"}
+{"level":"info","message":"Fetching quote for GOOGL from Finnhub","timestamp":"2026-07-13 15:26:02"}
+{"level":"info","message":"Fetching quote for META from Finnhub","timestamp":"2026-07-13 15:26:03"}
+{"level":"info","message":"Fetching quote for TSLA from Finnhub","timestamp":"2026-07-13 15:26:03"}
+{"level":"info","message":"Fetching quote for AVGO from Finnhub","timestamp":"2026-07-13 15:26:03"}
+{"level":"info","message":"Fetching quote for JPM from Finnhub","timestamp":"2026-07-13 15:26:04"}
+{"level":"info","message":"Fetching quote for V from Finnhub","timestamp":"2026-07-13 15:26:04"}
+{"level":"info","message":"Fetching quote for UNH from Finnhub","timestamp":"2026-07-13 15:26:05"}
+{"level":"info","message":"Fetching quote for WMT from Finnhub","timestamp":"2026-07-13 15:26:05"}
+{"level":"info","message":"Fetching quote for XOM from Finnhub","timestamp":"2026-07-13 15:26:05"}
+{"level":"info","message":"Fetching quote for MA from Finnhub","timestamp":"2026-07-13 15:26:06"}
+{"level":"info","message":"Fetching quote for ORCL from Finnhub","timestamp":"2026-07-13 15:26:06"}
+{"level":"info","message":"Fetching quote for PG from Finnhub","timestamp":"2026-07-13 15:26:06"}
+{"level":"info","message":"Fetching quote for HD from Finnhub","timestamp":"2026-07-13 15:26:07"}
+{"level":"info","message":"Fetching quote for NFLX from Finnhub","timestamp":"2026-07-13 15:26:07"}
+{"level":"info","message":"Fetching quote for ADBE from Finnhub","timestamp":"2026-07-13 15:26:07"}
+{"level":"info","message":"Fetching quote for COST from Finnhub","timestamp":"2026-07-13 15:26:08"}
+{"level":"info","message":"Fetching quote for AMD from Finnhub","timestamp":"2026-07-13 15:26:08"}
+{"level":"info","message":"Fetching quote for CVX from Finnhub","timestamp":"2026-07-13 15:26:09"}
+{"level":"info","message":"Fetching quote for MRK from Finnhub","timestamp":"2026-07-13 15:26:09"}
+{"level":"info","message":"Fetching quote for KO from Finnhub","timestamp":"2026-07-13 15:26:09"}
+{"level":"info","message":"Fetching quote for PEP from Finnhub","timestamp":"2026-07-13 15:26:10"}
+{"level":"info","message":"Fetching quote for DIS from Finnhub","timestamp":"2026-07-13 15:26:10"}
+{"level":"info","message":"Fetching quote for CSCO from Finnhub","timestamp":"2026-07-13 15:26:10"}
+{"level":"info","message":"Fetching quote for INTC from Finnhub","timestamp":"2026-07-13 15:26:11"}
+{"level":"info","message":"Fetching quote for NKE from Finnhub","timestamp":"2026-07-13 15:26:11"}
+{"level":"info","message":"Fetching quote for CRM from Finnhub","timestamp":"2026-07-13 15:26:11"}
+{"level":"info","message":"Submitting bulkWrite update for 30 stock prices...","timestamp":"2026-07-13 15:26:12"}
+{"level":"info","message":"StockPrice collection bulkWrite update completed successfully.","timestamp":"2026-07-13 15:26:12"}
+{"level":"info","message":"FUNDS DEPOSIT: User demouser deposited $100.00 via Razorpay. Order: order_TCweJFiLZmEkJv, Payment: pay_TCwepz5HEcsWpN","timestamp":"2026-07-13 15:26:33"}
+{"level":"info","message":"Initializing market price synchronization...","timestamp":"2026-07-13 15:28:00"}
+{"level":"info","message":"Found 30 dynamic stocks to update. Starting quotes fetch...","timestamp":"2026-07-13 15:28:00"}
+{"level":"info","message":"Fetching quote for AAPL from Finnhub","timestamp":"2026-07-13 15:28:00"}
+{"level":"info","message":"Fetching quote for MSFT from Finnhub","timestamp":"2026-07-13 15:28:00"}
+{"level":"info","message":"Fetching quote for AMZN from Finnhub","timestamp":"2026-07-13 15:28:01"}
+{"level":"info","message":"Fetching quote for NVDA from Finnhub","timestamp":"2026-07-13 15:28:01"}
+{"level":"info","message":"Fetching quote for GOOGL from Finnhub","timestamp":"2026-07-13 15:28:01"}
+{"level":"info","message":"Fetching quote for META from Finnhub","timestamp":"2026-07-13 15:28:02"}
+{"level":"info","message":"Fetching quote for TSLA from Finnhub","timestamp":"2026-07-13 15:28:02"}
+{"level":"info","message":"Fetching quote for AVGO from Finnhub","timestamp":"2026-07-13 15:28:03"}
+{"level":"info","message":"Fetching quote for JPM from Finnhub","timestamp":"2026-07-13 15:28:03"}
+{"level":"info","message":"Fetching quote for V from Finnhub","timestamp":"2026-07-13 15:28:04"}
+{"level":"info","message":"Fetching quote for UNH from Finnhub","timestamp":"2026-07-13 15:28:04"}
+{"level":"info","message":"Fetching quote for WMT from Finnhub","timestamp":"2026-07-13 15:28:05"}
+{"level":"info","message":"Fetching quote for XOM from Finnhub","timestamp":"2026-07-13 15:28:05"}
+{"level":"info","message":"Fetching quote for MA from Finnhub","timestamp":"2026-07-13 15:28:05"}
+{"level":"info","message":"Fetching quote for ORCL from Finnhub","timestamp":"2026-07-13 15:28:06"}
+{"level":"info","message":"Fetching quote for PG from Finnhub","timestamp":"2026-07-13 15:28:06"}
+{"level":"info","message":"Fetching quote for HD from Finnhub","timestamp":"2026-07-13 15:28:07"}
+{"level":"info","message":"Fetching quote for NFLX from Finnhub","timestamp":"2026-07-13 15:28:07"}
+{"level":"info","message":"Fetching quote for ADBE from Finnhub","timestamp":"2026-07-13 15:28:07"}
+{"level":"info","message":"Fetching quote for COST from Finnhub","timestamp":"2026-07-13 15:28:08"}
+{"level":"info","message":"Fetching quote for AMD from Finnhub","timestamp":"2026-07-13 15:28:08"}
+{"level":"info","message":"Fetching quote for CVX from Finnhub","timestamp":"2026-07-13 15:28:08"}
+{"level":"info","message":"Fetching quote for MRK from Finnhub","timestamp":"2026-07-13 15:28:09"}
+{"level":"info","message":"Fetching quote for KO from Finnhub","timestamp":"2026-07-13 15:28:09"}
+{"level":"info","message":"Fetching quote for PEP from Finnhub","timestamp":"2026-07-13 15:28:09"}
+{"level":"info","message":"Fetching quote for DIS from Finnhub","timestamp":"2026-07-13 15:28:10"}
+{"level":"info","message":"Fetching quote for CSCO from Finnhub","timestamp":"2026-07-13 15:28:10"}
+{"level":"info","message":"Fetching quote for INTC from Finnhub","timestamp":"2026-07-13 15:28:11"}
+{"level":"info","message":"Fetching quote for NKE from Finnhub","timestamp":"2026-07-13 15:28:11"}
+{"level":"info","message":"Fetching quote for CRM from Finnhub","timestamp":"2026-07-13 15:28:11"}
+{"level":"info","message":"Submitting bulkWrite update for 30 stock prices...","timestamp":"2026-07-13 15:28:12"}
+{"level":"info","message":"StockPrice collection bulkWrite update completed successfully.","timestamp":"2026-07-13 15:28:12"}
