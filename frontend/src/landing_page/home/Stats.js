@@ -20,7 +20,7 @@ function Stats() {
                     <img style={{ maxWidth: "100%", height: "auto" }} src="media/images/ecosystem.png" className="img-fluid mb-4" alt="Ecosystem Illustration" />
                     <div className="text-center d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
                         <Link to="/products" style={{textDecoration:"None"}}>Explore our products <i className="fa-solid fa-arrow-right-long"></i></Link>
-                        <a href={process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001"} style={{textDecoration:"None"}}>Try Kite demo <i className="fa-solid fa-arrow-right-long"></i></a>
+                        <a href={process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "")} style={{textDecoration:"None"}}>Try Kite demo <i className="fa-solid fa-arrow-right-long"></i></a>
                     </div>
                 </div>
             </div>

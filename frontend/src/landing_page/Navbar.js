@@ -63,7 +63,7 @@ function Navbar() {
                 <li className="nav-item">
                   <a 
                     className="nav-link fs-6 fw-bold text-primary" 
-                    href={`${process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001"}?token=${token}`}
+                    href={`${process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "")}?token=${token}`}
                     style={{ transition: "color 0.2s" }}
                   >
                     Console (Dashboard)

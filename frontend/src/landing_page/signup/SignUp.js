@@ -21,7 +21,7 @@ function SignUp() {
 
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001";
+      const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
       window.location.href = `${dashboardUrl}?token=${storedToken}`;
     }
   }, []);
@@ -50,7 +50,7 @@ function SignUp() {
       toast.success("Account created successfully");
 
       setTimeout(() => {
-        const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001";
+        const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
         window.location.href = `${dashboardUrl}?token=${response.data.token}`;
       }, 1000);
     } catch (err) {

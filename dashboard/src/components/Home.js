@@ -21,7 +21,7 @@ const Home = () => {
 
     if (!token) {
       // Not logged in -> Redirect to marketing portal login
-      const frontendUrl = process.env.REACT_APP_FRONTEND_URL || "http://localhost:3000";
+      const frontendUrl = process.env.REACT_APP_FRONTEND_URL || (window.location.hostname === "localhost" ? "http://localhost:3000" : "");
       window.location.href = `${frontendUrl}/login`;
       return;
     }
@@ -41,7 +41,7 @@ const Home = () => {
         // Invalid token -> Clear storage and redirect
         localStorage.removeItem("token");
         localStorage.removeItem("username");
-        const frontendUrl = process.env.REACT_APP_FRONTEND_URL || "http://localhost:3000";
+        const frontendUrl = process.env.REACT_APP_FRONTEND_URL || (window.location.hostname === "localhost" ? "http://localhost:3000" : "");
         window.location.href = `${frontendUrl}/login?error=unauthorized`;
       });
   }, []);

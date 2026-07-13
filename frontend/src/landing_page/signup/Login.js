@@ -20,7 +20,7 @@ function Login() {
 
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001";
+      const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
       window.location.href = `${dashboardUrl}?token=${storedToken}`;
     }
   }, []);
@@ -48,7 +48,7 @@ function Login() {
       toast.success("Login successful");
 
       setTimeout(() => {
-        const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001";
+        const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
         window.location.href = `${dashboardUrl}?token=${response.data.token}`;
       }, 1000);
     } catch (err) {
