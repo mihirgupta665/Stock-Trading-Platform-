@@ -55,6 +55,20 @@ const Home = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const handlePageShow = (event) => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        const frontendUrl = process.env.REACT_APP_FRONTEND_URL || (window.location.hostname === "localhost" ? "http://localhost:3000" : "");
+        window.location.href = `${frontendUrl}/login?redirectTo=${encodeURIComponent(window.location.href)}`;
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
   if (!authorized) {
     return (
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", fontFamily: "sans-serif" }}>

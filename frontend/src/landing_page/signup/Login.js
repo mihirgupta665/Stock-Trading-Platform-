@@ -20,8 +20,14 @@ function Login() {
 
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-      const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
-      window.location.href = `${dashboardUrl}?token=${storedToken}`;
+      const redirectTo = params.get("redirectTo");
+      if (redirectTo) {
+        const joinChar = redirectTo.includes("?") ? "&" : "?";
+        window.location.href = `${redirectTo}${joinChar}token=${storedToken}`;
+      } else {
+        const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
+        window.location.href = `${dashboardUrl}?token=${storedToken}`;
+      }
     }
   }, []);
 
@@ -48,8 +54,16 @@ function Login() {
       toast.success("Login successful");
 
       setTimeout(() => {
-        const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
-        window.location.href = `${dashboardUrl}?token=${response.data.token}`;
+        const params = new URLSearchParams(window.location.search);
+        const redirectTo = params.get("redirectTo");
+        const token = response.data.token;
+        if (redirectTo) {
+          const joinChar = redirectTo.includes("?") ? "&" : "?";
+          window.location.href = `${redirectTo}${joinChar}token=${token}`;
+        } else {
+          const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
+          window.location.href = `${dashboardUrl}?token=${token}`;
+        }
       }, 1000);
     } catch (err) {
       const errMsg = err.response?.data?.error || "Login failed";
