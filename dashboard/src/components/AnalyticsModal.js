@@ -28,12 +28,10 @@ const AnalyticsModal = ({ stockName, onClose }) => {
     const [priceHistory, setPriceHistory] = useState([]);
     const [labels, setLabels] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [errorMsg, setErrorMsg] = useState("");
     const [stats, setStats] = useState({ ltp: 0, high: 0, change: 0 });
 
     useEffect(() => {
         setLoading(true);
-        setErrorMsg("");
         
         axios.get(`http://localhost:3002/history/${stockName}?range=1W`)
             .then((res) => {
