@@ -7,10 +7,19 @@ const Home = () => {
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    // Check URL parameters for token (SSO Redirect)
+    // Check URL parameters for token (SSO Redirect) or logout action
     const params = new URLSearchParams(window.location.search);
-    const urlToken = params.get("token");
+    const action = params.get("action");
 
+    if (action === "logout") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      const frontendUrl = process.env.REACT_APP_FRONTEND_URL || (window.location.hostname === "localhost" ? "http://localhost:3000" : "");
+      window.location.href = `${frontendUrl}/login?action=logout`;
+      return;
+    }
+
+    const urlToken = params.get("token");
     if (urlToken) {
       localStorage.setItem("token", urlToken);
       // Clean URL parameters

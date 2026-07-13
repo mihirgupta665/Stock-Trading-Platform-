@@ -7,10 +7,23 @@ function Navbar() {
   const [token, setToken] = useState("");
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("action") === "logout" || params.get("error") === "unauthorized") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      setIsLoggedIn(false);
+      setToken("");
+      window.history.replaceState({}, document.title, window.location.pathname);
+      return;
+    }
+
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setIsLoggedIn(true);
       setToken(storedToken);
+    } else {
+      setIsLoggedIn(false);
+      setToken("");
     }
   }, []);
 
@@ -20,7 +33,13 @@ function Navbar() {
     delete axios.defaults.headers.common["Authorization"];
     setIsLoggedIn(false);
     setToken("");
-    window.location.reload();
+    
+    const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "");
+    if (dashboardUrl) {
+      window.location.href = `${dashboardUrl}?action=logout`;
+    } else {
+      window.location.reload();
+    }
   };
 
   return (
@@ -66,7 +85,7 @@ function Navbar() {
                     href={`${process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "")}?token=${token}`}
                     style={{ transition: "color 0.2s" }}
                   >
-                    Console (Dashboard)
+                    Dashboard
                   </a>
                 </li>
                 <li className="nav-item ms-3">

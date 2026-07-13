@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
@@ -16,10 +16,23 @@ const Menu = () => {
 
     const [selectedMenu, setSelectedMenu] = useState(getMenuIndexFromPath(location.pathname));
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+    const profileRef = useRef(null);
 
     useEffect(() => {
         setSelectedMenu(getMenuIndexFromPath(location.pathname));
     }, [location.pathname]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (profileRef.current && !profileRef.current.contains(event.target)) {
+                setIsProfileDropdownOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     const username = localStorage.getItem("username") || "User";
 
@@ -79,7 +92,7 @@ const Menu = () => {
                     </li>
                 </ul>
                 <hr />
-                <div className="profile" onClick={handleProfileClick} style={{ position: "relative" }}>
+                <div ref={profileRef} className="profile" onClick={handleProfileClick} style={{ position: "relative" }}>
                     <div className="avatar" style={{ textTransform: "uppercase" }}>
                         {username.slice(0, 2)}
                     </div>
@@ -88,31 +101,61 @@ const Menu = () => {
                     {isProfileDropdownOpen && (
                         <div 
                             className="profile-dropdown" 
+                            onClick={(e) => e.stopPropagation()}
                             style={{
                                 position: "absolute",
-                                top: "45px",
+                                top: "50px", // Put it below the profile name in the header top bar
                                 right: "0",
                                 backgroundColor: "#fff",
-                                border: "1px solid #eee",
-                                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                                borderRadius: "8px",
-                                padding: "10px",
+                                border: "1px solid #e5e7eb",
+                                boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                                borderRadius: "10px",
+                                padding: "16px",
                                 zIndex: 1000,
-                                minWidth: "120px",
-                                textAlign: "center"
+                                minWidth: "185px",
+                                textAlign: "left",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "2px"
                             }}
                         >
-                            <span 
+                            <span style={{ fontWeight: "600", fontSize: "0.95rem", color: "#1f2937", textTransform: "capitalize" }}>
+                                {username}
+                            </span>
+                            <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>
+                                Client ID: TRDER{username.slice(0, 3).toUpperCase()}99
+                            </span>
+                            <hr style={{ margin: "10px 0", border: "0", borderTop: "1px solid #e5e7eb" }} />
+                            <button 
                                 onClick={handleLogout} 
                                 style={{ 
-                                    color: "#df5b2b", 
-                                    cursor: "pointer", 
-                                    fontWeight: "bold",
-                                    fontSize: "0.9rem" 
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    gap: "8px",
+                                    width: "100%",
+                                    padding: "8px 12px",
+                                    color: "#dc2626",
+                                    backgroundColor: "#fff",
+                                    border: "1px solid #fca5a5",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                    fontWeight: "500",
+                                    fontSize: "0.85rem",
+                                    transition: "all 0.2s ease"
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#fef2f2";
+                                    e.currentTarget.style.borderColor = "#ef4444";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#fff";
+                                    e.currentTarget.style.borderColor = "#fca5a5";
                                 }}
                             >
+                                <i className="fa-solid fa-right-from-bracket"></i>
                                 Logout
-                            </span>
+                            </button>
                         </div>
                     )}
                 </div>
