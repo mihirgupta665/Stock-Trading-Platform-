@@ -107,21 +107,152 @@ const adjustFunds = async (req, res, next) => {
             return res.status(400).json({ error: "Invalid amount specified" });
         }
 
-        if (action === "withdraw") {
-            if (user.availableBalance < numVal) {
-                return res.status(400).json({ error: "Insufficient balance for withdrawal" });
-            }
-            user.availableBalance -= numVal;
-        } else {
-            user.availableBalance += numVal;
-            user.totalDeposited = (user.totalDeposited || 0.0) + numVal;
+        if (action !== "withdraw") {
+            return res.status(400).json({ error: "Deposit must be initiated via Razorpay checkout" });
         }
 
+        if (user.availableBalance < numVal) {
+            return res.status(400).json({ error: "Insufficient balance for withdrawal" });
+        }
+
+        user.availableBalance -= numVal;
         await user.save();
-        logger.info(`FUNDS UPDATE: User ${user.username} performed ${action} of $${numVal.toFixed(2)}. New balance: $${user.availableBalance.toFixed(2)}, Cumulative Deposit: $${(user.totalDeposited || 0.0).toFixed(2)}`);
+
+        // Record WITHDRAWAL transaction log
+        const transaction = new TransactionsModel({
+            user: user._id,
+            symbol: "USD",
+            companyName: "Withdrawal from Wallet",
+            exchange: "LEDGER",
+            quantity: 1,
+            price: numVal,
+            totalAmount: numVal,
+            transactionType: "WITHDRAWAL",
+            orderType: "MARKET",
+            status: "SUCCESS"
+        });
+        await transaction.save();
+
+        logger.info(`FUNDS WITHDRAWAL: User ${user.username} withdrew $${numVal.toFixed(2)}. New balance: $${user.availableBalance.toFixed(2)}`);
         
         return res.json({ 
-            message: `Successfully completed ${action}!`, 
+            message: "Withdrawal completed successfully!", 
+            availableBalance: user.availableBalance,
+            totalDeposited: user.totalDeposited
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+const createRazorpayOrder = async (req, res, next) => {
+    const { amount } = req.body;
+    try {
+        const val = Number(amount);
+        if (isNaN(val) || val <= 0) {
+            return res.status(400).json({ error: "Invalid amount specified" });
+        }
+
+        const keyId = process.env.RAZORPAY_KEY_ID;
+        const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+        // Bypassing logic for local testing with placeholder values
+        if (keyId === "rzp_test_placeholderKey" || !keySecret || keySecret === "placeholderSecret") {
+            const mockOrderId = "order_mock_" + Math.random().toString(36).substring(2, 15);
+            return res.json({
+                key: keyId,
+                amount: val * 83 * 100, // in paise
+                currency: "INR",
+                order_id: mockOrderId,
+                isMock: true
+            });
+        }
+
+        // Real Razorpay Order Creation via Native fetch
+        const amountINR = Math.round(val * 83 * 100); // 83 INR per USD, convert to paise
+        const auth = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+        
+        const response = await fetch("https://api.razorpay.com/v1/orders", {
+            method: "POST",
+            headers: {
+                "Authorization": `Basic ${auth}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                amount: amountINR,
+                currency: "INR",
+                receipt: "receipt_" + Date.now()
+            })
+        });
+
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.error?.description || "Razorpay API error");
+        }
+
+        const data = await response.json();
+
+        return res.json({
+            key: keyId,
+            amount: amountINR,
+            currency: "INR",
+            order_id: data.id,
+            isMock: false
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+const verifyRazorpayPayment = async (req, res, next) => {
+    const { order_id, payment_id, signature, amount, isMock } = req.body;
+    try {
+        const val = Number(amount); // in USD
+
+        // Validate Signature
+        if (!isMock) {
+            const crypto = require("crypto");
+            const keySecret = process.env.RAZORPAY_KEY_SECRET;
+            
+            const hmac = crypto.createHmac("sha256", keySecret);
+            hmac.update(order_id + "|" + payment_id);
+            const generatedSignature = hmac.digest("hex");
+            
+            if (generatedSignature !== signature) {
+                return res.status(400).json({ error: "Payment verification failed" });
+            }
+        }
+
+        // Update User Wallet
+        const UserModel = require("../model/UserModel");
+        const user = await UserModel.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        user.availableBalance += val;
+        user.totalDeposited = (user.totalDeposited || 0.0) + val;
+        await user.save();
+
+        // Record DEPOSIT transaction log
+        const transaction = new TransactionsModel({
+            user: user._id,
+            symbol: "USD",
+            companyName: "Deposit via Razorpay",
+            exchange: "LEDGER",
+            quantity: 1,
+            price: val,
+            totalAmount: val,
+            transactionType: "DEPOSIT",
+            orderType: "MARKET",
+            status: "SUCCESS"
+        });
+        await transaction.save();
+
+        logger.info(`FUNDS DEPOSIT: User ${user.username} deposited $${val.toFixed(2)} via Razorpay. Order: ${order_id}, Payment: ${payment_id}`);
+
+        return res.json({
+            message: "Deposit completed successfully!",
             availableBalance: user.availableBalance,
             totalDeposited: user.totalDeposited
         });
@@ -138,5 +269,7 @@ module.exports = {
     getDashboardStats,
     getTransactions,
     triggerSettlement,
-    adjustFunds
+    adjustFunds,
+    createRazorpayOrder,
+    verifyRazorpayPayment
 };

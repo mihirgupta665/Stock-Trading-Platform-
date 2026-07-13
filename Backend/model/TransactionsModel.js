@@ -9,7 +9,7 @@ const TransactionSchema = new Schema({
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
     totalAmount: { type: Number, required: true },
-    transactionType: { type: String, enum: ["BUY", "SELL"], required: true },
+    transactionType: { type: String, enum: ["BUY", "SELL", "DEPOSIT", "WITHDRAWAL"], required: true },
     orderType: { type: String, enum: ["MARKET", "LIMIT"], default: "MARKET" },
     status: { type: String, enum: ["SUCCESS", "FAILED", "PENDING"], required: true },
 }, {

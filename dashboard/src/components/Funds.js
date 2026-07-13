@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+
+// Dynamically load Razorpay checkout script
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 const Funds = () => {
   const [stats, setStats] = useState({
@@ -15,6 +30,8 @@ const Funds = () => {
   });
   const [allOrders, setAllOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [processingPayment, setProcessingPayment] = useState(false);
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState("deposit"); // "deposit" or "withdraw"
   const [inputAmount, setInputAmount] = useState("");
@@ -66,7 +83,7 @@ const Funds = () => {
     setInputAmount(amount.toString());
   };
 
-  const handleFundsSubmit = (e) => {
+  const handleFundsSubmit = async (e) => {
     e.preventDefault();
     const val = Number(inputAmount);
     if (isNaN(val) || val <= 0) {
@@ -74,27 +91,124 @@ const Funds = () => {
       return;
     }
 
-    if (modalAction === "withdraw" && stats.availableBalance < val) {
-      toast.error("Insufficient funds");
-      return;
-    }
-
     const token = localStorage.getItem("token");
-    axios.post("http://localhost:3002/portfolio/funds", {
-      amount: val,
-      action: modalAction === "deposit" ? "deposit" : "withdraw"
-    }, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(() => {
-      setIsModalOpen(false);
-      toast.success(modalAction === "deposit" ? "Funds added" : "Funds withdrawn");
-      fetchFundsData();
-    })
-    .catch((err) => {
-      const errMsg = err.response?.data?.error || "Transaction failed";
-      toast.error(errMsg);
-    });
+    const headers = { Authorization: `Bearer ${token}` };
+
+    if (modalAction === "withdraw") {
+      // 1. Withdrawal flow (fully simulated in the backend)
+      if (stats.availableBalance < val) {
+        toast.error("Insufficient funds");
+        return;
+      }
+
+      setProcessingPayment(true);
+      axios.post("http://localhost:3002/portfolio/funds", {
+        amount: val,
+        action: "withdraw"
+      }, { headers })
+      .then(() => {
+        setIsModalOpen(false);
+        setProcessingPayment(false);
+        toast.success("Withdrawal success");
+        fetchFundsData();
+      })
+      .catch((err) => {
+        setProcessingPayment(false);
+        const errMsg = err.response?.data?.error || "Withdrawal failed";
+        toast.error(errMsg);
+      });
+    } else {
+      // 2. Deposit flow (via Razorpay Checkout)
+      setProcessingPayment(true);
+      
+      // Step A: Create order on backend
+      axios.post("http://localhost:3002/portfolio/funds/order", {
+        amount: val
+      }, { headers })
+      .then(async (res) => {
+        const orderData = res.data;
+        
+        if (orderData.isMock) {
+          // Placeholder Key ID - Simulate payment loading and auto-verify
+          setTimeout(() => {
+            axios.post("http://localhost:3002/portfolio/funds/verify", {
+              order_id: orderData.order_id,
+              payment_id: "pay_mock_" + Math.random().toString(36).substring(2, 10),
+              signature: "signature_mock",
+              amount: val,
+              isMock: true
+            }, { headers })
+            .then(() => {
+              setIsModalOpen(false);
+              setProcessingPayment(false);
+              toast.success("Deposit success");
+              fetchFundsData();
+            })
+            .catch((err) => {
+              setProcessingPayment(false);
+              toast.error(err.response?.data?.error || "Mock verification failed");
+            });
+          }, 1500);
+        } else {
+          // Real Razorpay Checkout integration
+          const scriptLoaded = await loadRazorpayScript();
+          if (!scriptLoaded) {
+            setProcessingPayment(false);
+            toast.error("Failed loading Razorpay SDK");
+            return;
+          }
+
+          const username = localStorage.getItem("username") || "User";
+          const options = {
+            key: orderData.key,
+            amount: orderData.amount,
+            currency: orderData.currency,
+            name: "Zerodha Platform",
+            description: `Fund deposit of $${val.toFixed(2)} (Mock USD Wallet)`,
+            order_id: orderData.order_id,
+            handler: async (response) => {
+              // On success, verify order details
+              axios.post("http://localhost:3002/portfolio/funds/verify", {
+                order_id: orderData.order_id,
+                payment_id: response.razorpay_payment_id,
+                signature: response.razorpay_signature,
+                amount: val,
+                isMock: false
+              }, { headers })
+              .then(() => {
+                setIsModalOpen(false);
+                setProcessingPayment(false);
+                toast.success("Deposit success");
+                fetchFundsData();
+              })
+              .catch((err) => {
+                setProcessingPayment(false);
+                toast.error(err.response?.data?.error || "Payment verification failed");
+              });
+            },
+            prefill: {
+              name: username,
+              email: `${username.toLowerCase()}@zerodha.com`
+            },
+            theme: { color: "#387ed1" },
+            modal: {
+              ondismiss: () => {
+                setProcessingPayment(false);
+                toast.warning("Payment cancelled");
+              }
+            }
+          };
+
+          const rzp = new window.Razorpay(options);
+          rzp.open();
+        }
+      })
+      .catch((err) => {
+        setProcessingPayment(false);
+        const errMsg = err.response?.data?.error || "Failed to initiate deposit order";
+        toast.error(errMsg);
+      });
+    }
   };
 
   const handleConfirmCommodity = () => {
@@ -260,37 +374,44 @@ const Funds = () => {
               <h3 style={styles.modalTitle}>{modalAction === "deposit" ? "Add Funds" : "Withdraw Funds"}</h3>
               <button style={styles.modalCloseBtn} onClick={() => setIsModalOpen(false)}>&times;</button>
             </div>
-            <form onSubmit={handleFundsSubmit}>
-              <div style={styles.modalBody}>
-                <p style={styles.modalSubtext}>
-                  {modalAction === "deposit" 
-                    ? "Inject simulated capital into your Equity wallet to expand your trading capacity." 
-                    : "Remove simulated capital from your available margin."}
-                </p>
-                <div style={styles.inputWrapper}>
-                  <span style={styles.inputSymbol}>$</span>
-                  <input
-                    type="number"
-                    style={styles.modalInput}
-                    placeholder="Enter amount"
-                    value={inputAmount}
-                    onChange={(e) => setInputAmount(e.target.value)}
-                    required
-                  />
-                </div>
-                <div style={styles.presets}>
-                  <button type="button" style={styles.presetBtn} onClick={() => handlePresetClick(1000)}>+$1,000</button>
-                  <button type="button" style={styles.presetBtn} onClick={() => handlePresetClick(5000)}>+$5,000</button>
-                  <button type="button" style={styles.presetBtn} onClick={() => handlePresetClick(10000)}>+$10,000</button>
-                </div>
+            
+            {processingPayment ? (
+              <div style={{ padding: "40px 20px" }}>
+                <Loader message={modalAction === "deposit" ? "Initiating secure checkout..." : "Processing withdrawal..."} />
               </div>
-              <div style={styles.modalFooter}>
-                <button type="button" style={styles.cancelBtn} onClick={() => setIsModalOpen(false)}>Cancel</button>
-                <button type="submit" style={{ ...styles.actionBtn, ...styles.depositBtn, marginTop: 0 }}>
-                  {modalAction === "deposit" ? "Deposit" : "Withdraw"}
-                </button>
-              </div>
-            </form>
+            ) : (
+              <form onSubmit={handleFundsSubmit}>
+                <div style={styles.modalBody}>
+                  <p style={styles.modalSubtext}>
+                    {modalAction === "deposit" 
+                      ? "Inject simulated capital into your Equity wallet via Razorpay secure checkout." 
+                      : "Remove simulated capital from your available margin."}
+                  </p>
+                  <div style={styles.inputWrapper}>
+                    <span style={styles.inputSymbol}>$</span>
+                    <input
+                      type="number"
+                      style={styles.modalInput}
+                      placeholder="Enter amount"
+                      value={inputAmount}
+                      onChange={(e) => setInputAmount(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div style={styles.presets}>
+                    <button type="button" style={styles.presetBtn} onClick={() => handlePresetClick(100)}>+$100</button>
+                    <button type="button" style={styles.presetBtn} onClick={() => handlePresetClick(500)}>+$500</button>
+                    <button type="button" style={styles.presetBtn} onClick={() => handlePresetClick(1000)}>+$1,000</button>
+                  </div>
+                </div>
+                <div style={styles.modalFooter}>
+                  <button type="button" style={styles.cancelBtn} onClick={() => setIsModalOpen(false)}>Cancel</button>
+                  <button type="submit" style={{ ...styles.actionBtn, ...styles.depositBtn, marginTop: 0 }}>
+                    {modalAction === "deposit" ? "Proceed to Pay" : "Withdraw"}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}
