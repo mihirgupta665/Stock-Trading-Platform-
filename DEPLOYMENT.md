@@ -39,7 +39,7 @@ Before pushing to production, make sure:
    * **Root Directory**: `Backend`
    * **Runtime**: `Node`
    * **Build Command**: `npm install`
-   * **Start Command**: `node index.js`
+   * **Start Command**: `npm start`
 5. Under **Environment Variables**, add the required backend keys:
    * `MONGO_URL` = *Your MongoDB Atlas connection URI*
    * `JWT_SECRET` = *Your JWT secret token*
