@@ -72,6 +72,9 @@ This project was built to understand the backend architecture, data consistency 
 ## 🔒 Security Architecture
 
 * **JWT Session Authentication**: Secures sensitive endpoints (orders, holdings, wallet ledger) with JSON Web Tokens passed in the HTTP Authorization header.
+* **Bi-directional SSO Logout Synchronization**: Prevents token leakage and synchronizes session termination between the marketing frontend and the console dashboard origins.
+* **Back-Button (bfcache) Session Protection**: Uses HTML5 `pageshow` hooks to immediately detect token deletions and block cached DOM screen restoration, redirecting unauthorized users instantly.
+* **Axios-Level Request Authorization Interception**: Automatically blocks and aborts outgoing backend requests if local credentials are deleted, redirecting to the login portal with original route memory.
 * **Password Hashing**: Protects user credentials in the database using bcrypt hashing.
 * **Express-Rate-Limit**: Implements request rate limiters to protect the authentication and trading APIs from DDoS and brute-force attacks.
 * **Helmet.js Security Headers**: Sets HTTP headers to safeguard against common web vulnerabilities (XSS, clickjacking, MIME sniffing).
@@ -220,9 +223,18 @@ RAZORPAY_KEY_ID=rzp_test_yourKeyId
 RAZORPAY_KEY_SECRET=yourSecret
 ```
 
-### Clients (`dashboard/.env` and `frontend/.env`)
+### Console Dashboard (`dashboard/.env`)
 ```env
+PORT=3001
 REACT_APP_API_URL=http://localhost:3002
+REACT_APP_FRONTEND_URL=http://localhost:3000
+```
+
+### Marketing Frontend (`frontend/.env`)
+```env
+PORT=3000
+REACT_APP_API_URL=http://localhost:3002
+REACT_APP_DASHBOARD_URL=http://localhost:3001
 ```
 
 ---
