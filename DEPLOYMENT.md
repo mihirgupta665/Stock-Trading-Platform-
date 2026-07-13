@@ -1,46 +1,53 @@
-# 🚀 Deployment Guide: Stock Trading Platform (100% Vercel)
+# 🚀 Deployment Guide: Stock Trading Platform
 
-This step-by-step guide walks you through deploying your entire platform—**Backend**, **Frontend**, and **Dashboard**—all on **Vercel**!
+This step-by-step guide walks you through deploying your backend simulator server on a traditional cloud host (**Render.com**) and both React frontends on **Vercel**.
 
 ---
 
-## 🔍 Will the Cron Jobs run automatically when deployed on Vercel?
+## 🔍 Will the Cron Jobs run automatically when deployed on Render?
 
 **YES!** 
-Because Vercel is a serverless platform, traditional background processes like `node-cron` shut down when there are no active requests. To solve this, your project uses **Vercel's Native Cron Scheduler**:
-* We have configured a `"crons"` array in the [vercel.json](file:///c:/Users/mihir/Desktop/Stock%20Trading%20Platform/Backend/vercel.json) file.
-* Vercel will automatically ping your backend's API cron endpoints on a set schedule (`/api/cron/sync` every 2 mins, `/api/cron/settle` daily, etc.).
-* These cron ticks execute in the cloud completely automatically. **You can safely turn off your local computer and close localhost**; Vercel's cloud triggers will update your MongoDB database 24/7.
+Because Render Free Web Services are traditional, long-running Node.js processes:
+* The backend runs continuously in the cloud.
+* The built-in `node-cron` schedulers (US market check, limit order match, 24h cancellation, 1:31 AM IST settlement) run natively inside your server instance.
+* You can **safely close your local computer and shut down localhost**; the background processes will continue executing automatically on the cloud database.
+
+> [!NOTE]
+> Render Free Web Services go to sleep (spin down) if they do not receive any HTTP requests for 15 minutes. 
+> To prevent your server from sleeping and keep your background crons running continuously, you can use a free uptime monitoring service (such as [UptimeRobot](https://uptimerobot.com/)) to ping your backend URL (e.g. `https://your-backend.onrender.com/allPrices`) every 10 minutes.
 
 ---
 
 ## 📋 Pre-Deployment Checklist
 
 Before pushing to production, make sure:
-1. Your MongoDB Atlas cluster allows incoming connections from Vercel's servers:
+1. Your MongoDB Atlas cluster allows incoming connections from your hosting servers:
    * Go to **MongoDB Atlas** -> **Network Access**.
-   * Click **Add IP Address** -> select **Allow Access From Anywhere** (`0.0.0.0/0`) -> Click **Confirm**. (Since Vercel uses dynamic serverless IP ranges, this is required).
-2. Your GitHub repository has the latest code pushed (`git push` completed).
+   * Click **Add IP Address** -> select **Allow Access From Anywhere** (`0.0.0.0/0`) -> Click **Confirm**. (Cloud hosting providers change server IPs dynamically, so this is required).
+2. Your GitHub repository has the latest version of the code (`git push` completed).
 
 ---
 
-## 🛠 Step 1: Deploying the Backend on Vercel
+## 🛠 Step 1: Deploying the Backend on Render
 
-1. Go to the [Vercel Dashboard](https://vercel.com/) and click **Add New** -> **Project**.
-2. Select your `Stock-Trading-Platform-` repository.
-3. Configure the project:
-   * **Project Name**: `stock-trading-backend`
-   * **Framework Preset**: `Other` (Vercel will auto-detect Node.js)
-   * **Root Directory**: Click **Edit** and select **`Backend`**.
-4. Expand **Environment Variables** and add all the keys from your `Backend/.env` file:
+1. Go to [Render.com](https://render.com/) and log in with GitHub.
+2. Click **New** -> **Web Service**.
+3. Select your `Stock-Trading-Platform-` repository.
+4. Configure the Web Service settings:
+   * **Name**: `stock-trading-backend`
+   * **Region**: Choose the closest region (e.g., Singapore or US East).
+   * **Root Directory**: `Backend`
+   * **Runtime**: `Node`
+   * **Build Command**: `npm install`
+   * **Start Command**: `node index.js`
+5. Under **Environment Variables**, add the required backend keys:
    * `MONGO_URL` = *Your MongoDB Atlas connection URI*
    * `JWT_SECRET` = *Your JWT secret token*
    * `FINNHUB_API_KEY` = *Your Finnhub API Key*
    * `RAZORPAY_KEY_ID` = *Your Razorpay Key ID*
    * `RAZORPAY_KEY_SECRET` = *Your Razorpay Key Secret*
    * `PORT` = `3002`
-5. Click **Deploy**. Vercel will compile your Express backend into serverless functions and register the cron routes.
-6. Once deployed, copy your backend's Vercel URL (e.g. `https://stock-trading-backend.vercel.app`).
+6. Click **Deploy Web Service**. Render will spin up the server and give you a public URL (e.g. `https://stock-trading-backend.onrender.com`). **Copy this URL**.
 
 ---
 
@@ -54,8 +61,8 @@ Before pushing to production, make sure:
    * **Root Directory**: Click **Edit** and select **`frontend`**.
 4. Expand **Environment Variables** and add:
    * **Key**: `REACT_APP_API_URL`
-   * **Value**: *Your Deployed Backend Vercel URL* (e.g. `https://stock-trading-backend.vercel.app`)
-5. Click **Deploy**. Vercel will compile your static React app.
+   * **Value**: *Your Deployed Backend Render URL* (e.g. `https://stock-trading-backend.onrender.com`)
+5. Click **Deploy**. Vercel will build your static files and deploy them.
 
 ---
 
@@ -69,5 +76,5 @@ Before pushing to production, make sure:
    * **Root Directory**: Click **Edit** and select **`dashboard`**.
 4. Expand **Environment Variables** and add:
    * **Key**: `REACT_APP_API_URL`
-   * **Value**: *Your Deployed Backend Vercel URL* (e.g. `https://stock-trading-backend.vercel.app`)
-5. Click **Deploy**. Vercel will compile your console dashboard.
+   * **Value**: *Your Deployed Backend Render URL* (e.g. `https://stock-trading-backend.onrender.com`)
+5. Click **Deploy**. Vercel will build your client console dashboard and deploy it.

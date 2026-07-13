@@ -97,14 +97,7 @@ async function startServer() {
         // 1. Establish Database Connection
         await connectDB(MONGO_URL);
 
-        // If running in Vercel serverless context, skip crons & listen block to prevent boot timeouts
-        const isVercel = process.env.VERCEL === "1";
-        if (isVercel) {
-            logger.info("Serverless initialization: database connected successfully.");
-            return;
-        }
-
-        // 2. Perform initial US Stock market price synchronization on startup (Local only)
+        // 2. Perform initial US Stock market price synchronization on startup
         logger.info("Performing initial market price synchronization...");
         try {
             await syncMarketPrices();
@@ -113,21 +106,19 @@ async function startServer() {
             logger.error(`Initial price sync failed on startup: ${syncErr.message}. Starting server anyway.`);
         }
 
-        // 3. Initialize Cron Jobs (Local only)
+        // 3. Initialize Cron Jobs
         initPriceUpdateCron();
         initSettlementCron();
         initCleanupCron();
 
-        // 4. Start Server (Local only)
+        // 4. Start Server
         app.listen(PORT, () => {
             logger.info(`Trading Simulator Server started on port ${PORT}`);
         });
 
     } catch (err) {
         logger.error(`Fatal application startup error: ${err.message}`, { stack: err.stack });
-        if (process.env.VERCEL !== "1") {
-            process.exit(1);
-        }
+        process.exit(1);
     }
 }
 
