@@ -10,6 +10,8 @@ const { holdings, positions} = require("./data.js");
 
 const HoldingsModel = require("../model/HoldingsModel.js");
 const PositionsModel = require("../model/PositionsModel.js");
+const UserModel = require("../model/UserModel.js");
+const { hashPassword } = require("../utils/auth.js");
 
 async function serverInitializeDatabase(){
     try{
@@ -25,10 +27,20 @@ async function serverInitializeDatabase(){
             // console.log(HoldingsModel);
             await HoldingsModel.deleteMany({});
             await PositionsModel.deleteMany({});
+            await UserModel.deleteMany({});
 
             await HoldingsModel.insertMany(holdings);
             await PositionsModel.insertMany(positions);
-            console.log("Database seeded Successfully");
+
+            const hashedPassword = hashPassword("password123");
+            const demoUser = new UserModel({
+                username: "demouser",
+                email: "demo@zerodha.com",
+                password: hashedPassword
+            });
+            await demoUser.save();
+
+            console.log("Database and demo user seeded Successfully");
         
             app.listen(PORT,()=>{
                 console.log("Sever Started at Port : "+PORT)

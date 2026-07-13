@@ -11,7 +11,7 @@ function Team() {
             </div>
             <div className="row px-5  pb-3 text-muted">
                 <div className="col-6 p-5 text-center">
-                    <img src="media/images/mihir_guitar.jpeg" alt="Mihir's Image" style={{width:"72%", borderRadius:"100%"}}></img>
+                    <img src="media/images/mihir_guitar.jpeg" alt="Mihir Gupta" style={{width:"72%", borderRadius:"100%"}}></img>
                     <h3 className="mt-4 lh-base">Mihir Gupta</h3>
                     <h5>Founder, CEO</h5>
                 </div>

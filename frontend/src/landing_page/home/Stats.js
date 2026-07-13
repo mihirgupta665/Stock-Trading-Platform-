@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 function Stats() {
     return (
         <div className="container">
@@ -15,10 +17,10 @@ function Stats() {
                     <p className="mb-5 text-muted">With initiatives like Nudge and Kill Switch, we don't just facilitate transactions, but actively help you do better with your money.</p>
                 </div>
                 <div  className="col-6 p-5"> 
-                    <img style={{ width: "115%" }} src="media/images/ecosystem.png" alt="website eco system image" />
+                    <img style={{ width: "115%" }} src="media/images/ecosystem.png" alt="Ecosystem Illustration" />
                     <div className="text-center">
-                        <a href="" className="mx-5" style={{textDecoration:"None"}}>Explore our products <i className="fa-solid fa-arrow-right-long"></i></a>
-                        <a href="" style={{textDecoration:"None"}}>Try Kite demo <i className="fa-solid fa-arrow-right-long"></i></a>
+                        <Link to="/products" className="mx-5" style={{textDecoration:"None"}}>Explore our products <i className="fa-solid fa-arrow-right-long"></i></Link>
+                        <a href="http://localhost:3001" style={{textDecoration:"None"}}>Try Kite demo <i className="fa-solid fa-arrow-right-long"></i></a>
                     </div>
                 </div>
             </div>

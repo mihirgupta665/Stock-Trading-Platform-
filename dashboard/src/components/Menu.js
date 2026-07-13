@@ -1,26 +1,32 @@
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";  // whenever we need link import same from the "react-router-dom"
+import { Link } from "react-router-dom";
 
 const Menu = () => {
-
     const [selectedMenu, setSelectedMenu] = useState(0);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
-    const handleMenuClick = (index) => {        // navbar each option could be considered as intergex index value to perform the renering
+    const username = localStorage.getItem("username") || "User";
+
+    const handleMenuClick = (index) => {
         setSelectedMenu(index);
-    }
-    const handleProfileClick = () => {          // profile need to be shown or not shown so creating a toggling effect for just options
+    };
+
+    const handleProfileClick = () => {
         setIsProfileDropdownOpen(!isProfileDropdownOpen);
-    }
+    };
 
-    const menuClass = "menu";        // default style to all the menu options
-    const activeMenuClass = "menu selected"     // apart from default a special style to currently active class
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        window.location.href = "http://localhost:3000";
+    };
 
+    const menuClass = "menu";
+    const activeMenuClass = "menu selected";
 
     return (
         <div className="menu-container">
-            <img src="logo.png" style={{ width: "50px" }} />
+            <img src="logo.png" alt="Logo" style={{ width: "50px" }} />
             <div className="menus">
                 <ul>
                     <li>
@@ -55,9 +61,42 @@ const Menu = () => {
                     </li>
                 </ul>
                 <hr />
-                <div className="profile" onClick={handleProfileClick}>
-                    <div className="avatar">ZU</div>
-                    <p className="username">USERID</p>
+                <div className="profile" onClick={handleProfileClick} style={{ position: "relative" }}>
+                    <div className="avatar" style={{ textTransform: "uppercase" }}>
+                        {username.slice(0, 2)}
+                    </div>
+                    <p className="username" style={{ textTransform: "capitalize" }}>{username}</p>
+                    
+                    {isProfileDropdownOpen && (
+                        <div 
+                            className="profile-dropdown" 
+                            style={{
+                                position: "absolute",
+                                top: "45px",
+                                right: "0",
+                                backgroundColor: "#fff",
+                                border: "1px solid #eee",
+                                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                                borderRadius: "8px",
+                                padding: "10px",
+                                zIndex: 1000,
+                                minWidth: "120px",
+                                textAlign: "center"
+                            }}
+                        >
+                            <span 
+                                onClick={handleLogout} 
+                                style={{ 
+                                    color: "#df5b2b", 
+                                    cursor: "pointer", 
+                                    fontWeight: "bold",
+                                    fontSize: "0.9rem" 
+                                }}
+                            >
+                                Logout
+                            </span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

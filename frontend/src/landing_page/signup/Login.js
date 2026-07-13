@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function SignUp() {
-  const [username, setUsername] = useState("");
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,21 +13,20 @@ function SignUp() {
     setError("");
     setSuccess("");
 
-    if (!username || !email || !password) {
+    if (!email || !password) {
       setError("Please fill in all fields.");
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:3002/signup", {
-        username,
+      const response = await axios.post("http://localhost:3002/login", {
         email,
         password,
       });
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("username", response.data.username);
-      setSuccess("Account created successfully! Redirecting to dashboard...");
+      setSuccess("Login successful! Redirecting to dashboard...");
 
       setTimeout(() => {
         window.location.href = `http://localhost:3001?token=${response.data.token}`;
@@ -37,7 +35,7 @@ function SignUp() {
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
       } else {
-        setError("Something went wrong during registration.");
+        setError("Something went wrong. Please check your credentials or backend server.");
       }
     }
   };
@@ -56,27 +54,15 @@ function SignUp() {
           >
             <div className="text-center mb-4">
               <h2 className="fw-bold" style={{ color: "#387ed1" }}>
-                Create Account
+                Login to Console
               </h2>
-              <p className="text-muted">Start trading on our platform</p>
+              <p className="text-muted">Access your trading dashboard</p>
             </div>
 
             {error && <div className="alert alert-danger py-2">{error}</div>}
             {success && <div className="alert alert-success py-2">{success}</div>}
 
             <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label className="form-label text-muted fw-semibold">Username</label>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="demouser"
-                  style={{ borderRadius: "8px", fontSize: "16px" }}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-
               <div className="mb-3">
                 <label className="form-label text-muted fw-semibold">Email address</label>
                 <input
@@ -111,17 +97,25 @@ function SignUp() {
                   transition: "all 0.2s",
                 }}
               >
-                Sign Up
+                Log In
               </button>
             </form>
 
             <div className="text-center mt-4">
               <p className="text-muted mb-0">
-                Already have an account?{" "}
-                <Link to="/login" className="text-primary fw-semibold" style={{ textDecoration: "none" }}>
-                  Log In
+                New user?{" "}
+                <Link to="/signup" className="text-primary fw-semibold" style={{ textDecoration: "none" }}>
+                  Create an account
                 </Link>
               </p>
+              <div className="mt-3 border-top pt-3">
+                <p className="text-muted mb-1" style={{ fontSize: "14px" }}>
+                  Demo Account:
+                </p>
+                <p className="text-dark fw-bold mb-0" style={{ fontSize: "14px" }}>
+                  demo@zerodha.com / password123
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -130,4 +124,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default Login;

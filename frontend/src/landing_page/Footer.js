@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
@@ -6,43 +7,43 @@ function Footer() {
             <div className="container">
                 <div className="row mt-5 ms-5">
                     <div className="col">
-                        <img src="media/images/logo.svg" style={{ width: "50%" }} />
+                        <img src="media/images/logo.svg" alt="Logo" style={{ width: "50%" }} />
                         <p className="mt-4">&copy; 2010 - 2026, Zerodha Broking Ltd. <br /> All rights reserved.</p>
                     </div>
 
                     <div className="col">
                         <h5 className="mb-4">Company</h5>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">About</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Philosophy</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Press & media</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Careers</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Zerodha Cares (CSR)</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Zerodha.tech</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Open source</a>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/about">About</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/about">Philosophy</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/about">Press & media</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/about">Careers</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/about">Zerodha Cares (CSR)</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/">Zerodha.tech</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/">Open source</Link>
                     </div>
 
                     <div className="col">
                         <h5 className="mb-4">Support</h5>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Contact us</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Support portal</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">How to file a complaint?</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Status of your complaints</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Bulletin</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Circular</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Z-Connect blog</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Downloads</a>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/support">Contact us</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/support">Support portal</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/support">How to file a complaint?</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/support">Status of your complaints</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/support">Bulletin</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/support">Circular</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/">Z-Connect blog</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/">Downloads</Link>
                     </div>
 
                     <div className="col">
                         <h5 className="mb-4">Account</h5>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Open demat account</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Minor demat account</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">NRI demat account</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Commodity</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Dematerialisation</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Fund transfer</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">MTF</a>
-                        <a style={{textDecoration:"None"}} className="d-block mb-3 text-muted" href="">Referral program</a>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/signup">Open demat account</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/signup">Minor demat account</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/signup">NRI demat account</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/products">Commodity</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/products">Dematerialisation</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/">Fund transfer</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/">MTF</Link>
+                        <Link style={{textDecoration:"None"}} className="d-block mb-3 text-muted" to="/signup">Referral program</Link>
                     </div>
                 </div>
 
