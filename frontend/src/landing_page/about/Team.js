@@ -9,13 +9,13 @@ function Team() {
                     <h1>About ME</h1>
                 </div>
             </div>
-            <div className="row px-5  pb-3 text-muted">
-                <div className="col-6 p-5 text-center">
+            <div className="row px-md-5 pb-3 text-muted">
+                <div className="col-12 col-md-6 p-3 p-md-5 text-center">
                     <img src="media/images/mihir_guitar.jpeg" alt="Mihir Gupta" style={{width:"72%", borderRadius:"100%"}}></img>
                     <h3 className="mt-4 lh-base">Mihir Gupta</h3>
                     <h5>Founder, CEO</h5>
                 </div>
-                <div className="col-6 p-5 lh-lg" style={{ fontSize: "18px" }}>
+                <div className="col-12 col-md-6 p-3 p-md-5 lh-lg" style={{ fontSize: "18px" }}>
                     <p>
                         I started building this stock trading platform to understand how real-world
                         financial systems work, inspired by my journey through web development and

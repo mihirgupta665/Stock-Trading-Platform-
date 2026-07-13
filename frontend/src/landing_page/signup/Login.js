@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("action") === "logout" || params.get("error") === "unauthorized") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      window.history.replaceState({}, document.title, window.location.pathname);
+      return;
+    }
+
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      window.location.href = `http://localhost:3001?token=${storedToken}`;
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +31,7 @@ function Login() {
 
     if (!email || !password) {
       setError("Please fill in all fields.");
+      toast.warning("Please fill all fields");
       return;
     }
 
@@ -27,16 +44,15 @@ function Login() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("username", response.data.username);
       setSuccess("Login successful! Redirecting to dashboard...");
+      toast.success("Login successful");
 
       setTimeout(() => {
         window.location.href = `http://localhost:3001?token=${response.data.token}`;
       }, 1000);
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.error) {
-        setError(err.response.data.error);
-      } else {
-        setError("Something went wrong. Please check your credentials or backend server.");
-      }
+      const errMsg = err.response?.data?.error || "Login failed";
+      setError(errMsg);
+      toast.error("Login failed");
     }
   };
 
@@ -67,7 +83,7 @@ function Login() {
                 <label className="form-label text-muted fw-semibold">Email address</label>
                 <input
                   type="email"
-                  className="form-control form-control-lg"
+                  className="form-control form-control-lg placeholder-dim"
                   placeholder="name@example.com"
                   style={{ borderRadius: "8px", fontSize: "16px" }}
                   value={email}
@@ -80,7 +96,6 @@ function Login() {
                 <input
                   type="password"
                   className="form-control form-control-lg"
-                  placeholder="••••••••"
                   style={{ borderRadius: "8px", fontSize: "16px" }}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

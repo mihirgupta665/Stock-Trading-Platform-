@@ -2,15 +2,15 @@ import React from 'react';
 function Awards() {
     return ( 
         <div className="container mt-5">
-            <div className="row mt-5">
-                <div className="col-6 mt-2 p-5">
-                    <img src="media/images/largestBroker.svg" alt="Largest Broker Stats"/>
+            <div className="row mt-5 align-items-center">
+                <div className="col-12 col-md-6 mt-2 p-3 p-md-5 text-center">
+                    <img src="media/images/largestBroker.svg" className="img-fluid" alt="Largest Broker Stats"/>
                 </div>
-                <div className="col-6 mt-5 p-5">
+                <div className="col-12 col-md-6 mt-3 mt-md-5 p-3 p-md-5">
                     <h1 className="mt-3">Largest Stock broker in India</h1>
                     <p className="mb-4 p-1">2+ million clients contribute to over 15% of all retail order volumes in India daily by trading and investing in:</p>
                     <div className="row">
-                        <div className="col">
+                        <div className="col-12 col-sm-6">
                             <ul>
                                 <li>
                                     <p>Features and Options</p>
@@ -23,7 +23,7 @@ function Awards() {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col">
+                        <div className="col-12 col-sm-6">
                             <ul>
                                 <li>
                                     <p>Stocks and IPOs</p>
@@ -37,7 +37,7 @@ function Awards() {
                             </ul>
                         </div>
                     </div>
-                    <img className="mt-2" style={{width:"95%"}} src="media/images/pressLogos.png" alt="Press Logos"/>
+                    <img className="mt-2 img-fluid" style={{width:"95%"}} src="media/images/pressLogos.png" alt="Press Logos"/>
                 </div>
             </div>
         </div>

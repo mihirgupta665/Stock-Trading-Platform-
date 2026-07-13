@@ -1,47 +1,49 @@
-import React, { useState, useEffect } from "react";
-// import { holdings } from "../data/data";  
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
+import GeneralContext from "./GeneralContext";
+import Loader from "./Loader";
 
 const Holdings = () => {
-
   const [allHoldings, setAllHoldings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const generalContext = useContext(GeneralContext);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/allHoldings").then((res) => {
-      // console.log(res.data);
+    const token = localStorage.getItem("token");
+    axios.get("http://localhost:3002/allHoldings", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then((res) => {
       setAllHoldings(res.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Failed to load holdings:", err);
+      setLoading(false);
     });
-  }, []);
+  }, [generalContext.ordersChanged]);
 
-  const labels = allHoldings.map( (subArray) => (subArray["name"]) );
+  if (loading) {
+    return <Loader message="Loading holdings ledger..." />;
+  }
+
+  const labels = allHoldings.map((subArray) => subArray["name"]);
   const data = {
     labels,
     datasets: [
       {
-        label:"Stock Price",
-        data: allHoldings.map((stock) => stock.price ),
+        label: "Stock Price ($)",
+        data: allHoldings.map((stock) => stock.price),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       }
     ],  
-  }
+  };
 
-
-  // export const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       label: 'Dataset 1',
-  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  //     },
-  //     {
-  //       label: 'Dataset 2',
-  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-  //     },
-  //   ],
-  // };
+  const totalInvestment = allHoldings.reduce((sum, stock) => sum + (stock.avg * stock.qty), 0);
+  const totalCurrentValue = allHoldings.reduce((sum, stock) => sum + (stock.price * stock.qty), 0);
+  const totalPnL = totalCurrentValue - totalInvestment;
+  const pnlPercent = totalInvestment > 0 ? (totalPnL / totalInvestment) * 100 : 0;
 
   return (
     <>
@@ -49,61 +51,64 @@ const Holdings = () => {
 
       <div className="order-table">
         <table>
-          <tr>
-            <th>Instrument</th>
-            <th>Qty.</th>
-            <th>Avg. cost</th>
-            <th>LTP</th>
-            <th>Cur. val</th>
-            <th>P&L</th>
-            <th>Net chg.</th>
-            <th>Day chg.</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Instrument</th>
+              <th>Qty.</th>
+              <th>Avg. cost</th>
+              <th>LTP</th>
+              <th>Cur. val</th>
+              <th>P&L</th>
+              <th>Net chg.</th>
+              <th>Day chg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allHoldings.map((stock, index) => {
+              const curValue = stock.price * stock.qty;
+              const isProfit = (curValue - (stock.avg * stock.qty)) >= 0.0;
+              const profClass = isProfit ? "profit" : "loss";
+              const dayClass = stock.isLoss ? "loss" : "profit";
 
-          {allHoldings.map((stock, index) => {
-            const curValue = stock.price * stock.qty;
-            const isProfit = (curValue - (stock.avg * stock.qty)) >= 0.0;
-            const profClass = isProfit ? "profit" : "loss";
-            const dayClass = stock.isLoss ? "loss" : "profit";
-
-            return (
-              <tr key={index} >
-                <td>{stock.name}</td>
-                <td>{stock.qty}</td>
-                <td>{stock.avg.toFixed(2)}</td>  {/* toFixed(x) sets the number of x decimals to be visible */}
-                <td>{stock.price.toFixed(2)}</td>
-                <td>{curValue.toFixed(2)}</td>
-                <td className={profClass}>{(curValue - stock.avg * stock.qty).toFixed(2)}</td>
-                <td className={profClass}>{stock.net}</td>
-                <td className={dayClass}>{stock.day}</td>
-              </tr>
-            );
-          })}
-
+              return (
+                <tr key={index} >
+                  <td>{stock.name}</td>
+                  <td>{stock.qty}</td>
+                  <td>${stock.avg.toFixed(2)}</td>
+                  <td>${stock.price.toFixed(2)}</td>
+                  <td>${curValue.toFixed(2)}</td>
+                  <td className={profClass}>${(curValue - stock.avg * stock.qty).toFixed(2)}</td>
+                  <td className={profClass}>{stock.net}</td>
+                  <td className={dayClass}>{stock.day}</td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
 
       <div className="row">
         <div className="col">
           <h5>
-            29,875.<span>55</span>{" "}
+            ${totalInvestment.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </h5>
           <p>Total investment</p>
         </div>
         <div className="col">
           <h5>
-            31,428.<span>95</span>{" "}
+            ${totalCurrentValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </h5>
           <p>Current value</p>
         </div>
         <div className="col">
-          <h5>1,553.40 (+5.20%)</h5>
+          <h5 className={totalPnL >= 0 ? "profit" : "loss"}>
+            ${totalPnL.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({totalPnL >= 0 ? "+" : ""}{pnlPercent.toFixed(2)}%)
+          </h5>
           <p>P&L</p>
         </div>
       </div>
 
       <VerticalGraph data={data}/>
-
     </>
   );
 };

@@ -1,139 +1,94 @@
+require("dotenv").config();
 
-require("dotenv").config();   // adds the env file to the process of the operating system and all value could be extracted by process.env.key_option
-// A JavaScript object provided by Node.js that contains environment variables of the OS process.
+// Fail-Fast: Validate required environment variables during server startup
+const requiredEnv = ["MONGO_URL", "JWT_SECRET", "FINNHUB_API_KEY"];
+const missingEnv = requiredEnv.filter(
+    (key) => !process.env[key] || process.env[key].trim() === "" || process.env[key].includes(`YOUR_${key}`)
+);
+if (missingEnv.length > 0) {
+    console.error(`\n================================================================`);
+    console.error(`FATAL STARTUP ERROR: Missing or placeholder environment variables:`);
+    console.error(missingEnv.map(key => ` - ${key}`).join("\n"));
+    console.error(`Please configure these values in your Backend/.env file.`);
+    console.error(`================================================================\n`);
+    process.exit(1);
+}
+
 const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
-const HoldingsModel = require("./model/HoldingsModel");
-const PositionsModel = require("./model/PositionsModel");
-const OrdersModel = require("./model/OrdersModel");
-const UserModel = require("./model/UserModel");
-const { hashPassword, verifyPassword, signJWT, authenticateJWT } = require("./utils/auth");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const connectDB = require("./config/db");
+const logger = require("./config/winston");
+const errorHandler = require("./middleware/error.middleware");
 
-const PORT = process.env.PORT || 3002;       // port could change at the time od deployment so we need to specify the same
-const uri = process.env.MONGO_URL;          // after ? name of teh database msut be written and password english word must be replaced by real password
-const JWT_SECRET = process.env.JWT_SECRET || "zerodha_clone_secret_key_159";
+// Routes
+const authRoutes = require("./routes/auth.routes");
+const stockRoutes = require("./routes/stock.routes");
+const portfolioRoutes = require("./routes/portfolio.routes");
+
+// Cron Jobs & Initial Market Synchronizer
+const { initPriceUpdateCron, syncMarketPrices } = require("./cron/priceUpdate.cron");
+const { initSettlementCron } = require("./cron/settlement.cron");
+const { initCleanupCron } = require("./cron/cleanup.cron");
+
+const PORT = process.env.PORT || 3002;
+const MONGO_URL = process.env.MONGO_URL;
 
 const app = express();
 
+// Security Middlewares
+app.use(helmet());
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+
+// Global Rate Limiter
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: process.env.NODE_ENV === "production" ? 100 : 10000, // High limit for local development/testing to prevent lockout
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    message: { error: "Too many requests from this IP, please try again later." }
+});
+app.use(limiter);
+
+// Register Routes
+app.use(authRoutes);
+app.use(stockRoutes);
+app.use(portfolioRoutes);
+
+// Centralized Error Middleware (must be registered last)
+app.use(errorHandler);
 
 async function startServer() {
     try {
-        // DATABASE CONNECTION 
-        await mongoose
-            .connect(uri)
-            .then(() => {
-                console.log("MongoDB Connection Established");
-            })
-            .catch((err) => {
-                console.error("Error while connecting to the database:\n", err);
-                process.exit(1); // stop app if DB fails
-            });
+        // 1. Establish Database Connection
+        await connectDB(MONGO_URL);
 
+        // 2. Perform initial US Stock market price synchronization on startup
+        logger.info("Performing initial market price synchronization...");
+        try {
+            await syncMarketPrices();
+            logger.info("Initial market price synchronization completed successfully.");
+        } catch (syncErr) {
+            logger.error(`Initial price sync failed on startup: ${syncErr.message}. Starting server anyway.`);
+        }
+
+        // 3. Initialize Cron Jobs
+        initPriceUpdateCron();
+        initSettlementCron();
+        initCleanupCron();
+
+        // 4. Start Server
         app.listen(PORT, () => {
-            console.log(`App started on port ${PORT}`);
+            logger.info(`Trading Simulator Server started on port ${PORT}`);
         });
 
     } catch (err) {
-        console.error("Unexpected application crash:\n", err);
+        logger.error(`Fatal application startup error: ${err.message}`, { stack: err.stack });
         process.exit(1);
     }
 }
+
 startServer();
-
-// Authentication Endpoints
-app.post("/signup", async (req, res) => {
-    try {
-        const { username, email, password } = req.body;
-        if (!username || !email || !password) {
-            return res.status(400).json({ error: "All fields are required" });
-        }
-
-        // Check if user already exists
-        const existingUser = await UserModel.findOne({ $or: [{ email }, { username }] });
-        if (existingUser) {
-            return res.status(400).json({ error: "Username or Email already registered" });
-        }
-
-        // Hash password and create user
-        const hashedPassword = hashPassword(password);
-        const newUser = new UserModel({
-            username,
-            email,
-            password: hashedPassword
-        });
-        await newUser.save();
-
-        // Sign token
-        const token = signJWT({ id: newUser._id, username: newUser.username, email: newUser.email }, JWT_SECRET);
-        return res.json({ token, username: newUser.username });
-    } catch (err) {
-        console.error("Signup error:", err);
-        return res.status(500).json({ error: "Server error during registration" });
-    }
-});
-
-app.post("/login", async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ error: "Email and password are required" });
-        }
-
-        const user = await UserModel.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ error: "Invalid email or password" });
-        }
-
-        const isPasswordCorrect = verifyPassword(password, user.password);
-        if (!isPasswordCorrect) {
-            return res.status(400).json({ error: "Invalid email or password" });
-        }
-
-        const token = signJWT({ id: user._id, username: user.username, email: user.email }, JWT_SECRET);
-        return res.json({ token, username: user.username });
-    } catch (err) {
-        console.error("Login error:", err);
-        return res.status(500).json({ error: "Server error during login" });
-    }
-});
-
-app.get("/user", authenticateJWT, async (req, res) => {
-    return res.json({ user: req.user });
-});
-
-// App Data Endpoints
-app.get("/allHoldings", async (req, res) => {
-    const allHoldings = await HoldingsModel.find({});
-    res.json(allHoldings);
-});
-
-app.get("/allPositions", async (req, res)=> {
-    let allPositions = await PositionsModel.find({});
-    res.json(allPositions);
-});
-
-app.get("/allOrders", async (req, res) => {
-    let allOrders = await OrdersModel.find({});
-    res.json(allOrders);
-});
-
-app.post("/newOrder", async (req, res)=>{
-    try {
-        let newOrder = new OrdersModel({
-            name: req.body.name,
-            qty: req.body.qty,
-            price: req.body.price,
-            mode: req.body.mode,
-        });
-
-        await newOrder.save();
-        res.send("Order got saved!");
-    } catch (err) {
-        console.error("Error saving order:", err);
-        res.status(500).send("Error saving order");
-    }
-});
+// Trigger nodemon reload for routing changes, model hotfixes, limit orders, and funds adjustment endpoints

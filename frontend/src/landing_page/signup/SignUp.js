@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -9,6 +10,21 @@ function SignUp() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("action") === "logout" || params.get("error") === "unauthorized") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      window.history.replaceState({}, document.title, window.location.pathname);
+      return;
+    }
+
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      window.location.href = `http://localhost:3001?token=${storedToken}`;
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -16,6 +32,7 @@ function SignUp() {
 
     if (!username || !email || !password) {
       setError("Please fill in all fields.");
+      toast.warning("Please fill all fields");
       return;
     }
 
@@ -29,16 +46,15 @@ function SignUp() {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("username", response.data.username);
       setSuccess("Account created successfully! Redirecting to dashboard...");
+      toast.success("Account created successfully");
 
       setTimeout(() => {
         window.location.href = `http://localhost:3001?token=${response.data.token}`;
       }, 1000);
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.error) {
-        setError(err.response.data.error);
-      } else {
-        setError("Something went wrong during registration.");
-      }
+      const errMsg = err.response?.data?.error || "Registration failed";
+      setError(errMsg);
+      toast.error("Registration failed");
     }
   };
 
@@ -69,8 +85,8 @@ function SignUp() {
                 <label className="form-label text-muted fw-semibold">Username</label>
                 <input
                   type="text"
-                  className="form-control form-control-lg"
-                  placeholder="demouser"
+                  className="form-control form-control-lg placeholder-dim"
+                  placeholder="Username"
                   style={{ borderRadius: "8px", fontSize: "16px" }}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -81,7 +97,7 @@ function SignUp() {
                 <label className="form-label text-muted fw-semibold">Email address</label>
                 <input
                   type="email"
-                  className="form-control form-control-lg"
+                  className="form-control form-control-lg placeholder-dim"
                   placeholder="name@example.com"
                   style={{ borderRadius: "8px", fontSize: "16px" }}
                   value={email}
@@ -94,7 +110,6 @@ function SignUp() {
                 <input
                   type="password"
                   className="form-control form-control-lg"
-                  placeholder="••••••••"
                   style={{ borderRadius: "8px", fontSize: "16px" }}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

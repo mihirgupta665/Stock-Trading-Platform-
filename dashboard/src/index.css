@@ -634,11 +634,13 @@ hr {
 
 .watchlist-container {
   flex-basis: 32%;
-  height: 100%;
+  height: calc(100vh - 60px);
   box-sizing: border-box;
   box-shadow: 0px 0px 4px 1px rgb(236, 235, 235);
   overflow-y: auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-container {
@@ -669,7 +671,11 @@ hr {
 
 .list {
   list-style-type: none;
-  padding-bottom: 12%;
+  height: 380px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-bottom: 1px solid rgb(235, 234, 234);
+  margin-bottom: 25px;
 }
 
 .list li {
@@ -849,6 +855,125 @@ hr {
 
 .action:hover {
   background-color: rgb(212, 212, 212);
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Topbar Responsiveness */
+  .topbar-container {
+    height: auto;
+    flex-direction: column;
+    padding: 15px 10px;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .indices-container {
+    width: 100%;
+    flex-basis: auto;
+    border-right: none;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    padding: 10px 0;
+    margin-bottom: 10px;
+    justify-content: space-evenly;
+  }
+
+  .menu-container {
+    width: 100%;
+    flex-basis: auto;
+    flex-direction: column;
+    padding: 10px 0;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .menus {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .menus li {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+
+  .profile {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  /* Dashboard Layout Responsiveness */
+  .dashboard-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .watchlist-container {
+    width: 100%;
+    flex-basis: auto;
+    height: 350px;
+    border-bottom: 1px solid rgb(236, 235, 235);
+  }
+
+  .watchlist-number {
+    width: 100%;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    height: auto;
+    padding: 10px;
+  }
+
+  .content {
+    width: 100%;
+    flex-basis: auto;
+    height: auto;
+    padding: 25px 15px;
+  }
+
+  /* Summary & Row Flex Layouts */
+  .row {
+    flex-direction: column;
+    margin-top: 10%;
+    gap: 25px;
+  }
+
+  .col {
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .data {
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .data hr {
+    display: none; /* hide vertical divider when elements stack */
+  }
+
+  /* Table horizontal scroll on mobile */
+  .order-table {
+    overflow-x: auto;
+  }
+
+  .order-table table {
+    width: 100%;
+    min-width: 500px;
+  }
+}
+
+/* Spinner Rotation Animation */
+.custom-loader-spinner {
+  animation: custom-spin 0.8s linear infinite;
+}
+
+@keyframes custom-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 

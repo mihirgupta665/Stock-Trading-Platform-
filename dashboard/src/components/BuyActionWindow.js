@@ -1,24 +1,60 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 import GeneralContext from "./GeneralContext";
-
 import "./BuyActionWindow.css";
 
-const BuyActionWindow = ({ uid }) => {
-    const [stockQuantity, setStockQuantity] = useState(1);
-    const [stockPrice, setStockPrice] = useState(0.0);
+const BuyActionWindow = ({ uid, mode = "BUY", price = 0.0 }) => {
+    const [stockQuantity, setStockQuantity] = useState("1");
+    const [stockPrice, setStockPrice] = useState(price.toString());
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setStockPrice(price.toString());
+    }, [price]);
     
     const generalContext = useContext(GeneralContext);
 
-    const handleBuyClick = () => {
+    const handleActionClick = () => {
+        const token = localStorage.getItem("token");
+        const parsedQty = Number(stockQuantity) || 0;
+        const parsedPrice = Number(stockPrice) || 0;
+
+        if (parsedQty <= 0) {
+            toast.warning("Invalid quantity specified");
+            return;
+        }
+
         axios.post("http://localhost:3002/newOrder", {
             name: uid,
-            qty: stockQuantity,
-            price: stockPrice,
-            mode: "BUY",
+            qty: parsedQty,
+            price: parsedPrice,
+            mode: mode,
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then(() => {
+            generalContext.triggerOrdersRefresh();
+            if (mode === "BUY") {
+                if (parsedPrice < price) {
+                    toast.info(`Pending BUY ${uid}: $${parsedPrice.toFixed(2)}`);
+                } else {
+                    toast.success(`Bought ${uid}: $${parsedPrice.toFixed(2)}`);
+                }
+            } else {
+                if (parsedPrice > price) {
+                    toast.info(`Pending SELL ${uid}: $${parsedPrice.toFixed(2)}`);
+                } else {
+                    toast.success(`Sold ${uid}: $${parsedPrice.toFixed(2)}`);
+                }
+            }
+            navigate("/orders");
+        })
+        .catch((err) => {
+            const errMsg = err.response?.data?.error || "Order execution failed";
+            toast.error(errMsg);
+            console.error(`Error creating ${mode} order:`, err);
         });
 
         generalContext.closeBuyWindow();
@@ -28,9 +64,15 @@ const BuyActionWindow = ({ uid }) => {
         generalContext.closeBuyWindow();
     };
 
+    const qtyValue = Number(stockQuantity) || 0;
+    const priceValue = Number(stockPrice) || 0;
+
     return (
-        <div className="container" id="buy-window" draggable="true">
+        <div className="container" id="buy-window" draggable="true" style={{ borderTop: mode === "SELL" ? "10px solid #ff5722" : "10px solid #4184f3" }}>
             <div className="regular-order">
+                <div style={{ marginBottom: "15px", fontWeight: "bold", fontSize: "1.1rem", color: mode === "SELL" ? "#ff5722" : "#4184f3" }}>
+                    {mode === "SELL" ? "Sell" : "Buy"} {uid}
+                </div>
                 <div className="inputs">
                     <fieldset>
                         <legend>Qty.</legend>
@@ -57,10 +99,14 @@ const BuyActionWindow = ({ uid }) => {
             </div>
 
             <div className="buttons">
-                <span>Margin required ₹140.65</span>
+                <span>Margin required ${(qtyValue * priceValue).toFixed(2)}</span>
                 <div>
-                    <Link className="btn btn-blue" onClick={handleBuyClick}>
-                        Buy
+                    <Link 
+                        className="btn" 
+                        style={{ backgroundColor: mode === "SELL" ? "#ff5722" : "#4184f3", color: "#fff" }}
+                        onClick={handleActionClick}
+                    >
+                        {mode === "SELL" ? "Sell" : "Buy"}
                     </Link>
                     <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
                         Cancel

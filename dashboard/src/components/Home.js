@@ -25,13 +25,12 @@ const Home = () => {
       return;
     }
 
+    // Set axios global authorization header
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
     // Validate token and fetch user details
     axios
-      .get("http://localhost:3002/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get("http://localhost:3002/user")
       .then((res) => {
         localStorage.setItem("username", res.data.user.username);
         setAuthorized(true);
@@ -41,7 +40,7 @@ const Home = () => {
         // Invalid token -> Clear storage and redirect
         localStorage.removeItem("token");
         localStorage.removeItem("username");
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = "http://localhost:3000/login?error=unauthorized";
       });
   }, []);
 

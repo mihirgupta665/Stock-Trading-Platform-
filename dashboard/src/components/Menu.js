@@ -1,9 +1,25 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Menu = () => {
-    const [selectedMenu, setSelectedMenu] = useState(0);
+    const location = useLocation();
+    
+    const getMenuIndexFromPath = (pathname) => {
+        if (pathname === "/orders") return 1;
+        if (pathname === "/positions") return 2;
+        if (pathname === "/holdings") return 3;
+        if (pathname === "/funds") return 4;
+        if (pathname === "/apps") return 5;
+        return 0;
+    };
+
+    const [selectedMenu, setSelectedMenu] = useState(getMenuIndexFromPath(location.pathname));
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+    useEffect(() => {
+        setSelectedMenu(getMenuIndexFromPath(location.pathname));
+    }, [location.pathname]);
 
     const username = localStorage.getItem("username") || "User";
 
@@ -18,7 +34,8 @@ const Menu = () => {
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
-        window.location.href = "http://localhost:3000";
+        delete axios.defaults.headers.common["Authorization"];
+        window.location.href = "http://localhost:3000/login?action=logout";
     };
 
     const menuClass = "menu";
@@ -40,13 +57,13 @@ const Menu = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/holdings" style={{ textDecoration: "none" }} onClick={() => handleMenuClick(2)} >
-                            <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>Holdings</p>
+                        <Link to="/positions" style={{ textDecoration: "none" }} onClick={() => handleMenuClick(2)}>
+                            <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>Positions</p>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/positions" style={{ textDecoration: "none" }} onClick={() => handleMenuClick(3)}>
-                            <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>Positions</p>
+                        <Link to="/holdings" style={{ textDecoration: "none" }} onClick={() => handleMenuClick(3)} >
+                            <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>Holdings</p>
                         </Link>
                     </li>
                     <li>
