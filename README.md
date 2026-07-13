@@ -13,6 +13,9 @@ A full-stack stock trading simulator inspired by Zerodha Kite. The platform repl
 
 </p>
 
+> [!NOTE]
+> **Hosting & Cold Starts:** The backend is deployed on Render's Free tier. If the application has been inactive for a while, the first request may take a short time (20–60 seconds) as the server wakes up. After startup, the backend resumes normal operation, including automatic stock synchronization and background cron tasks.
+
 ---
 
 ## 📌 Project Highlights
