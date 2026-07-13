@@ -161,7 +161,40 @@ Trading must be restricted to US market hours, but calculated locally in Indian 
 * **Cron Jobs**: Run scheduled processes using Node-Cron, such as order matching and settlements.
 * **Models**: Define the Mongoose schemas and indexes (e.g. `UserModel.js`).
 
+## 📁 Project Structure
+
+```
+Stock-Trading-Platform/
+│
+├── Backend/                    # Express.js Server
+│   ├── config/                 # Database connection & Winston configuration
+│   ├── controllers/            # Request handlers
+│   ├── cron/                   # Node-Cron schedulers (price updates & settlements)
+│   ├── middleware/             # Rate limiter & JWT authorization handler
+│   ├── model/                  # MongoDB schemas (User, Orders, Transactions)
+│   ├── routes/                 # Express route definitions
+│   ├── services/               # Core business logic (Trading, Settlement)
+│   ├── validators/             # Joi input validation & market hours validation
+│   ├── index.js                # Core API entry point
+│   └── package.json
+│
+├── dashboard/                  # Kite Console Panel (React Web App)
+│   ├── public/
+│   ├── src/
+│   │   ├── components/         # Watchlist, Orders, Holdings, Funds Ledger, Loader
+│   │   ├── index.js            # Axios interceptor setup & app rendering
+│   │   └── index.css           # Styling Sheet
+│   └── package.json
+│
+└── frontend/                   # Marketing & Authentication Pages (React Web App)
+    ├── src/
+    │   ├── landing_page/       # Home, Signup, Login, Pricing, Products, Support
+    │   └── index.js            # Router setup & Axios interceptor
+    └── package.json
+```
+
 ---
+
 
 ## ⚙️ Environment Variables
 
