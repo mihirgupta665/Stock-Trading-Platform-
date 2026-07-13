@@ -19,7 +19,7 @@
     },
     {
       "path": "/api/cron/settle",
-      "schedule": "31 1 * * *"
+      "schedule": "1 20 * * *"
     },
     {
       "path": "/api/cron/cleanup",

@@ -13,25 +13,30 @@ let lastUpdateStatus = {
 };
 
 const checkMarketOpen = () => {
-    const tz = process.env.TIMEZONE || "Asia/Kolkata";
+    const tz = "Asia/Kolkata";
+    const now = new Date();
     
-    // Check if it is weekday
-    const dayStr = new Date().toLocaleDateString("en-US", { timeZone: tz, weekday: "short" });
-    const isWeekend = ["Sat", "Sun"].includes(dayStr);
-    if (isWeekend) return false;
-
-    // Check HH:MM
-    const timeStr = new Date().toLocaleTimeString("en-US", {
+    // Format the current hour and minute in Asia/Kolkata timezone
+    const formatter = new Intl.DateTimeFormat("en-US", {
         timeZone: tz,
-        hour: "2-digit",
-        minute: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
         hour12: false
     });
-
-    const openTime = process.env.MARKET_OPEN || "09:15";
-    const closeTime = process.env.MARKET_CLOSE || "15:30";
-
-    return timeStr >= openTime && timeStr <= closeTime;
+    
+    const parts = formatter.formatToParts(now);
+    const hour = parseInt(parts.find(p => p.type === "hour").value, 10);
+    const minute = parseInt(parts.find(p => p.type === "minute").value, 10);
+    
+    const currentMins = hour * 60 + minute;
+    
+    // Open: 7:00 PM IST (19:00 * 60 = 1140 minutes)
+    // Close: 1:30 AM IST (1 * 60 + 30 = 90 minutes) of next day
+    const openMins = 19 * 60; // 1140
+    const closeMins = 1 * 60 + 30; // 90
+    
+    // Market is open if current time is >= 7:00 PM (1140) OR current time is < 1:30 AM (90)
+    return currentMins >= openMins || currentMins < closeMins;
 };
 
 /**
