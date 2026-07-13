@@ -76,5 +76,7 @@ Before pushing to production, make sure:
    * **Root Directory**: Click **Edit** and select **`dashboard`**.
 4. Expand **Environment Variables** and add:
    * **Key**: `REACT_APP_API_URL`
-   * **Value**: *Your Deployed Backend Render URL* (e.g. `https://stock-trading-backend.onrender.com`)
+     * **Value**: *Your Deployed Backend Render URL* (e.g. `https://stock-trading-backend.onrender.com`)
+   * **Key**: `REACT_APP_FRONTEND_URL`
+     * **Value**: *Your Deployed Marketing Frontend Vercel URL* (e.g. `https://kite-marketing-frontend.vercel.app`)
 5. Click **Deploy**. Vercel will build your client console dashboard and deploy it.

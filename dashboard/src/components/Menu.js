@@ -35,7 +35,8 @@ const Menu = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         delete axios.defaults.headers.common["Authorization"];
-        window.location.href = "http://localhost:3000/login?action=logout";
+        const frontendUrl = process.env.REACT_APP_FRONTEND_URL || "http://localhost:3000";
+        window.location.href = `${frontendUrl}/login?action=logout`;
     };
 
     const menuClass = "menu";
