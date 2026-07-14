@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Dynamically rewrite localhost API endpoints to environment values on deployment
 axios.interceptors.request.use((config) => {
@@ -29,8 +30,6 @@ axios.interceptors.request.use((config) => {
 }, (error) => {
   return Promise.reject(error);
 });
-
-import ScrollToTop from "./components/ScrollToTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
