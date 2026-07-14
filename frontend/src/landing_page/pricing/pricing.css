@@ -1,0 +1,540 @@
+/*==================================================
+                    Sidebar Card
+==================================================*/
+
+.pricing-layout {
+    margin: 60px auto;
+}
+
+.open-account-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 30px;
+    transition: all 0.25s ease;
+}
+
+.open-account-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.open-account-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 20px;
+}
+
+.open-account-description {
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.open-account-btn {
+    font-weight: 500;
+    padding: 10px 0;
+    transition: all 0.25s ease;
+}
+
+.open-account-btn:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 991px) {
+    .open-account-card {
+        margin-bottom: 30px;
+    }
+}
+
+/*==================================================
+                    Brokerage Card
+==================================================*/
+
+.brokerage-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.brokerage-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.brokerage-content {
+    padding: 35px;
+    min-height: 450px;
+}
+
+/*==================================================
+                Pricing Layout
+==================================================*/
+
+.pricing-layout {
+    padding: 60px 0;
+}
+
+.pricing-container {
+    max-width: 1400px;
+}
+
+.pricing-layout .row {
+    align-items: flex-start;
+}
+
+/* Brokerage panel */
+
+.brokerage-card {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.brokerage-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.brokerage-content {
+    padding: 24px;
+    min-height: 500px;
+}
+
+/* Sidebar */
+
+.open-account-card {
+    position: sticky;
+    top: 100px;
+}
+
+/* Responsive */
+
+@media (max-width: 991px) {
+
+    .pricing-layout {
+        padding: 40px 0;
+    }
+
+    .pricing-container {
+        max-width: 100%;
+    }
+
+    .brokerage-content {
+        padding: 20px;
+        min-height: auto;
+    }
+
+    .open-account-card {
+        position: static;
+    }
+
+}
+
+/*==================================================
+                Brokerage Navigation
+==================================================*/
+
+.brokerage-navigation {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+
+    padding: 0 24px;
+
+    border-bottom: 1px solid #e9ecef;
+}
+
+.brokerage-nav-link {
+    position: relative;
+
+    padding: 20px 0;
+
+    text-decoration: none;
+
+    font-size: 2rem;
+    font-weight: 500;
+
+    color: #424242;
+
+    transition: all 0.25s ease;
+}
+
+.brokerage-nav-link:hover {
+    color: #387ed1;
+}
+
+.brokerage-nav-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -1px;
+
+    width: 100%;
+    height: 3px;
+
+    background: #387ed1;
+
+    transform: scaleX(0);
+
+    transition: transform 0.25s ease;
+}
+
+.brokerage-nav-link.active {
+    color: #387ed1;
+}
+
+.brokerage-nav-link.active::after {
+    transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+
+    .brokerage-navigation {
+
+        gap: 24px;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+
+        padding: 0 16px;
+    }
+
+    .brokerage-nav-link {
+
+        font-size: 1.3rem;
+
+        flex-shrink: 0;
+    }
+
+}
+
+/*==================================================
+                Brokerage Table
+==================================================*/
+
+.brokerage-table {
+    width: 100%;
+    margin-bottom: 0;
+    border: 1px solid #e9ecef;
+    border-collapse: collapse;
+}
+
+.brokerage-table thead th {
+
+    background: #ffffff;
+
+    text-align: center;
+
+    font-weight: 500;
+
+    color: #212529;
+
+    padding: 20px 18px;
+
+    border-bottom: 1px solid #e9ecef;
+}
+
+.brokerage-table tbody td {
+
+    padding: 20px 18px;
+
+    vertical-align: top;
+
+    color: #424242;
+
+    border-top: 1px solid #f1f3f5;
+}
+
+.brokerage-table tbody tr {
+
+    transition: background-color 0.25s ease;
+}
+
+.brokerage-table tbody tr:hover {
+
+    background: #fafbfc;
+}
+
+.charge-title {
+
+    width: 170px;
+
+    min-width: 170px;
+
+    font-weight: 500;
+
+    color: #555;
+}
+
+.brokerage-table ul {
+
+    margin: 0;
+
+    padding-left: 18px;
+}
+
+.brokerage-table li {
+
+    margin-bottom: 10px;
+}
+
+.brokerage-table li:last-child {
+
+    margin-bottom: 0;
+}
+
+/* Brokerage Calculator Link */
+
+.brokerage-calculator-link {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    font-size: 1.05rem;
+
+    text-decoration: none;
+
+    transition: color .25s ease;
+}
+
+.brokerage-calculator-link:hover {
+
+    color: #1f6fc9;
+}
+
+/*==================================================
+                Open Account Sidebar
+==================================================*/
+
+.open-account-card {
+
+    background: #ffffff;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    transition: all .25s ease;
+
+    position: sticky;
+
+    top: 100px;
+
+}
+
+.open-account-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .08);
+
+}
+
+.open-account-badge {
+
+    display: inline-block;
+
+    padding: 6px 14px;
+
+    border-radius: 100px;
+
+    background: #eef6ff;
+
+    color: #387ed1;
+
+    font-size: .85rem;
+
+    font-weight: 600;
+
+    margin-bottom: 22px;
+
+}
+
+.open-account-title {
+
+    font-size: 1.8rem;
+
+    font-weight: 600;
+
+    color: #212529;
+
+    margin-bottom: 18px;
+
+    line-height: 1.3;
+
+}
+
+.open-account-description {
+
+    color: #6c757d;
+
+    line-height: 1.8;
+
+    margin-bottom: 28px;
+
+}
+
+.open-account-features {
+
+    margin-bottom: 32px;
+
+}
+
+.feature-item {
+
+    padding: 10px 0;
+
+    color: #495057;
+
+    border-bottom: 1px solid #f3f3f3;
+
+}
+
+.feature-item:last-child {
+
+    border-bottom: none;
+
+}
+
+.open-account-btn {
+
+    padding: 12px 0;
+
+    font-size: 1rem;
+
+    font-weight: 500;
+
+    transition: all .25s ease;
+
+}
+
+.open-account-btn:hover {
+
+    transform: translateY(-1px);
+
+}
+
+/*==================================================
+                Brokerage Navigation
+==================================================*/
+
+.brokerage-navigation {
+
+    display: flex;
+    align-items: center;
+
+    gap: 52px;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid #e9ecef;
+
+    background: #fff;
+
+}
+
+.brokerage-nav-link {
+
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    height: 72px;
+
+    text-decoration: none;
+
+    font-size: 2rem;
+
+    font-weight: 500;
+
+    color: #424242;
+
+    transition:
+        color .25s ease,
+        transform .2s ease;
+
+}
+
+.brokerage-nav-link:hover {
+
+    color: #387ed1;
+
+    transform: translateY(-1px);
+
+}
+
+.brokerage-nav-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 3px;
+
+    background: #387ed1;
+
+    border-radius: 2px;
+
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    transition: transform .25s ease;
+
+}
+
+.brokerage-nav-link.active {
+
+    color: #387ed1;
+
+}
+
+.brokerage-nav-link.active::after {
+
+    transform: scaleX(1);
+
+}
+
+@media (max-width:991px) {
+
+    .brokerage-navigation {
+
+        gap: 28px;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+
+        padding: 0 20px;
+
+    }
+
+    .brokerage-nav-link {
+
+        flex-shrink: 0;
+
+        font-size: 1.35rem;
+
+        height: 64px;
+
+    }
+
+}

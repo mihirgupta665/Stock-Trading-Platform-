@@ -16,14 +16,17 @@ import Navbar from './landing_page/Navbar';
 import Footer from './landing_page/Footer';
 import NotFound from './landing_page/NotFound';
 import axios from "axios";
+import Equity from './landing_page/pricing/Brokerage/Equity';
+import Currency from './landing_page/pricing/Brokerage/Currency';
+import Commodity from './landing_page/pricing/Brokerage/Commodity';
 
 // Dynamically rewrite localhost API endpoints to environment values on deployment
 axios.interceptors.request.use((config) => {
-  const apiBase = process.env.REACT_APP_API_URL;
-  if (apiBase && config.url && config.url.startsWith("http://localhost:3002")) {
-    config.url = config.url.replace("http://localhost:3002", apiBase);
-  }
-  return config;
+    const apiBase = process.env.REACT_APP_API_URL;
+    if (apiBase && config.url && config.url.startsWith("http://localhost:3002")) {
+        config.url = config.url.replace("http://localhost:3002", apiBase);
+    }
+    return config;
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -31,14 +34,19 @@ root.render(
     <BrowserRouter>
         <Navbar />
         <Routes>
-            <Route path="/" element={<HomePage />} /> 
-            <Route path="/signup" element={<SignUp />} /> 
-            <Route path="/login" element={<Login />} /> 
-            <Route path="/about" element={<AboutPage />} /> 
-            <Route path="/pricing" element={<PricingPage />} /> 
-            <Route path="/products" element={<ProductsPage />} /> 
-            <Route path="/support" element={<SupportPage />} /> 
-            <Route path="*" element={<NotFound />} /> 
+            <Route path="/" element={<HomePage />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/pricing" element={<PricingPage />}>
+                <Route index element={<Equity />} />
+                <Route path="equity" element={<Equity />} />
+                <Route path="currency" element={<Currency />} />
+                <Route path="commodity" element={<Commodity />} />
+            </Route>
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/support" element={<SupportPage />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} />
         <Footer />
