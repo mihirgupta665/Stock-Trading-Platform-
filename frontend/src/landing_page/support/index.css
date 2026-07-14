@@ -1,0 +1,54 @@
+.accordion-arrow {
+    transition: transform 0.3s ease;
+}
+
+.accordion-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        max-height 0.35s ease,
+        opacity 0.3s ease;
+}
+
+.accordion-content.show {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.accordion-title {
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.accordion-link {
+    color: #387ed1;
+    transition: color 0.25s ease;
+}
+
+.accordion-link:hover {
+    color: #222;
+}
+
+.accordion-header {
+    transition: background-color 0.25s ease;
+}
+
+.accordion-header:hover {
+    background-color: #fafafa;
+}
+
+.accordion-header:hover .accordion-title {
+    transform: scale(1.03);
+}
+
+.accordion-card {
+    transition: background-color 0.3s ease;
+}
+
+.accordion-card.active {
+    background-color: #fafafa;
+}
