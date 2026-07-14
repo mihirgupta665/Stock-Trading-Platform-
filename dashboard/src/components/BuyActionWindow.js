@@ -101,16 +101,16 @@ const BuyActionWindow = ({ uid, mode = "BUY", price = 0.0 }) => {
             <div className="buttons">
                 <span>Margin required ${(qtyValue * priceValue).toFixed(2)}</span>
                 <div>
-                    <Link 
+                    <button 
                         className="btn" 
-                        style={{ backgroundColor: mode === "SELL" ? "#ff5722" : "#4184f3", color: "#fff" }}
+                        style={{ backgroundColor: mode === "SELL" ? "#ff5722" : "#4184f3", color: "#fff", border: "none" }}
                         onClick={handleActionClick}
                     >
                         {mode === "SELL" ? "Sell" : "Buy"}
-                    </Link>
-                    <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
+                    </button>
+                    <button className="btn btn-grey" onClick={handleCancelClick} style={{ border: "none" }}>
                         Cancel
-                    </Link>
+                    </button>
                 </div>
             </div>
         </div>

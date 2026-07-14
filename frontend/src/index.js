@@ -20,6 +20,8 @@ import Equity from './landing_page/pricing/Brokerage/Equity';
 import Currency from './landing_page/pricing/Brokerage/Currency';
 import Commodity from './landing_page/pricing/Brokerage/Commodity';
 
+import ScrollToTop from './ScrollToTop';
+
 // Dynamically rewrite localhost API endpoints to environment values on deployment
 axios.interceptors.request.use((config) => {
     const apiBase = process.env.REACT_APP_API_URL;
@@ -32,6 +34,7 @@ axios.interceptors.request.use((config) => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
+        <ScrollToTop />
         <Navbar />
         <Routes>
             <Route path="/" element={<HomePage />} />
