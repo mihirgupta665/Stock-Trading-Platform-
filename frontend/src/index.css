@@ -19,12 +19,12 @@ code {
 }
 
 .navbar-brand img {
-  width: 140px !important;
+  width: 125px !important;
 }
 
 .nav-link {
   margin-left: 30px;
-  font-size: 1.15rem !important;
+  font-size: 1rem !important;
   font-weight: 500;
   color: #5f6368 !important;
   transition: color 0.25s ease;

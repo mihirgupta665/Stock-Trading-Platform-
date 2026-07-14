@@ -4,10 +4,10 @@ function Hero() {
     return (
         <div className="container">
             <div className="row mt-5 p-5 text-center">
-                <h1 className="fs-2">We pioneered the discount broking model in India.
+                <h1 className="fs-3 fw-normal text-muted lh-base">We pioneered the discount broking model in India.
                     <br />Now, we are breaking ground with our technology.</h1>
             </div>
-            <div style={{fontSize:"19px"}} className="row mx-5 mt-5 mb-3 border-top text-muted lh-lg">
+            <div style={{fontSize:"16px"}} className="row mx-5 mt-5 mb-3 border-top text-muted lh-lg">
                 <div className="col-6 p-5">
                     <p>We kick-started operations on the 15th of August, 2010 with the goal of breaking all barriers that traders and investors face in India in terms of cost, support, and technology. We named the company Zerodha, a combination of Zero and "Rodha", the Sanskrit word for barrier.</p>
 
