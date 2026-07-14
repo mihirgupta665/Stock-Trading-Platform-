@@ -8,7 +8,7 @@ function Footer() {
                 <div className="row mt-5 ms-5">
                     <div className="col">
                         <img src="media/images/logo.svg" alt="Logo" style={{ width: "50%" }} />
-                        <p className="mt-4">&copy; 2010 - 2026, Zerodha Broking Ltd. <br /> All rights reserved.</p>
+                        <p className="mt-4">&copy; 2010 - 2026, Mihir Gupta. <br /> All rights reserved.</p>
                     </div>
 
                     <div className="col">

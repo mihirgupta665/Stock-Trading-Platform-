@@ -10712,3 +10712,45 @@
 {"level":"info","message":"Market is currently closed. Skipping price sync cron execution.","timestamp":"2026-07-15 02:36:00"}
 {"level":"info","message":"Market is currently closed. Skipping price sync cron execution.","timestamp":"2026-07-15 02:38:00"}
 {"level":"info","message":"Market is currently closed. Skipping price sync cron execution.","timestamp":"2026-07-15 02:40:00"}
+{"level":"info","message":"Market is currently closed. Skipping price sync cron execution.","timestamp":"2026-07-15 02:42:00"}
+{"level":"info","message":"Performing initial market price synchronization...","timestamp":"2026-07-15 02:44:35"}
+{"level":"info","message":"Initializing market price synchronization...","timestamp":"2026-07-15 02:44:35"}
+{"level":"info","message":"Found 30 dynamic stocks to update. Starting quotes fetch...","timestamp":"2026-07-15 02:44:35"}
+{"level":"info","message":"Fetching quote for AAPL from Finnhub","timestamp":"2026-07-15 02:44:35"}
+{"level":"info","message":"Fetching quote for MSFT from Finnhub","timestamp":"2026-07-15 02:44:36"}
+{"level":"info","message":"Fetching quote for AMZN from Finnhub","timestamp":"2026-07-15 02:44:36"}
+{"level":"info","message":"Fetching quote for NVDA from Finnhub","timestamp":"2026-07-15 02:44:37"}
+{"level":"info","message":"Fetching quote for GOOGL from Finnhub","timestamp":"2026-07-15 02:44:37"}
+{"level":"info","message":"Fetching quote for META from Finnhub","timestamp":"2026-07-15 02:44:37"}
+{"level":"info","message":"Fetching quote for TSLA from Finnhub","timestamp":"2026-07-15 02:44:38"}
+{"level":"info","message":"Fetching quote for AVGO from Finnhub","timestamp":"2026-07-15 02:44:38"}
+{"level":"info","message":"Fetching quote for JPM from Finnhub","timestamp":"2026-07-15 02:44:38"}
+{"level":"info","message":"Fetching quote for V from Finnhub","timestamp":"2026-07-15 02:44:39"}
+{"level":"info","message":"Fetching quote for UNH from Finnhub","timestamp":"2026-07-15 02:44:39"}
+{"level":"info","message":"Fetching quote for WMT from Finnhub","timestamp":"2026-07-15 02:44:39"}
+{"level":"info","message":"Fetching quote for XOM from Finnhub","timestamp":"2026-07-15 02:44:39"}
+{"level":"info","message":"Fetching quote for MA from Finnhub","timestamp":"2026-07-15 02:44:40"}
+{"level":"info","message":"Fetching quote for ORCL from Finnhub","timestamp":"2026-07-15 02:44:40"}
+{"level":"info","message":"Fetching quote for PG from Finnhub","timestamp":"2026-07-15 02:44:40"}
+{"level":"info","message":"Fetching quote for HD from Finnhub","timestamp":"2026-07-15 02:44:41"}
+{"level":"info","message":"Fetching quote for NFLX from Finnhub","timestamp":"2026-07-15 02:44:41"}
+{"level":"info","message":"Fetching quote for ADBE from Finnhub","timestamp":"2026-07-15 02:44:41"}
+{"level":"info","message":"Fetching quote for COST from Finnhub","timestamp":"2026-07-15 02:44:42"}
+{"level":"info","message":"Fetching quote for AMD from Finnhub","timestamp":"2026-07-15 02:44:42"}
+{"level":"info","message":"Fetching quote for CVX from Finnhub","timestamp":"2026-07-15 02:44:42"}
+{"level":"info","message":"Fetching quote for MRK from Finnhub","timestamp":"2026-07-15 02:44:43"}
+{"level":"info","message":"Fetching quote for KO from Finnhub","timestamp":"2026-07-15 02:44:43"}
+{"level":"info","message":"Fetching quote for PEP from Finnhub","timestamp":"2026-07-15 02:44:43"}
+{"level":"info","message":"Fetching quote for DIS from Finnhub","timestamp":"2026-07-15 02:44:43"}
+{"level":"info","message":"Fetching quote for CSCO from Finnhub","timestamp":"2026-07-15 02:44:44"}
+{"level":"info","message":"Fetching quote for INTC from Finnhub","timestamp":"2026-07-15 02:44:44"}
+{"level":"info","message":"Fetching quote for NKE from Finnhub","timestamp":"2026-07-15 02:44:44"}
+{"level":"info","message":"Fetching quote for CRM from Finnhub","timestamp":"2026-07-15 02:44:45"}
+{"level":"info","message":"Submitting bulkWrite update for 30 stock prices...","timestamp":"2026-07-15 02:44:45"}
+{"level":"info","message":"StockPrice collection bulkWrite update completed successfully.","timestamp":"2026-07-15 02:44:45"}
+{"level":"info","message":"Initial market price synchronization completed successfully.","timestamp":"2026-07-15 02:44:46"}
+{"level":"info","message":"Scheduling stock price update cron with interval: */2 * * * *","timestamp":"2026-07-15 02:44:46"}
+{"level":"info","message":"Scheduling daily position settlement cron for 01:31 (Asia/Kolkata) with pattern: 31 01 * * *","timestamp":"2026-07-15 02:44:46"}
+{"level":"info","message":"Scheduling daily database logs cleanup cron for 12:00 AM midnight (Asia/Kolkata)","timestamp":"2026-07-15 02:44:46"}
+{"level":"info","message":"Trading Simulator Server started on port 3002","timestamp":"2026-07-15 02:44:46"}
+{"level":"info","message":"Market is currently closed. Skipping price sync cron execution.","timestamp":"2026-07-15 02:46:00"}

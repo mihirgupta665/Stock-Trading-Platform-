@@ -14,7 +14,7 @@ const supportData = [
 
     {
         id: 2,
-        title: "Your Account",
+        title: "Your Zerodha Account",
         icon: "person-circle",
         links: [
             { title: "Your Profile", url: "#" },

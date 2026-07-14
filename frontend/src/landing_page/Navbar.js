@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 function Navbar() {
@@ -43,7 +43,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg border-bottom" style={{ backgroundColor: "#fff" }}>
+    <nav className="navbar navbar-expand-lg border-bottom sticky-top" style={{ backgroundColor: "#fff" }}>
       <div className="container p-2">
         <Link className="navbar-brand" to="/">
           <img src="media/images/logo.svg" alt="Logo" style={{ width: "130px" }} />
@@ -62,19 +62,19 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
             <li className="nav-item">
-              <Link className="nav-link active fs-6" to="/">Home</Link>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active fs-6" to="/about">About</Link>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/about">About</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active fs-6" to="/products">Products</Link>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/products">Products</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active fs-6" to="/pricing">Pricing</Link>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/pricing">Pricing</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active fs-6" to="/support">Support</Link>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/support">Support</NavLink>
             </li>
             
             {isLoggedIn ? (
@@ -101,7 +101,7 @@ function Navbar() {
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link fs-6 text-dark" to="/login">Login</Link>
+                  <NavLink className={({ isActive }) => `nav-link text-dark ${isActive ? "active-nav-link" : ""}`} to="/login">Login</NavLink>
                 </li>
                 <li className="nav-item ms-3">
                   <Link 

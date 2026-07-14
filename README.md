@@ -66,6 +66,21 @@ This project was built to understand the backend architecture, data consistency 
 * **Dynamic Watchlist**: Offers internal scrolling, active search queries, and real-time positive/negative indicator badges.
 * **Unified Loading Skeletons**: Replaces basic loading text indicators with rotating loader spinner components.
 * **Zerodha Ecosystem Directory**: A structured grid featuring lift-up cards linking to Console, Coin, and Sentinel.
+* **Nested Routing & Segmented Pricing Layout**: Implements React Router v6 nested routing (`/pricing/equity`, `/pricing/currency`, `/pricing/commodity`) under a parent route layout. Renders child components dynamically via `<Outlet />` without re-rendering the common Hero section or the Open Account sidebar.
+
+
+---
+
+## 🔀 Navigation & Routing Architecture
+
+To support client-side routing practice, the application employs **React Router v6 Nested Routing**:
+* **Parent Route Layout**: `/pricing` maps to the main pricing page layouts.
+* **Child Brokerage Routes**:
+  - `/pricing/` (Index) & `/pricing/equity` — Renders `Equity` charge tables.
+  - `/pricing/currency` — Renders `Currency` charge tables.
+  - `/pricing/commodity` — Renders `Commodity` charge tables.
+* **Layout Preservation**: Common elements (such as the main Hero banner and the Open Account sidebar card) are rendered once in the parent layout, using routing to slide the tabular data dynamically into an `<Outlet />`.
+* **Sticky Navigation Header**: The main navbar uses dynamic `NavLink` tags with active-state styling overlays, stuck to the top of the browser viewport.
 
 ---
 
