@@ -16,6 +16,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "prestart": "node -e \"const fs=require('fs'); if(fs.existsSync('public/faviconimage.png')) fs.copyFileSync('public/faviconimage.png', 'public/favicon.png')\"",
+    "prebuild": "node -e \"const fs=require('fs'); if(fs.existsSync('public/faviconimage.png')) fs.copyFileSync('public/faviconimage.png', 'public/favicon.png')\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

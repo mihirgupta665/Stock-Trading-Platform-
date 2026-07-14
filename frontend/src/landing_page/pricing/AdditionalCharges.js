@@ -80,7 +80,7 @@ function AdditionalCharges() {
         
         <div className="amc-footer mt-4 text-muted" style={{ fontSize: '0.9rem', lineHeight: '1.7' }}>
           <p className="mb-2">For a non-BSDA account, AMC is ₹300 per year + 18% GST, regardless of holdings value, charged quarterly.</p>
-          <p className="mb-2">To learn more about BSDA, <a href="#" className="amc-link">click here</a>. To learn more about AMC, <a href="#" className="amc-link">click here</a>.</p>
+          <p className="mb-2">To learn more about BSDA, <a href="#bsda" className="amc-link">click here</a>. To learn more about AMC, <a href="#amc" className="amc-link">click here</a>.</p>
           <p className="small mb-0">*Resident individual accounts only.</p>
         </div>
       </div>

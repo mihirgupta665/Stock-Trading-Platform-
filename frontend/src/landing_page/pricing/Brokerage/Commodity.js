@@ -99,7 +99,7 @@ function Commodity() {
       <div className="text-center mt-4">
 
         <a
-          href="#"
+          href="#calculator"
           className="brokerage-calculator-link"
         >
           Calculate your costs upfront using our brokerage calculator

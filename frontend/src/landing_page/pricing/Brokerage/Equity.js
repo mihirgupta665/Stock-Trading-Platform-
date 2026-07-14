@@ -149,7 +149,7 @@ function Equity() {
 
             <div className="text-center mt-4">
 
-                <a href="#" className="brokerage-calculator-link">
+                <a href="#calculator" className="brokerage-calculator-link">
 
                     Calculate your costs upfront using our brokerage calculator
 
