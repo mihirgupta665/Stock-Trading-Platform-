@@ -96,7 +96,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const handlePageShow = (event) => {
+    const handlePageShow = () => {
       const token = localStorage.getItem("token");
       if (!token) {
         const frontendUrl = process.env.REACT_APP_FRONTEND_URL || (window.location.hostname === "localhost" ? "http://localhost:3000" : "");
