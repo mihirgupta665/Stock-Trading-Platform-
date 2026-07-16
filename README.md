@@ -1,342 +1,437 @@
-# Stock Trading Platform Simulator
+<p align="center">
+  <img src="./assets/banner.png" alt="Kite Console Hero Banner" width="100%">
+</p>
 
-A full-stack stock trading simulator inspired by Zerodha Kite. The platform replicates core brokerage functionalities, featuring automated limit order matching engines, portfolio asset migration settlement, live price feed simulations, and transaction audit trails.
+<h1 align="center">📊 KITE CONSOLE</h1>
+
+<p align="center">
+  <strong>Premium Full-Stack Stock Trading Simulator & Portfolio Manager</strong>
+</p>
+
+<p align="center">
+Execute trades • Match limit orders • Track EOD settlements • Analyze portfolio allocations
+</p>
 
 <p align="center">
 
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
-![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb)
-![Razorpay](https://img.shields.io/badge/Razorpay-Checkout-002D62?logo=razorpay)
-![Chart.js](https://img.shields.io/badge/Chart.js-Data--Viz-FF6384?logo=chartdotjs)
-![CSS3](https://img.shields.io/badge/CSS3-Vanilla--CSS-1572B6?logo=css3)
+<a href="https://stock-trading-platform-dashboard-six.vercel.app">
+<img src="https://img.shields.io/badge/🚀%20Live%20Demo-387ed1?style=for-the-badge">
+</a>
+
+&nbsp;
+
+<a href="https://github.com/mihirgupta665/Stock-Trading-Platform-">
+<img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github">
+</a>
+
+&nbsp;
+
+<a href="https://github.com/mihirgupta665/Stock-Trading-Platform-/releases/download/v1.0.0/Kite_Console_Demo.mp4">
+<img src="https://img.shields.io/badge/🎥%20Project%20Demo-Watch%20Now-red?style=for-the-badge">
+</a>
 
 </p>
 
-> [!NOTE]
-> On the free Render tier, the backend sleeps after inactivity. When a user opens the application, the backend wakes up, performs an initial market synchronization, registers the cron jobs, and continues updating stock prices every two minutes while the service remains active.
+<p align="center">
+
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?logo=express)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![Razorpay](https://img.shields.io/badge/Razorpay-Checkout-002D62?logo=razorpay&logoColor=white)
+![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?logo=chartdotjs&logoColor=white)
+
+</p>
 
 ---
 
-## 📌 Project Highlights
+# 🌍 Live Demo
 
-* **Simulated Real-Time Prices**: Watchlist items simulate realistic price ticks, rendering visual growth/decline cues.
-* **Automated Matching Engine**: Background workers evaluate and fill pending buy/sell transactions against current market prices.
-* **Limit Order Validation**: Permits setting target buy/sell price boundaries, queuing unfilled orders in a pending log.
-* **Asset & Capital Allocation Lock**: Locks available cash/shares immediately upon placing a pending order to eliminate double-spending risks.
-* **Razorpay Sandbox Checkout**: Integrates Razorpay Test Mode to credit simulated trading capital.
-* **Daily EOD Settlement Engine**: Migrates daily active Positions into permanent Holdings at `1:31 AM IST` daily.
-* **Comprehensive Transaction Ledger**: Automatically writes immutable audit logs of all deposits, withdrawals, buys, and sells.
-* **Market Hours Validation**: Restricts order submissions to mock US Market hours (translated to **7:00 PM IST to 1:30 AM IST**), including weekend trading intervals.
-* **Dynamic Portfolio Analytics**: Displays asset allocation breakdowns via interactive Chart.js doughnut panels.
+Experience the complete Kite Console trading platform, including real-time order matching, margin calculations, daily settlements, bank transaction logs, interactive graphs, and cross-origin security structures.
 
----
+### 🚀 Live Applications
 
-## 🎯 Why I Built This Project
+- **Marketing Frontend Portal**: [stock-trading-platform-frontend-six.vercel.app](https://stock-trading-platform-frontend-six.vercel.app)
+- **Console Dashboard Application**: [stock-trading-platform-dashboard-six.vercel.app](https://stock-trading-platform-dashboard-six.vercel.app)
 
-This project was built to understand the backend architecture, data consistency rules, and scheduler patterns required to operate modern stock trading and brokerage platforms. Replicating the core workflows of Zerodha Kite provided hands-on experience solving engineering problems including:
-* Managing volatile, stateful transactional balance ledgers.
-* Designing order queues that execute asynchronously when market rates hit target criteria.
-* Coordinating nightly EOD asset migrations and settlement balances (migrating short-term Positions into long-term Holdings).
-* Simulating external web checkouts using Razorpay to manage deposits.
-* Locking assets securely in pending states to ensure system integrity.
+### 🔑 Demo Account Credentials
+
+| Email Address | Password |
+|:---------:|:--------:|
+| **demo@zerodha.com** | **password123** |
+
+> **Note:** Use these credentials to sign in and instantly interact with a funded mock portfolio containing pre-seeded transactions and holdings.
 
 ---
 
-## ✨ Features
+# 📖 About Kite Console
 
-### 1. Core Trading & Matching Engine
-* **Order Processing**: Users can submit MARKET or LIMIT orders. Market orders execute immediately at the current price, while Limit orders enter a `"PENDING"` status.
-* **Asynchronous Matcher**: Evaluates pending orders against current prices in real-time, executing trades once the target criteria are met.
-* **Asset Lock Engine**: Cash (for buy orders) or shares (for sell orders) are immediately locked upon placing a pending order.
-* **24-Hour Expiration**: Cancels unfilled limit orders after 24 hours and automatically refunds locked assets.
-* **EOD Settlement**: A daily cron job executes at `1:31 AM IST` to settle the day's positions, updating holdings and clearing active positions.
+Kite Console is a production-inspired, full-stack trading simulator that replicates the core brokerage functionalities of modern exchange wrappers. The platform focuses on high-fidelity transactional consistency, secure session lifecycles, and automated EOD accounting pipelines.
 
-### 2. Wallet & Capital Management
-* **Simulated Deposit Gateway**: Uses Razorpay Checkout (Test Mode) to deposit simulated funds, dynamically fetching credentials from the backend.
-* **Mock Payment Fallback**: Automatically bypasses Razorpay validation if running with placeholder credentials, enabling seamless local testing.
-* **Simulated Withdrawals**: Validates available cash, updates balances, and logs withdrawal records.
-* **Structured Capital Ledger**: Tracks financial states including Opening Balance, Available Cash, Used Margin, Blocked Margin, and Realized/Unrealized P&L.
-
-### 3. Portfolio Analytics
-* **Asset Allocation Visualization**: Renders holdings percentages dynamically using Chart.js doughnut charts.
-* **Performance Metrics**: Calculates overall portfolio values, cumulative investment costs, current market valuations, and percentage returns.
-
-### 4. User Experience & UI Enhancements
-* **Dynamic Watchlist**: Offers internal scrolling, active search queries, and real-time positive/negative indicator badges.
-* **Unified Loading Skeletons**: Replaces basic loading text indicators with rotating loader spinner components.
-* **Zerodha Ecosystem Directory**: A structured grid featuring lift-up cards linking to Console, Coin, and Sentinel.
-* **Nested Routing & Segmented Pricing Layout**: Implements React Router v6 nested routing (`/pricing/equity`, `/pricing/currency`, `/pricing/commodity`) under a parent route layout. Renders child components dynamically via `<Outlet />` without re-rendering the common Hero section or the Open Account sidebar.
-
+The backend acts as a mock clearinghouse, utilizing **Mongoose transactions** to lock assets, matching pending limit orders through background cron schedulers, and migrating daily positions into settled long-term holdings. The frontend contains two distinct React applications (a marketing portal and an admin console dashboard) utilizing localized cross-origin sync methods to manage authorization states.
 
 ---
 
-## 🔀 Navigation & Routing Architecture
+# ⭐ Project Highlights
 
-To support client-side routing practice, the application employs **React Router v6 Nested Routing**:
-* **Parent Route Layout**: `/pricing` maps to the main pricing page layouts.
-* **Child Brokerage Routes**:
-  - `/pricing/` (Index) & `/pricing/equity` — Renders `Equity` charge tables.
-  - `/pricing/currency` — Renders `Currency` charge tables.
-  - `/pricing/commodity` — Renders `Commodity` charge tables.
-* **Layout Preservation**: Common elements (such as the main Hero banner and the Open Account sidebar card) are rendered once in the parent layout, using routing to slide the tabular data dynamically into an `<Outlet />`.
-* **Sticky Navigation Header**: The main navbar uses dynamic `NavLink` tags with active-state styling overlays, stuck to the top of the browser viewport.
-
----
-
-## 🔒 Security Architecture
-
-* **JWT Session Authentication**: Secures sensitive endpoints (orders, holdings, wallet ledger) with JSON Web Tokens passed in the HTTP Authorization header.
-* **Bi-directional SSO Logout Synchronization**: Prevents token leakage and synchronizes session termination between the marketing frontend and the console dashboard origins.
-* **Back-Button (bfcache) Session Protection**: Uses HTML5 `pageshow` hooks to immediately detect token deletions and block cached DOM screen restoration, redirecting unauthorized users instantly.
-* **Axios-Level Request Authorization Interception**: Automatically blocks and aborts outgoing backend requests if local credentials are deleted, redirecting to the login portal with original route memory.
-* **Password Hashing**: Protects user credentials in the database using bcrypt hashing.
-* **Express-Rate-Limit**: Implements request rate limiters to protect the authentication and trading APIs from DDoS and brute-force attacks.
-* **Helmet.js Security Headers**: Sets HTTP headers to safeguard against common web vulnerabilities (XSS, clickjacking, MIME sniffing).
-* **CORS Middleware**: Restricts API calls to approved origins.
-* **Joi Input Validation**: Validates all trade payloads (symbol, quantity, price, transaction type) at the middleware layer before processing.
+- 🔐 **Cross-Origin Session Sync**: Bi-directional token synchronization and bfcache back-button navigation protection.
+- 💰 **Double-Spending Prevention**: Real-time asset locks for active orders (blocking margin or shares immediately).
+- 📈 **Hybrid EOD Settlement**: An automated nightly settlement engine running in Mongoose transactions with an "Active-on-Wake" dynamic fallback logic for cold-starting environments.
+- ⚡ **Asynchronous Order Matcher**: Background schedulers evaluating pending limit orders against mock market ticks.
+- 💳 **Razorpay Sandbox Integration**: Checkout workflows enabling mock deposits to load simulated capital.
+- 📊 **Dynamic Portfolio Analytics**: Asset allocation breakdowns visualized via interactive Chart.js doughnut panels.
+- 🛡️ **Rate-Limiting & Security Headers**: Helmet.js configurations and endpoint request throttling.
 
 ---
 
-## 🌐 API Overview
+# 📑 Table of Contents
 
-The backend API routes are organized into functional groups:
-
-### Authentication
-* `POST /signup` — Register a new account (hashes passwords and sets initial capital).
-* `POST /login` — Authenticate credentials and return a session JWT.
-
-### Portfolio & Holdings
-* `GET /allHoldings` — Retrieve the user's settled holdings.
-* `GET /allPositions` — Fetch the user's active, short-term positions.
-
-### Orders
-* `GET /allOrders` — Retrieve the user's order history (SUCCESS, PENDING, CANCELLED).
-* `POST /newOrder` — Validate inputs, verify market hours, lock assets, and queue or execute the order.
-
-### Wallet Ledger
-* `POST /portfolio/funds` — Process withdrawal requests and record ledger entries.
-* `POST /portfolio/funds/order` — Create a Razorpay Order ID (INR/USD converted).
-* `POST /portfolio/funds/verify` — Verify the Razorpay payment signature and credit the wallet.
-
-### Transactions
-* `GET /portfolio/transactions` — Retrieve the immutable audit trail of all financial actions.
-
-### Market Data
-* `GET /allPrices` — Retrieve current prices for all supported symbols.
-* `GET /search` — Query symbols in the database.
+- 📖 About
+- ⭐ Project Highlights
+- 📸 Project Showcase
+- 🎥 Demo GIF
+- 🎬 Demo Video
+- ✨ Features
+- 🛠️ Technology Stack
+- 🏗️ System Architecture
+- 📁 Project Structure
+- 🔌 REST API Directory
+- ⚙️ Installation & Setup
+- 🔐 Environment Variables
+- 🚀 Deployment Overview
+- 📈 Engineering Highlights (Deep Dives)
+- 🔮 Future Improvements
+- 🤝 Contributing
+- 📄 License
+- 👨💻 Author
 
 ---
 
-## 🗄 Database Design
+# 📸 Project Showcase
 
-The system runs on **MongoDB** using a NoSQL schema layout designed with **Mongoose**.
+> Visual layout of the key workflows and trading dashboard views.
 
+---
+
+# 📊 Core Experience
+
+## Dashboard Summary (Summary Panel)
+
+<p align="center">
+<img src="./assets/screenshots/01-dashboard.png" width="95%">
+</p>
+
+---
+
+## Interactive Watchlist & Prices
+
+<p align="center">
+<img src="./assets/screenshots/02-watchlist.png" width="95%">
+</p>
+
+---
+
+## Active Positions & Daily Trades
+
+<p align="center">
+<img src="./assets/screenshots/03-positions.png" width="95%">
+</p>
+
+---
+
+## Permanent Holdings Ledger
+
+<p align="center">
+<img src="./assets/screenshots/04-holdings.png" width="95%">
+</p>
+
+---
+
+# 💵 Capital & Transactions
+
+## Wallet Capital Management
+
+<p align="center">
+<img src="./assets/screenshots/05-funds.png" width="95%">
+</p>
+
+---
+
+## Razorpay Checkout Gateway
+
+<p align="center">
+<img src="./assets/screenshots/06-deposit.png" width="95%">
+</p>
+
+---
+
+# 🔐 Security Gateway
+
+## Console Gateway (SSO Authentication)
+
+<p align="center">
+<img src="./assets/screenshots/07-gateway.png" width="95%">
+</p>
+
+---
+
+# 📱 Responsive Layout
+
+## Mobile Console Dashboard
+
+<p align="center">
+<img src="./assets/screenshots/08-mobile-dashboard.png" width="40%">
+</p>
+
+---
+
+# 🎥 Project Demonstration
+
+A walk-through of the trading interface—from placing limit orders to inspecting EOD holding migrations.
+
+<p align="center">
+  <img src="./assets/demo.gif" alt="Kite Console Project Demo" width="95%">
+</p>
+
+---
+
+# 🎬 Project Walkthrough Video
+
+Watch the walkthrough, covering system architecture, session security syncs, transaction rollbacks, geocoding validation, and portfolio analytics.
+
+<p align="center">
+<a href="https://github.com/mihirgupta665/Stock-Trading-Platform-/releases/download/v1.0.0/Kite_Console_Demo.mp4">
+  <img src="https://img.shields.io/badge/🎥%20Watch%20Full%20Project%20Demo-181717?style=for-the-badge&logo=github&logoColor=white" alt="Watch Kite Console Walkthrough">
+</a>
+</p>
+
+---
+
+# ✨ Features
+
+## 👤 User Features
+- Browse global assets on the watchlist with real-time positive/negative indicator badges.
+- Place MARKET or LIMIT buy and sell orders.
+- View nested routing brokerage charges under `/pricing` without full-page re-renders.
+- Audit ledger statements containing opening balances, margins, blocked cash, and realized P&L.
+- Log bank transaction statements for deposits and withdrawals.
+- View asset allocations dynamically graphed on doughnut charts.
+
+## 🔐 Security Features
+- JWT Session authentication injected in outgoing Axios headers.
+- Bi-directional login/logout cross-origin SSO state sync.
+- Browser back-button (bfcache) protection via HTML5 event hooks.
+- Joi schema input filters validating payload bounds.
+- Request rate limiters and Helmet security header configurations.
+
+---
+
+# 🛠️ Technology Stack
+
+| Category | Technologies |
+|----------|--------------|
+| **Frontend Apps** | React 18, React Router v6, Axios, Chart.js, Vanilla CSS3 |
+| **Backend API** | Node.js, Express.js |
+| **Database** | MongoDB Atlas, Mongoose |
+| **Asynchronous Scheduling** | Node-Cron |
+| **Payment Sandbox** | Razorpay Test checkout API |
+| **Security & Logging** | JWT, Bcrypt, Helmet, Express-Rate-Limit, Winston Logger |
+
+---
+
+# 🏗️ System Architecture
+
+Kite Console follows a secure, micro-routed architecture:
+
+```text
+                  Client Browser (Port 3000 / 3001)
+                                │
+                      Express.js API (Port 3002)
+        ┌───────────────────────┼───────────────────────┐
+        │                       │                       │
+  MongoDB Atlas          Razorpay Checkout        Finnhub Prices
 ```
-  ┌──────────────┐          ┌──────────────┐          ┌───────────────────┐
-  │     User     │◄─────────┤    Orders    │◄─────────┤   Transactions    │
-  └──────┬───────┘          └──────────────┘          └───────────────────┘
-         │
-         ├──────────────────┬──────────────────┐
-         ▼                  ▼                  ▼
-  ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-  │   Holdings   │   │  Positions   │   │  Watchlists  │
-  └──────────────┘   └──────────────┘   └──────────────┘
-```
 
-### Primary Collections & Schema Relationships:
-1. **User (`users`)**: Stores username, email, hashed password, `availableBalance` (current cash), and `totalDeposited` (cumulative deposits).
-2. **Orders (`orders`)**: Tracks transactional logs. References `User`. Fields: `name` (symbol), `qty`, `price`, `mode` (BUY/SELL), and `status` (SUCCESS/PENDING/CANCELLED).
-3. **Holdings (`holdings`)**: Represents settled long-term investments. References `User`. Fields: `name` (symbol), `qty`, `avg` (average purchase price), and `price` (latest price).
-4. **Positions (`positions`)**: Tracks active daily trades. References `User`. Fields: `product` (CNC/MIS), `name` (symbol), `qty`, `avg`, `price`.
-5. **Transactions (`transactions`)**: An immutable log recording every wallet change (`DEPOSIT`, `WITHDRAWAL`, `BUY`, `SELL`). References `User`.
-6. **Watchlist (`watchlists`)**: Stores user-configured watchlist symbols. References `User`.
-7. **StockPrice (`stockprices`)**: Holds the latest synchronized market price for each symbol.
-8. **StockMaster (`stockmasters`)**: Contains reference metadata for each stock.
-9. **SettlementLog (`settlementlogs`)**: Logs daily position-to-holding migrations.
+### Architecture Highlights
+- Isolated marketing origin (port 3000) and dashboard origin (port 3001).
+- Unified Express.js API (port 3002).
+- Node-Cron schedulers running price synchronization and settlement scripts.
 
 ---
 
-## 🛠 Technical Challenges Solved
+# 📁 Project Structure
 
-### 1. Preventing Asset Over-Commitment (Double Spending)
-When placing a limit order, cash (for buy orders) or stock shares (for sell orders) are immediately locked. 
-* **The Solution**: A Joi-validated middleware immediately checks if the user has enough available cash or shares. If valid, the assets are deducted from `availableBalance` or `positions` and flagged in the pending order. If the order is cancelled, these assets are automatically returned.
-
-### 2. EOD Position Migration & Settlement Consistency
-Moving positions to holdings requires shifting active trades into settled capital.
-* **The Solution**: The daily settlement service executes at `1:31 AM IST`. It queries all open positions, updates existing holding records (averaging the buy cost), inserts new holdings if they do not exist, and clears the positions collection in a single execution phase.
-
-### 3. Market-Hours Lock and Countdown
-Trading must be restricted to US market hours, but calculated locally in Indian Standard Time (IST).
-* **The Solution**: Implemented timezone-locked validation checking in the Express route middleware. The backend converts local time to the `Asia/Kolkata` zone and translates current hours/minutes into minutes-from-midnight, verifying if the request falls within the `19:00` (7:00 PM) to `01:30` (1:30 AM) trading window. If closed, it computes the time remaining until `19:00` and throws a custom error.
-
----
-
-## 📐 Project Architecture
-
-* **Controllers**: Receive HTTP requests, delegate logic to services, and send JSON responses (e.g. `portfolio.controller.js`).
-* **Services**: Handle the core business logic, database queries, and transactions (e.g. `trading.service.js`).
-* **Middleware**: Intercept requests to perform actions like JWT token verification, rate limiting, and global error handling.
-* **Validators**: Validate request payloads against Joi schemas before hitting controller routes (e.g. `trade.validator.js`).
-* **Cron Jobs**: Run scheduled processes using Node-Cron, such as order matching and settlements.
-* **Models**: Define the Mongoose schemas and indexes (e.g. `UserModel.js`).
-
-## 📁 Project Structure
-
-```
+```text
 Stock-Trading-Platform/
 │
 ├── Backend/                    # Express.js Server
-│   ├── config/                 # Database connection & Winston configuration
-│   ├── controllers/            # Request handlers
-│   ├── cron/                   # Node-Cron schedulers (price updates & settlements)
-│   ├── middleware/             # Rate limiter & JWT authorization handler
-│   ├── model/                  # MongoDB schemas (User, Orders, Transactions)
-│   ├── routes/                 # Express route definitions
-│   ├── services/               # Core business logic (Trading, Settlement)
-│   ├── validators/             # Joi input validation & market hours validation
-│   ├── index.js                # Core API entry point
-│   └── package.json
+│   ├── config/                 # Winston logging & DB configs
+│   ├── controllers/            # Controller handlers
+│   ├── cron/                   # Schedulers (Matcher, price sync, EOD)
+│   ├── middleware/             # JWT auth & security filters
+│   ├── model/                  # Mongoose models (Holdings, Orders)
+│   ├── routes/                 # Express API routes
+│   └── services/               # Core logic (Settlement, Trading)
 │
-├── dashboard/                  # Kite Console Panel (React Web App)
-│   ├── public/
-│   ├── src/
-│   │   ├── components/         # Watchlist, Orders, Holdings, Funds Ledger, Loader
-│   │   ├── index.js            # Axios interceptor setup & app rendering
-│   │   └── index.css           # Styling Sheet
-│   └── package.json
+├── dashboard/                  # Console Panel (React Web App)
+│   ├── public/                 # Pre-mount loaders
+│   └── src/                    # Views & Components
 │
-└── frontend/                   # Marketing & Authentication Pages (React Web App)
-    ├── src/
-    │   ├── landing_page/       # Home, Signup, Login, Pricing, Products, Support
-    │   └── index.js            # Router setup & Axios interceptor
-    └── package.json
+└── frontend/                   # Marketing Portal (React Web App)
+    └── src/                    # Landing page layouts
 ```
 
 ---
 
+# 🔌 REST API Directory
 
-## ⚙️ Environment Variables
+### Authentication
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/signup` | Create user profile and pre-fund account |
+| POST | `/login` | Verify credentials and return JWT token |
+
+### Portfolio & Trades
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/allHoldings` | Fetch settled holdings |
+| GET | `/allPositions` | Fetch active positions |
+| POST | `/newOrder` | Submit trade (Market/Limit) |
+| GET | `/allOrders` | Fetch order history |
+
+### Wallet Management
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/portfolio/funds` | Log withdrawal requests |
+| POST | `/portfolio/funds/order` | Initialize Razorpay payment intent |
+| POST | `/portfolio/funds/verify` | Verify payment check signature |
+| GET | `/portfolio/transactions` | Fetch audit logs |
+
+---
+
+# ⚙️ Installation & Setup
+
+Clone the project
+```bash
+git clone https://github.com/mihirgupta665/Stock-Trading-Platform-.git
+cd Stock-Trading-Platform-
+```
+
+### 1. Backend Server Setup
+```bash
+cd Backend
+npm install
+# Configure your .env variables (see settings below)
+npm start
+```
+
+### 2. Dashboard Application Setup
+```bash
+cd ../dashboard
+npm install
+# Configure your .env settings
+npm start
+```
+
+### 3. Marketing Portal Setup
+```bash
+cd ../frontend
+npm install
+# Configure your .env settings
+npm start
+```
+
+---
+
+# 🔐 Environment Variables
+
+Create a `.env` file in the project roots:
 
 ### Backend (`Backend/.env`)
 ```env
-MONGO_URL=mongodb+srv://...
+MONGO_URL=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 PORT=3002
-
-# Market Configuration
 TIMEZONE=Asia/Kolkata
 SETTLEMENT_TIME=01:31
 PRICE_REFRESH_INTERVAL=*/2 * * * *
-
-# Finnhub API Configuration
 FINNHUB_API_KEY=your_finnhub_key
-
-# Razorpay Configuration
-RAZORPAY_KEY_ID=rzp_test_yourKeyId
-RAZORPAY_KEY_SECRET=yourSecret
+RAZORPAY_KEY_ID=your_razorpay_key
+RAZORPAY_KEY_SECRET=your_razorpay_secret
 ```
 
-### Console Dashboard (`dashboard/.env`)
+### Dashboard (`dashboard/.env`)
 ```env
 PORT=3001
 REACT_APP_API_URL=http://localhost:3002
 REACT_APP_FRONTEND_URL=http://localhost:3000
 ```
 
-### Marketing Frontend (`frontend/.env`)
-```env
-PORT=3000
-REACT_APP_API_URL=http://localhost:3002
-REACT_APP_DASHBOARD_URL=http://localhost:3001
-```
+---
+
+# 🚀 Deployment Overview
+
+| Origin / Layer | Service Provider |
+|----------------|------------------|
+| **Marketing Portal** | Vercel (Static Web Hosting) |
+| **Console Dashboard** | Vercel (Static Web Hosting) |
+| **API Engine** | Render / Railway (Dynamic Server Host) |
+| **Database Cache** | MongoDB Atlas (Cloud Cluster) |
 
 ---
 
-## 💻 Installation & Setup
+# 📈 Engineering Highlights (Deep Dives)
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/mihirgupta665/Stock-Trading-Platform-.git
-   cd Stock-Trading-Platform-
-   ```
+### 1. Preventing Double Spending via Capital Locks
+When placing limit buy orders, funds are immediately locked to prevent over-purchasing. When selling, target asset quantities are deducted immediately.
+- **Deduction & Hold**: Trade submissions verify available liquid cash or shares. If verified, funds or shares are deducted and stored in `"BLOCKED"` status on the pending order, maintaining ledger consistency.
+- **Rollback Safeties**: If an order is canceled or expires, a transactional rollback runs, releasing the blocked assets back to the user's active wallet balance.
 
-2. **Configure the Backend**
-   ```bash
-   cd Backend
-   npm install
-   # Create a .env file based on the environment variables section above
-   npm start
-   ```
+### 2. Hybrid Nightly EOD Settlement Logic
+Positions represent active intraday exposure, while holdings are settled multi-day assets.
+- **Atomic Transactions**: A daily cron job executes at `1:31 AM IST`. It aggregates active user positions and migrates them into holdings (calculating weighted average purchase costs) in a single transaction.
+- **Eventual Consistency Fallback Handler**: Free-tier cloud instances sleep after inactivity, missing cron schedules. To ensure consistency, a fallback checks cutoff times on dashboard loads. If positions are older than 24 hours, the settlement executes dynamically before resolving statistics.
 
-3. **Configure the Console Dashboard**
-   ```bash
-   cd ../dashboard
-   npm install
-   # Create a .env file pointing to your backend url
-   npm start
-   ```
-
-4. **Configure the Marketing Frontend**
-   ```bash
-   cd ../frontend
-   npm install
-   # Create a .env file pointing to your backend url
-   npm start
-   ```
+### 3. SSO and Browser bfcache Session Shielding
+To prevent unauthorized navigation when accessing the console:
+- **SSO Sync**: The dashboard and marketing portal coordinate tokens. If the token is cleared in one tab, the other origin detects the change and logs the user out.
+- **bfcache Protection**: Browsers restore DOM states without hitting the network on backward clicks. An HTML5 `pageshow` listener detects cache retrievals, checks active tokens, and redirects immediately on session deletion.
 
 ---
 
-## 🚀 Deployment Overview
-
-* **Frontend App**: Deployed on Vercel as a static Single Page Application.
-* **Dashboard App**: Deployed on Vercel as a static Single Page Application.
-* **Backend Simulator Server**: Deployed on a traditional host (such as Railway or Render) to support continuous background process execution.
-* **Database**: Hosted on MongoDB Atlas.
+# 🔮 Future Improvements
+- **WebSockets Engine**: Deliver real-time stock tickers to the watchlist via socket streams.
+- **Candlestick Charts**: Integrate interactive financial charts to display historical trade ranges.
+- **Trailing Stop Loss**: Add advanced order triggers (`SL` and `SL-M` models).
 
 ---
 
-## 📈 Project Statistics
+# 🤝 Contributing
 
-* **REST APIs**: 18 active routes.
-* **Database Collections**: 9 distinct schemas.
-* **Background Schedulers**: 5 automated tasks.
-* **Trading Modules**: 4 integrated sub-services.
-* **User Interfaces**: 2 distinct React applications.
+Contributions are welcome! Please fork the repository, make changes in a feature branch, and open a Pull Request.
 
 ---
 
-## 🔮 Future Improvements
+# 📄 License
 
-* **WebSockets Integration**: Implement Socket.io to deliver real-time live stock prices to the watchlist instead of polling.
-* **Advanced Charting**: Integrate lightweight trading charts to display historical candlestick patterns.
-* **Advanced Order Types**: Add Stop-Loss (SL) and Trailing Stop-Loss triggers.
-* **Watchlist Notifications**: Enable SMS or email alerts when a stock hits a target price.
-* **Performance Logs**: Track and chart portfolio value history over time.
+This project is made only for exploring and learning purpose.
 
 ---
 
-## 🤝 Contributing
+# 👨💻 Author
 
-Contributions are welcome. Please open an issue or pull request to discuss changes.
+## Mihir Gupta
 
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/NewFeature`).
-3. Commit your changes (`git commit -m "Add new feature"`).
-4. Push to the branch (`git push origin feature/NewFeature`).
-5. Open a Pull Request.
+B.Tech Computer Science Engineering (AI & ML)
 
----
+Passionate developer focused on building scalable, transactional applications and low-latency APIs.
 
-## 📄 License
-
-This project is for educational and learning purposes only.
+- **GitHub**: [github.com/mihirgupta665](https://github.com/mihirgupta665)
+- **LinkedIn**: [linkedin.com/in/YOUR-LINKEDIN](https://linkedin.com/in/YOUR-LINKEDIN)
+- **Portfolio**: [YOUR-PORTFOLIO.com](https://YOUR-PORTFOLIO.com)
 
 ---
 
-## 👨‍💻 Author
-
-**Mihir Gupta**
-
-If you found this project helpful, consider giving it a ⭐ on GitHub!
+<p align="center">
+  <strong>Thank you for visiting Kite Console! Happy Trading ❤️</strong>
+</p>

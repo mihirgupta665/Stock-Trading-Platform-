@@ -139,14 +139,6 @@ function Login() {
                   Create an account
                 </Link>
               </p>
-              <div className="mt-3 border-top pt-3">
-                <p className="text-muted mb-1" style={{ fontSize: "14px" }}>
-                  Demo Account:
-                </p>
-                <p className="text-dark fw-bold mb-0" style={{ fontSize: "14px" }}>
-                  demo@zerodha.com / password123
-                </p>
-              </div>
             </div>
           </div>
         </div>
