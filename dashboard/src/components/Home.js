@@ -114,14 +114,14 @@ const Home = () => {
       <div className="console-loader-bg">
         <style>{`
           .console-loader-bg {
-            background: radial-gradient(circle at 50% 50%, #0d1222 0%, #070a13 100%);
+            background: radial-gradient(circle at 50% 50%, #f8fafc 0%, #f1f5f9 100%);
             height: 100vh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            color: #e2e8f0;
+            color: #334155;
             position: relative;
             overflow: hidden;
             box-sizing: border-box;
@@ -134,7 +134,7 @@ const Home = () => {
             left: -20%;
             width: 60%;
             height: 60%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
             filter: blur(80px);
             animation: floatLight 12s infinite ease-in-out;
             pointer-events: none;
@@ -147,23 +147,20 @@ const Home = () => {
             right: -20%;
             width: 60%;
             height: 60%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
             filter: blur(80px);
             animation: floatLight 15s infinite ease-in-out reverse;
             pointer-events: none;
           }
 
           .console-card {
-            background: rgba(13, 18, 30, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 24px;
             width: 420px;
             padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
-                        0 0 40px rgba(59, 130, 246, 0.05),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 
+                        0 8px 10px -6px rgba(0, 0, 0, 0.05);
             z-index: 10;
             text-align: center;
             animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -176,7 +173,7 @@ const Home = () => {
             justify-content: center;
             width: 60px;
             height: 60px;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.08);
             border-radius: 16px;
             border: 1px solid rgba(59, 130, 246, 0.2);
             margin-bottom: 20px;
@@ -187,27 +184,27 @@ const Home = () => {
             font-size: 1.3rem;
             font-weight: 700;
             letter-spacing: 0.08em;
-            color: #ffffff;
+            color: #0f172a;
             margin: 0 0 6px 0;
             text-transform: uppercase;
           }
 
           .console-subtitle {
             font-size: 0.85rem;
-            color: #94a3b8;
+            color: #64748b;
             margin: 0 0 28px 0;
           }
 
           .chart-animation-container {
             margin: 24px 0;
-            background: rgba(0, 0, 0, 0.2);
+            background: #f8fafc;
             border-radius: 16px;
             padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid #e2e8f0;
           }
 
           .progress-track {
-            background: rgba(255, 255, 255, 0.04);
+            background: #e2e8f0;
             border-radius: 100px;
             height: 5px;
             width: 100%;
@@ -221,7 +218,7 @@ const Home = () => {
             height: 100%;
             border-radius: 100px;
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
           }
 
           .step-list {
@@ -239,19 +236,19 @@ const Home = () => {
             font-size: 0.85rem;
             padding: 10px 14px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.02);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
           }
 
           .step-item.success {
-            background: rgba(16, 185, 129, 0.03);
-            border-color: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.04);
+            border-color: rgba(16, 185, 129, 0.15);
           }
 
           .step-item.loading {
-            background: rgba(59, 130, 246, 0.03);
-            border-color: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.04);
+            border-color: rgba(59, 130, 246, 0.15);
           }
 
           .step-label {
@@ -268,11 +265,11 @@ const Home = () => {
           }
 
           .step-item.pending .step-label {
-            color: #4b5563;
+            color: #64748b;
           }
 
           .step-item.error .step-label {
-            color: #f43f5e;
+            color: #ef4444;
           }
 
           .step-icon-container {
@@ -292,31 +289,31 @@ const Home = () => {
           }
 
           .status-badge.success {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.08);
             color: #10b981;
           }
 
           .status-badge.loading {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.08);
             color: #3b82f6;
             animation: pulseOpacity 1.5s infinite ease-in-out;
           }
 
           .status-badge.pending {
-            background: rgba(255, 255, 255, 0.05);
+            background: #e2e8f0;
             color: #64748b;
           }
 
           .status-badge.error {
-            background: rgba(244, 63, 94, 0.1);
-            color: #f43f5e;
+            background: rgba(239, 68, 68, 0.08);
+            color: #ef4444;
           }
 
           .console-footer {
             font-size: 0.72rem;
-            color: #475569;
+            color: #64748b;
             margin-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-top: 1px solid #e2e8f0;
             padding-top: 16px;
             display: flex;
             align-items: center;
@@ -407,9 +404,9 @@ const Home = () => {
           <div className="chart-animation-container">
             <svg width="150" height="70" viewBox="0 0 120 60" style={{ margin: "0 auto", display: "block" }}>
               {/* Horizontal Grid lines */}
-              <line x1="5" y1="15" x2="115" y2="15" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="5" y1="30" x2="115" y2="30" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="5" y1="45" x2="115" y2="45" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" strokeDasharray="2 2" />
+              <line x1="5" y1="15" x2="115" y2="15" stroke="rgba(0, 0, 0, 0.05)" strokeWidth="1" strokeDasharray="2 2" />
+              <line x1="5" y1="30" x2="115" y2="30" stroke="rgba(0, 0, 0, 0.05)" strokeWidth="1" strokeDasharray="2 2" />
+              <line x1="5" y1="45" x2="115" y2="45" stroke="rgba(0, 0, 0, 0.05)" strokeWidth="1" strokeDasharray="2 2" />
 
               {/* Candlestick 1 */}
               <line x1="26" y1="22" x2="26" y2="52" stroke="#ef4444" strokeWidth="1.2" opacity="0.5" />
