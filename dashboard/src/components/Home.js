@@ -78,17 +78,24 @@ const Home = () => {
         })
         .catch((err) => {
           console.error("Auth validation failed", err);
+          
+          const isAuthError = err.response && (err.response.status === 401 || err.response.status === 403);
           setAuthStep("error");
-          setErrorMessage("Failed to validate account credentials. Redirecting...");
           
-          localStorage.removeItem("token");
-          localStorage.removeItem("username");
-          const frontendUrl = process.env.REACT_APP_FRONTEND_URL || (window.location.hostname === "localhost" ? "http://localhost:3000" : "");
-          
-          const errorTimer = setTimeout(() => {
-            window.location.href = `${frontendUrl}/login?error=unauthorized`;
-          }, 3000);
-          return () => clearTimeout(errorTimer);
+          if (isAuthError) {
+            setErrorMessage("Session expired or invalid credentials. Redirecting...");
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            const frontendUrl = process.env.REACT_APP_FRONTEND_URL || (window.location.hostname === "localhost" ? "http://localhost:3000" : "");
+            
+            const errorTimer = setTimeout(() => {
+              window.location.href = `${frontendUrl}/login?error=unauthorized`;
+            }, 3000);
+            return () => clearTimeout(errorTimer);
+          } else {
+            // Server or network error (e.g. Render server waking up)
+            setErrorMessage("Server connection failed. The backend may be booting up. Please refresh in a moment.");
+          }
         });
     }, 700);
 

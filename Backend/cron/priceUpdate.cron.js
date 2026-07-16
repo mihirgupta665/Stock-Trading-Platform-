@@ -58,34 +58,38 @@ const syncMarketPrices = async () => {
 
         const bulkOperations = [];
 
-        // 2. Fetch price for each stock and prepare bulk write operations
-        for (const stock of dynamicStocks) {
-            try {
-                const quoteInfo = await fetchQuote(stock.symbol);
-                
-                bulkOperations.push({
-                    updateOne: {
-                        filter: { symbol: stock.symbol },
-                        update: {
-                            $set: {
-                                currentPrice: quoteInfo.currentPrice,
-                                open: quoteInfo.open,
-                                high: quoteInfo.high,
-                                low: quoteInfo.low,
-                                previousClose: quoteInfo.previousClose,
-                                change: quoteInfo.change,
-                                changePercent: quoteInfo.changePercent,
-                                volume: quoteInfo.volume,
-                                lastUpdated: new Date()
+        // 2. Fetch prices in parallel batches of 5 to optimize boot-up and cron latency
+        const batchSize = 5;
+        for (let i = 0; i < dynamicStocks.length; i += batchSize) {
+            const batch = dynamicStocks.slice(i, i + batchSize);
+            await Promise.all(
+                batch.map(async (stock) => {
+                    try {
+                        const quoteInfo = await fetchQuote(stock.symbol);
+                        bulkOperations.push({
+                            updateOne: {
+                                filter: { symbol: stock.symbol },
+                                update: {
+                                    $set: {
+                                        currentPrice: quoteInfo.currentPrice,
+                                        open: quoteInfo.open,
+                                        high: quoteInfo.high,
+                                        low: quoteInfo.low,
+                                        previousClose: quoteInfo.previousClose,
+                                        change: quoteInfo.change,
+                                        changePercent: quoteInfo.changePercent,
+                                        volume: quoteInfo.volume,
+                                        lastUpdated: new Date()
+                                    }
+                                },
+                                upsert: true
                             }
-                        },
-                        upsert: true
+                        });
+                    } catch (err) {
+                        logger.error(`Failed to fetch quote for ${stock.symbol} after all retries: ${err.message}. Skipping...`);
                     }
-                });
-            } catch (err) {
-                // If a single stock quote fetch fails, we log it and skip to proceed with other stocks
-                logger.error(`Failed to fetch quote for ${stock.symbol} after all retries: ${err.message}. Skipping...`);
-            }
+                })
+            );
         }
 
         // 3. Perform bulkWrite update to cache the prices at once

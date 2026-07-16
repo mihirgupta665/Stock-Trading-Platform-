@@ -97,24 +97,25 @@ async function startServer() {
         // 1. Establish Database Connection
         await connectDB(MONGO_URL);
 
-        // 2. Perform initial US Stock market price synchronization on startup
-        logger.info("Performing initial market price synchronization...");
-        try {
-            await syncMarketPrices();
-            logger.info("Initial market price synchronization completed successfully.");
-        } catch (syncErr) {
-            logger.error(`Initial price sync failed on startup: ${syncErr.message}. Starting server anyway.`);
-        }
+        // 2. Start Server immediately to make it live and responsive
+        app.listen(PORT, () => {
+            logger.info(`Trading Simulator Server started on port ${PORT}`);
+            
+            // 3. Perform initial US Stock market price synchronization on startup in the background
+            logger.info("Scheduling initial market price synchronization in the background...");
+            syncMarketPrices()
+                .then(() => {
+                    logger.info("Initial market price synchronization completed successfully.");
+                })
+                .catch((syncErr) => {
+                    logger.error(`Initial price sync failed on startup: ${syncErr.message}`);
+                });
+        });
 
-        // 3. Initialize Cron Jobs
+        // 4. Initialize Cron Jobs
         initPriceUpdateCron();
         initSettlementCron();
         initCleanupCron();
-
-        // 4. Start Server
-        app.listen(PORT, () => {
-            logger.info(`Trading Simulator Server started on port ${PORT}`);
-        });
 
     } catch (err) {
         logger.error(`Fatal application startup error: ${err.message}`, { stack: err.stack });
