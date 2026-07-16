@@ -28,7 +28,7 @@ const PositionsSchema = new Schema({
 // Compound unique index to prevent duplicate positions for same stock per user
 PositionsSchema.index({ user: 1, symbol: 1 }, { unique: true });
 
-PositionsSchema.pre("save", function (next) {
+PositionsSchema.pre("save", function () {
     if (!this.name) this.name = this.symbol;
     if (!this.qty) this.qty = this.quantity;
     if (!this.avg) this.avg = this.averagePrice;
@@ -36,7 +36,6 @@ PositionsSchema.pre("save", function (next) {
     
     this.unrealizedPnL = (this.currentPrice - this.averagePrice) * this.quantity;
     this.isLoss = this.unrealizedPnL < 0;
-    next();
 });
 
 const PositionsModel = mongoose.model("position", PositionsSchema);

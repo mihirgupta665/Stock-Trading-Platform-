@@ -28,7 +28,7 @@ const HoldingsSchema = new Schema({
 // Compound unique index to prevent duplicate holdings for same stock per user
 HoldingsSchema.index({ user: 1, symbol: 1 }, { unique: true });
 
-HoldingsSchema.pre("validate", function (next) {
+HoldingsSchema.pre("validate", function () {
     if (!this.name) this.name = this.symbol;
     if (!this.qty) this.qty = this.quantity;
     if (!this.avg) this.avg = this.averagePrice;
@@ -45,7 +45,6 @@ HoldingsSchema.pre("validate", function (next) {
     }
 
     this.net = (this.totalPnL >= 0 ? "+" : "") + this.totalPnLPercent.toFixed(2) + "%";
-    next();
 });
 
 const HoldingsModel = mongoose.model("holding", HoldingsSchema);
