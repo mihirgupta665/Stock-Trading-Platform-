@@ -40,8 +40,23 @@ const Holdings = () => {
     ],  
   };
 
-  const totalInvestment = allHoldings.reduce((sum, stock) => sum + (stock.avg * stock.qty), 0);
-  const totalCurrentValue = allHoldings.reduce((sum, stock) => sum + (stock.price * stock.qty), 0);
+  const indianStocks = [
+    "INFY", "ONGC", "TCS", "KPITTECH", "QUICKHEAL", 
+    "WIPRO", "M&M", "RELIANCE", "HUL", "BHARTIARTL", 
+    "HDFCBANK", "ITC", "SBIN", "TATAPOWER"
+  ];
+  const getRate = (symbol) => indianStocks.includes(symbol.toUpperCase()) ? 1 / 83.0 : 1.0;
+
+  const totalInvestment = allHoldings.reduce((sum, stock) => {
+    const rate = getRate(stock.name);
+    return sum + (stock.avg * rate * stock.qty);
+  }, 0);
+
+  const totalCurrentValue = allHoldings.reduce((sum, stock) => {
+    const rate = getRate(stock.name);
+    return sum + (stock.price * rate * stock.qty);
+  }, 0);
+
   const totalPnL = totalCurrentValue - totalInvestment;
   const pnlPercent = totalInvestment > 0 ? (totalPnL / totalInvestment) * 100 : 0;
 
@@ -65,8 +80,13 @@ const Holdings = () => {
           </thead>
           <tbody>
             {allHoldings.map((stock, index) => {
-              const curValue = stock.price * stock.qty;
-              const isProfit = (curValue - (stock.avg * stock.qty)) >= 0.0;
+              const rate = getRate(stock.name);
+              const avgUSD = stock.avg * rate;
+              const priceUSD = stock.price * rate;
+              const curValueUSD = priceUSD * stock.qty;
+              const investedUSD = avgUSD * stock.qty;
+              const pnlUSD = curValueUSD - investedUSD;
+              const isProfit = pnlUSD >= 0.0;
               const profClass = isProfit ? "profit" : "loss";
               const dayClass = stock.isLoss ? "loss" : "profit";
 
@@ -74,10 +94,10 @@ const Holdings = () => {
                 <tr key={index} >
                   <td>{stock.name}</td>
                   <td>{stock.qty}</td>
-                  <td>${stock.avg.toFixed(2)}</td>
-                  <td>${stock.price.toFixed(2)}</td>
-                  <td>${curValue.toFixed(2)}</td>
-                  <td className={profClass}>${(curValue - stock.avg * stock.qty).toFixed(2)}</td>
+                  <td>${avgUSD.toFixed(2)}</td>
+                  <td>${priceUSD.toFixed(2)}</td>
+                  <td>${curValueUSD.toFixed(2)}</td>
+                  <td className={profClass}>${pnlUSD.toFixed(2)}</td>
                   <td className={profClass}>{stock.net}</td>
                   <td className={dayClass}>{stock.day}</td>
                 </tr>

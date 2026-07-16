@@ -67,6 +67,26 @@ const BuyActionWindow = ({ uid, mode = "BUY", price = 0.0 }) => {
     const qtyValue = Number(stockQuantity) || 0;
     const priceValue = Number(stockPrice) || 0;
 
+    const indianStocks = [
+        "INFY", "ONGC", "TCS", "KPITTECH", "QUICKHEAL", 
+        "WIPRO", "M&M", "RELIANCE", "HUL", "BHARTIARTL", 
+        "HDFCBANK", "ITC", "SBIN", "TATAPOWER"
+    ];
+    const isIndian = indianStocks.includes(uid.toUpperCase());
+    const rate = isIndian ? 1 / 83.0 : 1.0;
+
+    let marginRequiredText = "";
+    if (mode === "SELL") {
+        marginRequiredText = "Margin required: $0.00";
+    } else {
+        const marginUSD = qtyValue * priceValue * rate;
+        if (isIndian) {
+            marginRequiredText = `Margin required: ₹${(qtyValue * priceValue).toFixed(2)} ($${marginUSD.toFixed(2)})`;
+        } else {
+            marginRequiredText = `Margin required: $${marginUSD.toFixed(2)}`;
+        }
+    }
+
     return (
         <div className="container" id="buy-window" draggable="true" style={{ borderTop: mode === "SELL" ? "10px solid #ff5722" : "10px solid #4184f3" }}>
             <div className="regular-order">
@@ -99,7 +119,7 @@ const BuyActionWindow = ({ uid, mode = "BUY", price = 0.0 }) => {
             </div>
 
             <div className="buttons">
-                <span>Margin required ${(qtyValue * priceValue).toFixed(2)}</span>
+                <span>{marginRequiredText}</span>
                 <div>
                     <button 
                         className="btn" 
