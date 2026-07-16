@@ -297,7 +297,7 @@ Fully responsive dashboard delivering the complete trading experience on mobile 
 A quick walkthrough of **Kite Console**, showcasing the complete user journey—from placing orders to checking daily asset migrations.
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="Kite Console Project Demo" width="95%">
+  <img src="./assets/project-demo.gif" alt="Kite Console Project Demo" width="95%">
 </p>
 
 ---
