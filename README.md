@@ -120,80 +120,174 @@ Built using an Express API backend, MongoDB Atlas, and dual React client origins
 
 ---
 
-# 📸 Project Showcase
+# 📸 Application Walkthrough
 
-> A detailed walk-through of the user experience and trading workflows.
+Experience the complete **Kite Console** ecosystem through the screenshots below. The walkthrough covers both the **Marketing Website** and the **Trading Dashboard**, taking you through the complete journey—from discovering the platform to securely managing investments.
 
 ---
 
-# 📊 Core Experience
+# 🌐 Marketing Website
 
-## Dashboard Summary (Summary Panel)
+## 1️⃣ Landing Page
+
+The first impression of Kite Console, introducing the platform and guiding users toward account creation.
 
 <p align="center">
-<img src="./assets/screenshots/01-dashboard.png" width="95%">
+<img src="./assets/screenshots/01-landing-page.png" width="95%">
 </p>
 
 ---
 
-## Interactive Watchlist & Prices
+## 2️⃣ About Page
+
+Learn about the platform's vision, mission, statistics, and core philosophy.
 
 <p align="center">
-<img src="./assets/screenshots/02-watchlist.png" width="95%">
+<img src="./assets/screenshots/02-about-page.png" width="95%">
 </p>
 
 ---
 
-## Active Positions & Daily Trades
+## 3️⃣ Products Page
+
+Explore the products and investment services available within the ecosystem.
 
 <p align="center">
-<img src="./assets/screenshots/03-positions.png" width="95%">
+<img src="./assets/screenshots/03-products-page.png" width="95%">
 </p>
 
 ---
 
-## Permanent Holdings Ledger
+## 4️⃣ Pricing Page
+
+View brokerage plans, pricing details, and the interactive nested-routing interface.
 
 <p align="center">
-<img src="./assets/screenshots/04-holdings.png" width="95%">
+<img src="./assets/screenshots/04-pricing-page.png" width="95%">
 </p>
 
 ---
 
-# 💵 Capital & Transactions
+## 5️⃣ Support Page
 
-## Wallet Capital Management
+Interactive support center with categorized FAQs and expandable help sections.
 
 <p align="center">
-<img src="./assets/screenshots/05-funds.png" width="95%">
+<img src="./assets/screenshots/05-support-page.png" width="95%">
 </p>
 
 ---
 
-## Razorpay Checkout Gateway
+## 6️⃣ Login Page
+
+Secure authentication before entering the trading dashboard.
 
 <p align="center">
-<img src="./assets/screenshots/06-deposit.png" width="95%">
+<img src="./assets/screenshots/06-login-page.png" width="95%">
 </p>
 
 ---
 
-# 🔐 Security Gateway
+## 7️⃣ Authentication Success
 
-## Console Gateway (SSO Authentication)
+Protected dashboard gateway after successful authentication.
 
 <p align="center">
-<img src="./assets/screenshots/07-gateway.png" width="95%">
+<img src="./assets/screenshots/07-authentication_page.png" width="95%">
 </p>
 
 ---
 
-# 📱 Responsive Layout
+# 💻 Trading Dashboard
 
-## Mobile Console Dashboard
+## 8️⃣ Dashboard Overview
+
+Portfolio overview displaying investments, available balance, holdings, positions, and analytics.
 
 <p align="center">
-<img src="./assets/screenshots/08-mobile-dashboard.png" width="40%">
+<img src="./assets/screenshots/08-dashboard-home.png" width="95%">
+</p>
+
+---
+
+## 9️⃣ Watchlist & Buy Order
+
+Monitor market activity and place Market or Limit orders directly from the watchlist.
+
+<p align="center">
+<img src="./assets/screenshots/09-watchlist-buy-order.png" width="95%">
+</p>
+
+---
+
+## 🔟 Orders
+
+Review submitted orders together with execution status and transaction details.
+
+<p align="center">
+<img src="./assets/screenshots/10-orders-page.png" width="95%">
+</p>
+
+---
+
+## 1️⃣1️⃣ Positions
+
+Track active trading positions with invested value, current valuation, and unrealized profit or loss.
+
+<p align="center">
+<img src="./assets/screenshots/11-positions-page.png" width="95%">
+</p>
+
+---
+
+## 1️⃣2️⃣ Holdings
+
+View permanently settled holdings after the End-of-Day settlement process.
+
+<p align="center">
+<img src="./assets/screenshots/12-holdings-page.png" width="95%">
+</p>
+
+---
+
+## 1️⃣3️⃣ Funds
+
+Manage wallet balance, margin availability, deposits, and withdrawals.
+
+<p align="center">
+<img src="./assets/screenshots/13-funds-page.png" width="95%">
+</p>
+
+---
+
+## 1️⃣4️⃣ Apps
+
+Integrated applications available within the Kite Console ecosystem.
+
+<p align="center">
+<img src="./assets/screenshots/14-apps-page.png" width="95%">
+</p>
+
+---
+
+# 📱 Responsive Experience
+
+## 1️⃣5️⃣ Mobile Landing Page
+
+Optimized marketing website for mobile devices.
+
+<p align="center">
+<img src="./assets/screenshots/15-mobile-landing-page.png" width="40%">
+</p>
+
+---
+
+## 1️⃣6️⃣ Mobile Trading Dashboard
+
+Fully responsive dashboard delivering the complete trading experience on mobile devices.
+
+<p align="center">
+<img src="./assets/screenshots/16-mobile-dashboard.png" width="40%">
 </p>
 
 ---
