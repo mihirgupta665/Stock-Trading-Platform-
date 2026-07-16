@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-Execute trades • Match limit orders • Track EOD settlements • Analyze portfolio allocations
+Execute orders • Match limit trades • Sync nightly settlements • Analyze portfolio allocations
 </p>
 
 <p align="center">
@@ -47,12 +47,25 @@ Execute trades • Match limit orders • Track EOD settlements • Analyze port
 
 # 🌍 Live Demo
 
-Experience the complete Kite Console trading platform, including real-time order matching, margin calculations, daily settlements, bank transaction logs, interactive graphs, and cross-origin security structures.
+Experience the complete stock trading and brokerage simulator, featuring margin balance accounts, limit order matching schedulers, endpoints validation, ledger auditing, and full security lifecycles.
 
-### 🚀 Live Applications
+### 🚀 Live Application
 
-- **Marketing Frontend Portal**: [stock-trading-platform-frontend-six.vercel.app](https://stock-trading-platform-frontend-six.vercel.app)
-- **Console Dashboard Application**: [stock-trading-platform-dashboard-six.vercel.app](https://stock-trading-platform-dashboard-six.vercel.app)
+<p align="center">
+  <a href="https://stock-trading-platform-dashboard-six.vercel.app">
+    <img src="https://img.shields.io/badge/🌍%20Open%20Kite%20Console-Live%20Demo-387ed1?style=for-the-badge" alt="Live Demo">
+  </a>
+</p>
+
+<p align="center">
+  <strong>
+    Marketing Portal: <a href="https://stock-trading-platform-frontend-six.vercel.app">https://stock-trading-platform-frontend-six.vercel.app</a>
+  </strong>
+  <br>
+  <strong>
+    Console Dashboard: <a href="https://stock-trading-platform-dashboard-six.vercel.app">https://stock-trading-platform-dashboard-six.vercel.app</a>
+  </strong>
+</p>
 
 ### 🔑 Demo Account Credentials
 
@@ -60,15 +73,15 @@ Experience the complete Kite Console trading platform, including real-time order
 |:---------:|:--------:|
 | **demo@zerodha.com** | **password123** |
 
-> **Note:** Use these credentials to sign in and instantly interact with a funded mock portfolio containing pre-seeded transactions and holdings.
+> **Note:** Use this account to log in and immediately test limit order routing, cash ledger transactions, deposits, and EOD holding conversions.
 
 ---
 
 # 📖 About Kite Console
 
-Kite Console is a production-inspired, full-stack trading simulator that replicates the core brokerage functionalities of modern exchange wrappers. The platform focuses on high-fidelity transactional consistency, secure session lifecycles, and automated EOD accounting pipelines.
+Kite Console is a production-inspired stock trading simulator that replicates the core brokerage functionalities of modern exchanges. The application focuses on data consistency, transaction rollbacks, security authentication, and automated nightly settlements.
 
-The backend acts as a mock clearinghouse, utilizing **Mongoose transactions** to lock assets, matching pending limit orders through background cron schedulers, and migrating daily positions into settled long-term holdings. The frontend contains two distinct React applications (a marketing portal and an admin console dashboard) utilizing localized cross-origin sync methods to manage authorization states.
+Built using an Express API backend, MongoDB Atlas, and dual React client origins (the marketing portal and console dashboard), the application simulates real-world brokerage rules: immediate asset locking for pending limit trades, nightly Cron settlement executing inside database session transactions, timezone-locked market hour validators, and bi-directional SSO logout synchronization.
 
 ---
 
@@ -109,7 +122,7 @@ The backend acts as a mock clearinghouse, utilizing **Mongoose transactions** to
 
 # 📸 Project Showcase
 
-> Visual layout of the key workflows and trading dashboard views.
+> A detailed walk-through of the user experience and trading workflows.
 
 ---
 
@@ -187,7 +200,7 @@ The backend acts as a mock clearinghouse, utilizing **Mongoose transactions** to
 
 # 🎥 Project Demonstration
 
-A walk-through of the trading interface—from placing limit orders to inspecting EOD holding migrations.
+A quick walkthrough of **Kite Console**, showcasing the complete user journey—from placing orders to checking daily asset migrations.
 
 <p align="center">
   <img src="./assets/demo.gif" alt="Kite Console Project Demo" width="95%">
@@ -197,7 +210,7 @@ A walk-through of the trading interface—from placing limit orders to inspectin
 
 # 🎬 Project Walkthrough Video
 
-Watch the walkthrough, covering system architecture, session security syncs, transaction rollbacks, geocoding validation, and portfolio analytics.
+Watch the complete video walkthrough covering system architecture, session security syncs, transaction rollbacks, and portfolio analytics.
 
 <p align="center">
 <a href="https://github.com/mihirgupta665/Stock-Trading-Platform-/releases/download/v1.0.0/Kite_Console_Demo.mp4">
@@ -209,20 +222,33 @@ Watch the walkthrough, covering system architecture, session security syncs, tra
 
 # ✨ Features
 
-## 👤 User Features
-- Browse global assets on the watchlist with real-time positive/negative indicator badges.
-- Place MARKET or LIMIT buy and sell orders.
-- View nested routing brokerage charges under `/pricing` without full-page re-renders.
-- Audit ledger statements containing opening balances, margins, blocked cash, and realized P&L.
-- Log bank transaction statements for deposits and withdrawals.
+## 👤 Trading Features
+
+- Browse asset lists with real-time green/red visual ticker badges.
+- Execute trades using MARKET or LIMIT execution routes.
+- Lock available margin cash (for buy orders) or stock shares (for sell orders) instantly upon order placement.
+- Automatically cancel outstanding limit orders after 24 hours, returning locked funds or shares.
+- Log ledger updates containing margin parameters: Available Margin, Blocked Margin, and Realized P&L.
+- Log bank transactions for simulated withdrawals and deposits.
 - View asset allocations dynamically graphed on doughnut charts.
 
+---
+
+## ⚙️ Brokerage Core Features
+
+- **Order Matching Engine**: A background worker polling market prices and updating status.
+- **EOD Settlement**: A daily script migrating positions to permanent holdings (calculating weighted average purchase costs).
+- **Market Hours Protection**: Prevents transactions outside simulated US market hours (7:00 PM IST to 1:30 AM IST).
+
+---
+
 ## 🔐 Security Features
-- JWT Session authentication injected in outgoing Axios headers.
-- Bi-directional login/logout cross-origin SSO state sync.
-- Browser back-button (bfcache) protection via HTML5 event hooks.
-- Joi schema input filters validating payload bounds.
-- Request rate limiters and Helmet security header configurations.
+
+- JWT Session authentication.
+- Single Sign-Out (SSO) cross-origin synchronization.
+- Back-button browser (bfcache) session protection.
+- Express-rate-limiter and Helmet security headers configuration.
+- Joi input payload schema validation.
 
 ---
 
@@ -230,11 +256,11 @@ Watch the walkthrough, covering system architecture, session security syncs, tra
 
 | Category | Technologies |
 |----------|--------------|
-| **Frontend Apps** | React 18, React Router v6, Axios, Chart.js, Vanilla CSS3 |
-| **Backend API** | Node.js, Express.js |
+| **Frontend** | React 18, React Router v6, Axios, Chart.js, CSS3 (Vanilla) |
+| **Backend** | Node.js, Express.js |
 | **Database** | MongoDB Atlas, Mongoose |
 | **Asynchronous Scheduling** | Node-Cron |
-| **Payment Sandbox** | Razorpay Test checkout API |
+| **Payment Sandbox** | Razorpay Test Checkout API |
 | **Security & Logging** | JWT, Bcrypt, Helmet, Express-Rate-Limit, Winston Logger |
 
 ---
@@ -253,9 +279,10 @@ Kite Console follows a secure, micro-routed architecture:
 ```
 
 ### Architecture Highlights
+
 - Isolated marketing origin (port 3000) and dashboard origin (port 3001).
 - Unified Express.js API (port 3002).
-- Node-Cron schedulers running price synchronization and settlement scripts.
+- Node-Cron schedulers running price synchronization and EOD settlement scripts.
 
 ---
 
@@ -286,12 +313,16 @@ Stock-Trading-Platform/
 # 🔌 REST API Directory
 
 ### Authentication
+
 | Method | Endpoint | Description |
 |---------|----------|-------------|
 | POST | `/signup` | Create user profile and pre-fund account |
 | POST | `/login` | Verify credentials and return JWT token |
 
+---
+
 ### Portfolio & Trades
+
 | Method | Endpoint | Description |
 |---------|----------|-------------|
 | GET | `/allHoldings` | Fetch settled holdings |
@@ -299,7 +330,10 @@ Stock-Trading-Platform/
 | POST | `/newOrder` | Submit trade (Market/Limit) |
 | GET | `/allOrders` | Fetch order history |
 
+---
+
 ### Wallet Management
+
 | Method | Endpoint | Description |
 |---------|----------|-------------|
 | POST | `/portfolio/funds` | Log withdrawal requests |
@@ -312,32 +346,34 @@ Stock-Trading-Platform/
 # ⚙️ Installation & Setup
 
 Clone the project
+
 ```bash
 git clone https://github.com/mihirgupta665/Stock-Trading-Platform-.git
 cd Stock-Trading-Platform-
 ```
 
-### 1. Backend Server Setup
+Navigate to Backend and start
+
 ```bash
 cd Backend
 npm install
-# Configure your .env variables (see settings below)
+# Create a .env file (see variables template below)
 npm start
 ```
 
-### 2. Dashboard Application Setup
+Navigate to Dashboard and start
+
 ```bash
 cd ../dashboard
 npm install
-# Configure your .env settings
 npm start
 ```
 
-### 3. Marketing Portal Setup
+Navigate to Frontend and start
+
 ```bash
 cd ../frontend
 npm install
-# Configure your .env settings
 npm start
 ```
 
