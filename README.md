@@ -26,7 +26,7 @@ Execute orders • Match limit trades • Sync nightly settlements • Analyze p
 
 &nbsp;
 
-<a href="https://github.com/mihirgupta665/Stock-Trading-Platform-/releases/download/v1.0.0/Kite_Console_Demo.mp4">
+<a href="./assets/ZerodhaVideo.mp4">
 <img src="https://img.shields.io/badge/🎥%20Project%20Demo-Watch%20Now-red?style=for-the-badge">
 </a>
 
@@ -307,8 +307,8 @@ A quick walkthrough of **Kite Console**, showcasing the complete user journey—
 Watch the complete video walkthrough covering system architecture, session security syncs, transaction rollbacks, and portfolio analytics.
 
 <p align="center">
-<a href="https://github.com/mihirgupta665/Stock-Trading-Platform-/releases/download/v1.0.0/Kite_Console_Demo.mp4">
-  <img src="https://img.shields.io/badge/🎥%20Watch%20Full%20Project%20Demo-181717?style=for-the-badge&logo=github&logoColor=white" alt="Watch Kite Console Walkthrough">
+<a href="./assets/ZerodhaVideo.mp4">
+  <img src="https://img.shields.io/badge/🎥%20Watch%20Full%20Project%20Demo-181717?style=for-the-badge&logo=github&logoColor=white" alt="Watch Zerodha Trading Platform Walkthrough">
 </a>
 </p>
 
