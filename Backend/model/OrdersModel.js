@@ -26,10 +26,11 @@ OrdersSchema.index({ user: 1, symbol: 1 });
 OrdersSchema.index({ user: 1, createdAt: -1 });
 
 // Auto-fill legacy compatibility fields before saving
-OrdersSchema.pre("save", function () {
+OrdersSchema.pre("save", function (next) {
     if (!this.name) this.name = this.symbol;
     if (!this.qty) this.qty = this.quantity;
     if (!this.mode) this.mode = this.transactionType;
+    next();
 });
 
 const OrdersModel = mongoose.model("order", OrdersSchema);

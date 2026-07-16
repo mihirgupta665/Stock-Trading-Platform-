@@ -57,6 +57,7 @@ const settlePositions = async (olderThanHours = null, userId = null) => {
                     const newTotal = position.quantity * position.averagePrice;
                     holding.quantity += position.quantity;
                     holding.averagePrice = (oldTotal + newTotal) / holding.quantity;
+                    holding.investedAmount = oldTotal + newTotal;
                     holding.currentPrice = position.currentPrice;
                     
                     logDetails.push({
@@ -75,6 +76,7 @@ const settlePositions = async (olderThanHours = null, userId = null) => {
                         companyName: position.companyName,
                         quantity: position.quantity,
                         averagePrice: position.averagePrice,
+                        investedAmount: position.averagePrice * position.quantity,
                         currentPrice: position.currentPrice,
                         exchange: position.exchange
                     });
