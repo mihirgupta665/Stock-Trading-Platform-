@@ -43,6 +43,7 @@ const Menu = () => {
 
     const handleMenuClick = (index) => {
         setSelectedMenu(index);
+        setIsMobileMenuOpen(false);
     };
 
     const handleProfileClick = () => {

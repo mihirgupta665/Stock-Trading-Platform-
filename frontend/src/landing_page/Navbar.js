@@ -41,40 +41,48 @@ function Navbar() {
       window.location.reload();
     }
   };
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleNavToggle = () => {
+    setIsNavCollapsed(!isNavCollapsed);
+  };
+
+  const closeNavbar = () => {
+    setIsNavCollapsed(true);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg border-bottom sticky-top" style={{ backgroundColor: "#fff" }}>
       <div className="container p-2">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" onClick={closeNavbar}>
           <img src="media/images/logo.svg" alt="Logo" style={{ width: "130px" }} />
         </Link>
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
+          onClick={handleNavToggle}
           aria-controls="navbarSupportedContent"
-          aria-expanded="false"
+          aria-expanded={!isNavCollapsed}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className={`collapse navbar-collapse ${!isNavCollapsed ? 'show' : ''}`} id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/">Home</NavLink>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/" onClick={closeNavbar}>Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/about">About</NavLink>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/about" onClick={closeNavbar}>About</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/products">Products</NavLink>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/products" onClick={closeNavbar}>Products</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/pricing">Pricing</NavLink>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/pricing" onClick={closeNavbar}>Pricing</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/support">Support</NavLink>
+              <NavLink className={({ isActive }) => `nav-link ${isActive ? "active-nav-link" : ""}`} to="/support" onClick={closeNavbar}>Support</NavLink>
             </li>
             
             {isLoggedIn ? (
@@ -84,13 +92,14 @@ function Navbar() {
                     className="nav-link fs-6 fw-bold text-primary" 
                     href={`${process.env.REACT_APP_DASHBOARD_URL || (window.location.hostname === "localhost" ? "http://localhost:3001" : "")}?token=${token}`}
                     style={{ transition: "color 0.2s" }}
+                    onClick={closeNavbar}
                   >
                     Dashboard
                   </a>
                 </li>
                 <li className="nav-item ms-3">
                   <button 
-                    onClick={handleLogout} 
+                    onClick={() => { handleLogout(); closeNavbar(); }} 
                     className="btn btn-outline-danger fs-6 py-1 px-3"
                     style={{ borderRadius: "4px" }}
                   >
@@ -101,13 +110,14 @@ function Navbar() {
             ) : (
               <>
                 <li className="nav-item">
-                  <NavLink className={({ isActive }) => `nav-link text-dark ${isActive ? "active-nav-link" : ""}`} to="/login">Login</NavLink>
+                  <NavLink className={({ isActive }) => `nav-link text-dark ${isActive ? "active-nav-link" : ""}`} to="/login" onClick={closeNavbar}>Login</NavLink>
                 </li>
                 <li className="nav-item ms-3">
                   <Link 
                     className="btn btn-primary fs-6 py-1 px-3 text-white" 
                     to="/signup"
                     style={{ borderRadius: "4px", backgroundColor: "#387ed1", border: "none", whiteSpace: "nowrap" }}
+                    onClick={closeNavbar}
                   >
                     Sign Up
                   </Link>
