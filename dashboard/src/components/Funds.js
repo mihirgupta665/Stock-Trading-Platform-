@@ -449,11 +449,13 @@ const styles = {
   },
   header: {
     display: "flex",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: "35px",
+    marginBottom: "25px",
     borderBottom: "1px solid #f0f0f0",
     paddingBottom: "20px",
+    gap: "15px",
   },
   headerLeft: {},
   title: {
@@ -491,7 +493,7 @@ const styles = {
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(285px, 1fr))",
     gap: "30px",
   },
   card: {
@@ -537,7 +539,8 @@ const styles = {
   },
   balanceSummary: {
     display: "flex",
-    gap: "40px",
+    flexWrap: "wrap",
+    gap: "20px",
     marginBottom: "25px",
     backgroundColor: "#fafbfc",
     padding: "20px",

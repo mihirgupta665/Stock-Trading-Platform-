@@ -722,13 +722,14 @@ hr {
 .actions {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
   height: 100%;
 
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  background-color: #ffffff;
+  padding-left: 20px;
 }
 
 .actions span button {
@@ -863,7 +864,7 @@ hr {
   .topbar-container {
     height: auto;
     flex-direction: column;
-    padding: 15px 10px;
+    padding: 10px 0;
     align-items: center;
     box-shadow: 0px 2px 4px rgba(0,0,0,0.05);
   }
@@ -872,34 +873,62 @@ hr {
     width: 100%;
     flex-basis: auto;
     border-right: none;
-    border-bottom: 1px solid rgb(224, 224, 224);
-    padding: 10px 0;
-    margin-bottom: 10px;
-    justify-content: space-evenly;
+    border-bottom: 1px solid rgb(235, 235, 235);
+    padding: 8px 0;
+    margin-bottom: 5px;
+    justify-content: space-around;
   }
 
   .menu-container {
     width: 100%;
     flex-basis: auto;
-    flex-direction: column;
-    padding: 10px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
+    padding: 8px 16px;
+    box-sizing: border-box;
   }
 
   .menus {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    width: auto;
+    flex-grow: 1;
+  }
+
+  .menus ul {
     width: 100%;
-    justify-content: center;
+    order: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+    margin: 12px 0 0 0;
+    list-style: none;
   }
 
   .menus li {
-    margin-right: 15px;
-    margin-left: 15px;
+    margin: 4px 6px;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .menu {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .menus hr {
+    display: none;
   }
 
   .profile {
-    margin-left: 0;
-    margin-top: 8px;
+    order: 1;
+    margin: 0;
   }
 
   /* Dashboard Layout Responsiveness */
@@ -911,7 +940,7 @@ hr {
   .watchlist-container {
     width: 100%;
     flex-basis: auto;
-    height: 350px;
+    height: 380px;
     border-bottom: 1px solid rgb(236, 235, 235);
   }
 
@@ -922,25 +951,55 @@ hr {
     left: auto;
     height: auto;
     padding: 10px;
+    box-sizing: border-box;
   }
 
   .content {
     width: 100%;
     flex-basis: auto;
     height: auto;
-    padding: 25px 15px;
+    padding: 20px 12px;
+    box-sizing: border-box;
+  }
+
+  /* Summary Metrics Styled into Clean Cards */
+  .section {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+
+  .section span p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-top: 0;
+  }
+
+  .divider {
+    display: none; /* Hide standard line dividers when sections are cards */
   }
 
   /* Summary & Row Flex Layouts */
   .row {
     flex-direction: column;
-    margin-top: 10%;
-    gap: 25px;
+    margin-top: 6%;
+    gap: 15px;
   }
 
   .col {
     flex-basis: 100%;
     width: 100%;
+    text-align: center;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
   }
 
   .data {
@@ -951,6 +1010,27 @@ hr {
     text-align: center;
   }
 
+  .data .first h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .data .second p {
+    font-size: 0.85rem;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 280px;
+    margin: 6px auto;
+  }
+
+  .data .second p span {
+    font-weight: 600;
+    color: #334155;
+  }
+
   .data hr {
     display: none; /* hide vertical divider when elements stack */
   }
@@ -958,6 +1038,8 @@ hr {
   /* Table horizontal scroll on mobile */
   .order-table {
     overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .order-table table {
