@@ -693,30 +693,26 @@ hr {
   position: relative;
 }
 
-.item-info {
+.itemInfo {
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
+  gap: 6px;
 }
 
-.item-info > * {
-  margin-right: 8px;
+.itemInfo > * {
+  margin-right: 4px;
 }
 
-.item-info span:nth-child(1) {
-  color: rgb(141, 141, 141);
-  flex: 1;
+.itemInfo .percent {
+  font-size: 0.75rem;
+  color: #8d8d8d;
 }
 
-.item-info span:nth-child(2) {
-  color: rgb(223, 73, 73);
-  margin-right: 12px;
-  flex: 2;
-}
-
-.item-info span:nth-child(3) {
-  color: rgb(223, 73, 73);
-  flex: 1;
+.itemInfo .price {
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-width: 55px;
+  text-align: right;
 }
 
 .actions {
@@ -858,6 +854,36 @@ hr {
   background-color: rgb(212, 212, 212);
 }
 
+/* Right Navigation Container */
+.right-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Hamburger Menu Button */
+.hamburger-btn {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 101;
+}
+
+.hamburger-btn .bar {
+  width: 100%;
+  height: 2px;
+  background-color: #555;
+  border-radius: 2px;
+  transition: all 0.25s ease-in-out;
+  transform-origin: left center;
+}
+
 /* Media Queries for Mobile Responsiveness */
 @media (max-width: 768px) {
   /* Topbar Responsiveness */
@@ -881,53 +907,98 @@ hr {
 
   .menu-container {
     width: 100%;
-    flex-basis: auto;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 16px;
+    padding: 10px 20px;
     box-sizing: border-box;
+    position: relative;
   }
 
-  .menus {
+  /* Show and animate Hamburger Button */
+  .hamburger-btn {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+  }
+
+  .hamburger-btn .bar.open:nth-child(1) {
+    transform: rotate(45deg) translate(3px, 3px);
+  }
+
+  .hamburger-btn .bar.open:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+
+  .hamburger-btn .bar.open:nth-child(3) {
+    transform: rotate(-45deg) translate(3px, -3px);
+  }
+
+  /* Slide down Menu Drawer */
+  .menus {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    flex-direction: column;
     align-items: center;
-    width: auto;
-    flex-grow: 1;
+    padding: 10px 0;
+    z-index: 100;
+  }
+
+  .menus.mobile-open {
+    display: flex;
+    animation: slideDownMenu 0.22s ease-out forwards;
+  }
+
+  @keyframes slideDownMenu {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .menus ul {
     width: 100%;
-    order: 2;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 0;
-    margin: 12px 0 0 0;
+    margin: 0;
     list-style: none;
   }
 
   .menus li {
-    margin: 4px 6px;
-    flex: 1;
+    width: 100%;
     text-align: center;
+    margin: 0;
   }
   
-  .menu {
-    font-size: 0.75rem;
-    font-weight: 500;
+  .menus li a {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
   }
 
-  .menus hr {
-    display: none;
+  .menus li:last-child a {
+    border-bottom: none;
+  }
+
+  .menu {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
   }
 
   .profile {
-    order: 1;
     margin: 0;
   }
 

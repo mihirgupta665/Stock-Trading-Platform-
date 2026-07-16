@@ -16,7 +16,12 @@ const Menu = () => {
 
     const [selectedMenu, setSelectedMenu] = useState(getMenuIndexFromPath(location.pathname));
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const profileRef = useRef(null);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
 
     useEffect(() => {
         setSelectedMenu(getMenuIndexFromPath(location.pathname));
@@ -58,7 +63,8 @@ const Menu = () => {
     return (
         <div className="menu-container">
             <img src="logo.png" alt="Logo" style={{ width: "50px" }} />
-            <div className="menus">
+            
+            <div className={`menus ${isMobileMenuOpen ? "mobile-open" : ""}`}>
                 <ul>
                     <li>
                         <Link style={{ textDecoration: "none" }} to="/" onClick={() => handleMenuClick(0)}>
@@ -91,7 +97,9 @@ const Menu = () => {
                         </Link>
                     </li>
                 </ul>
-                <hr />
+            </div>
+
+            <div className="right-nav">
                 <div ref={profileRef} className="profile" onClick={handleProfileClick} style={{ position: "relative" }}>
                     <div className="avatar" style={{ textTransform: "uppercase" }}>
                         {username.slice(0, 2)}
@@ -159,6 +167,12 @@ const Menu = () => {
                         </div>
                     )}
                 </div>
+
+                <button className="hamburger-btn" onClick={toggleMobileMenu} aria-label="Toggle menu">
+                    <span className={`bar ${isMobileMenuOpen ? "open" : ""}`}></span>
+                    <span className={`bar ${isMobileMenuOpen ? "open" : ""}`}></span>
+                    <span className={`bar ${isMobileMenuOpen ? "open" : ""}`}></span>
+                </button>
             </div>
         </div>
     );
