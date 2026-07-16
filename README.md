@@ -101,8 +101,8 @@ Built using an Express API backend, MongoDB Atlas, and dual React client origins
 
 - 📖 About
 - ⭐ Project Highlights
-- 📸 Project Showcase
 - 🎥 Demo GIF
+- 📸 Project Showcase
 - 🎬 Demo Video
 - ✨ Features
 - 🛠️ Technology Stack
@@ -117,6 +117,16 @@ Built using an Express API backend, MongoDB Atlas, and dual React client origins
 - 🤝 Contributing
 - 📄 License
 - 👨💻 Author
+
+---
+
+# 🎥 Project Demonstration
+
+A quick walkthrough of **Kite Console**, showcasing the complete user journey—from placing orders to checking daily asset migrations.
+
+<p align="center">
+  <img src="./assets/project-demo.gif" alt="Kite Console Project Demo" width="95%">
+</p>
 
 ---
 
@@ -288,16 +298,6 @@ Fully responsive dashboard delivering the complete trading experience on mobile 
 
 <p align="center">
 <img src="./assets/screenshots/16-mobile-dashboard.png" width="40%">
-</p>
-
----
-
-# 🎥 Project Demonstration
-
-A quick walkthrough of **Kite Console**, showcasing the complete user journey—from placing orders to checking daily asset migrations.
-
-<p align="center">
-  <img src="./assets/project-demo.gif" alt="Kite Console Project Demo" width="95%">
 </p>
 
 ---
