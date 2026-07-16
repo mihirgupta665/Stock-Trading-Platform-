@@ -7,17 +7,37 @@ const logger = require("../config/winston");
 /**
  * End-of-Day Settlement Engine: Merges daily Positions into Holdings
  */
-const settlePositions = async () => {
+const settlePositions = async (olderThanHours = null, userId = null) => {
+    let query = {};
+    if (olderThanHours !== null) {
+        const cutoffDate = new Date(Date.now() - olderThanHours * 60 * 60 * 1000);
+        query = {
+            $or: [
+                { openedAt: { $lte: cutoffDate } },
+                { openedAt: { $exists: false }, createdAt: { $lte: cutoffDate } }
+            ]
+        };
+    }
+    if (userId !== null) {
+        query.user = userId;
+    }
+
+    // Check count first to avoid transaction overhead when no positions need settling
+    const count = await PositionsModel.countDocuments(query);
+    if (count === 0) {
+        return;
+    }
+
     const session = await mongoose.startSession();
-    logger.info("Starting Daily Position-to-Holding Settlement...");
+    logger.info(`Starting Position-to-Holding Settlement${olderThanHours !== null ? ` (older than ${olderThanHours}h)` : ""}${userId !== null ? ` for user ${userId}` : ""}...`);
 
     const logDetails = [];
     let positionsSettledCount = 0;
 
     try {
         await session.withTransaction(async () => {
-            // 1. Fetch all active positions
-            const positions = await PositionsModel.find({}).session(session);
+            // 1. Fetch all matching positions
+            const positions = await PositionsModel.find(query).session(session);
             
             if (positions.length === 0) {
                 logger.info("No open positions found to settle.");

@@ -403,6 +403,14 @@ const expireOldPendingOrders = async () => {
  */
 const calculatePortfolio = async (userId) => {
     try {
+        // Automatically settle expired positions (older than 24 hours) for this user as a fallback
+        try {
+            const { settlePositions } = require("./settlement.service");
+            await settlePositions(24, userId);
+        } catch (settleErr) {
+            logger.error(`Automatic fallback settlement failed during portfolio calculation for user ${userId}: ${settleErr.message}`);
+        }
+
         const holdings = await HoldingsModel.find({ user: userId }).lean();
         const positions = await PositionsModel.find({ user: userId }).lean();
         const user = await UserModel.findById(userId).lean();
