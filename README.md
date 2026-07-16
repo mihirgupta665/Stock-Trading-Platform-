@@ -557,7 +557,7 @@ B.Tech Computer Science Engineering (AI & ML)
 Passionate developer focused on building scalable, transactional applications and low-latency APIs.
 
 - **GitHub**: [github.com/mihirgupta665](https://github.com/mihirgupta665)
-- **LinkedIn**: [linkedin.com/in/YOUR-LINKEDIN]([https://linkedin.com/in/YOUR-LINKEDIN](https://www.linkedin.com/in/mihir-gupta-980173299/))
+- **LinkedIn**: [https://www.linkedin.com/in/mihir-gupta-980173299/](https://www.linkedin.com/in/mihir-gupta-980173299/)
 
 ---
 
